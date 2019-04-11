@@ -1,0 +1,3 @@
+class KatalogView {
+  void showList() {}
+}
