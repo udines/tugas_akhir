@@ -1,4 +1,4 @@
-import 'agen_data.dart';
+import 'agent_data.dart';
 import 'transaction_data.dart';
 import 'user_data.dart';
 
@@ -7,7 +7,7 @@ class PickupTransaction {
   DateTime date;
   List<Transaction> transactions;
   //Relations
-  Agen agen;
+  Agent agent;
   User user;
 
   int getTotalWeight() {
@@ -16,13 +16,5 @@ class PickupTransaction {
       _weight = _weight + transaction.barang.weight;
     }
     return _weight;
-  }
-
-  int getDistance() {
-    return 0;
-  }
-
-  int getTotalCost() {
-    return agen.setting.getCost(getDistance(), getTotalWeight());
   }
 }

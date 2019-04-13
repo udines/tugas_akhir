@@ -1,10 +1,9 @@
-import 'agen_data.dart';
+import 'agent_data.dart';
 import 'barang_data.dart';
 import 'user_data.dart';
 
 class Transaction {
   String id;
-  String noResi;
   //Sender information
   String senderName;
   String senderPhone;
@@ -19,5 +18,5 @@ class Transaction {
   //Relations
   Barang barang;
   User user;
-  Agen agen;
+  Agent agent;
 }
