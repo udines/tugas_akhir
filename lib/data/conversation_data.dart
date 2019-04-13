@@ -1,9 +1,15 @@
+import 'package:tugas_akhir/data/agent_data.dart';
+import 'user_data.dart';
+
 class Conversation {
   String id;
   bool isReadByAgent;
   bool isReadByUser;
   DateTime date;
+  String lastMessage;
   //Relations
+  Agent agent;
+  User user;
   String idAgent;
   String idUser;
 
@@ -12,6 +18,9 @@ class Conversation {
     this.isReadByAgent,
     this.isReadByUser,
     this.date,
+    this.lastMessage,
+    this.agent,
+    this.user,
     this.idAgent,
     this.idUser
   });

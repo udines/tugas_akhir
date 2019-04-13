@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_akhir/view/agent_page/home_agent_widget.dart';
-import 'package:tugas_akhir/view/chat_page/chat_page.dart';
+import 'package:tugas_akhir/view/conversation_page/home_conversation_page.dart';
 import 'package:tugas_akhir/view/map_page/home_map_widget.dart';
 import 'package:tugas_akhir/view/transaction_page/home_transaction_widget.dart';
 
@@ -19,7 +19,7 @@ class _HomeState extends State<Home> {
   final List<Widget> _children = [
     MapPage(),
     AgentPage(),
-    ChatPage(),
+    ConversationPage(),
     TransactionPage()
   ];
 
