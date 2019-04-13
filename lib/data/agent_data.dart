@@ -12,7 +12,8 @@ class Agent {
   String phone;
   String timeOpen;
   String timeClose;
-  Location location;
+  double latitude;
+  double longitude;
   User userAdmin;
 
   Agent({
@@ -25,7 +26,8 @@ class Agent {
     this.phone,
     this.timeOpen,
     this.timeClose,
-    this.location,
+    this.latitude,
+    this.longitude,
     this.userAdmin
   });
 }

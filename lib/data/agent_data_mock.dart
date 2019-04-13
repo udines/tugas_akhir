@@ -23,13 +23,13 @@ var agents = <Agent>[
     phone: "0224207081",
     timeOpen: "07:00",
     timeClose: "19:00",
-    location: location,
+    latitude: -7.821813,
+    longitude: 110.417288,
     userAdmin: new User(
         id: "userAgentA",
         name: "Pranowo",
         address: "Wiyoro Banguntapan",
-        phone: "08978873886",
-        location: location
+        phone: "08978873886"
     )
   ),
   new Agent(
@@ -42,32 +42,32 @@ var agents = <Agent>[
       phone: "02749171179",
       timeOpen: "07:00",
       timeClose: "21:00",
-      location: location,
+      latitude: -7.828114,
+      longitude: 110.406007,
       userAdmin: new User(
           id: "userAgentB",
           name: "Hamid",
           address: "Sorogenen",
-          phone: "089619237368",
-          location: location
+          phone: "089619237368"
       )
   ),
   new Agent(
       id: "agentC",
-      address: "Jl. Karanglo No. 16",
+      address: "Jl. Kemasan No. 1",
       costPerKM: 2000,
       costPerKG: 1000,
       isReceiveOrder: true,
-      name: "Kantor Pos Karanglo",
+      name: "Kantorpos Yogyakarta Kotagede",
       phone: "02743994632",
       timeOpen: "09:00",
-      timeClose: "20:00",
-      location: location,
+      timeClose: "15:00",
+      latitude: -7.827481,
+      longitude: 110.400527,
       userAdmin: new User(
           id: "userAgentC",
           name: "Somad",
           address: "Karanglo",
-          phone: "08917327493",
-          location: location
+          phone: "08917327493"
       )
   )
 ];
