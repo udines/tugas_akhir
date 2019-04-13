@@ -19,4 +19,35 @@ class Transaction {
   Barang barang;
   User user;
   Agent agent;
+
+  Transaction({
+    this.id,
+    this.senderName,
+    this.senderPhone,
+    this.senderProvince,
+    this.senderAddress,
+    this.receiverName,
+    this.receiverPhone,
+    this.receiverProvince,
+    this.receiverAddress,
+    this.date,
+    this.barang,
+    this.user,
+    this.agent
+  });
+}
+
+abstract class TransactionRepository {
+  Future<List<Transaction>> fetchTransactions();
+}
+
+class FetchDataException implements Exception {
+  final _message;
+
+  FetchDataException([this._message]);
+
+  String toString() {
+    if (_message == null) return "Exception";
+    return "Exception: $_message";
+  }
 }
