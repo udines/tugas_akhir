@@ -5,7 +5,7 @@ class PesananPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text('Pesanan'),
+        child: Text('Transaksi'),
       ),
     );
   }

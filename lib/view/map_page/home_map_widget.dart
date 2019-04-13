@@ -9,5 +9,4 @@ class MapPage extends StatelessWidget {
       ),
     );
   }
-
 }
