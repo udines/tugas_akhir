@@ -4,6 +4,7 @@ import 'package:tugas_akhir/home_widget.dart';
 void main() => runApp(App());
 
 class App extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -11,4 +12,5 @@ class App extends StatelessWidget {
       home: Home(),
     );
   }
+
 }

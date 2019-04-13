@@ -9,4 +9,5 @@ class KatalogPage extends StatelessWidget {
       ),
     );
   }
+
 }
