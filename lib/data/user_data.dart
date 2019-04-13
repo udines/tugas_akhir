@@ -6,4 +6,6 @@ class User {
   String address;
   String phone;
   Location location;
+
+  User({this.id, this.name, this.address, this.phone, this.location});
 }
