@@ -1,5 +1,3 @@
-import 'package:location/location.dart';
-
 import 'agent_data.dart';
 import 'user_data.dart';
 
@@ -9,8 +7,6 @@ class MockAgentRepository implements AgentRepository {
     return new Future.value(agents);
   }
 }
-
-var location = new Location();
 
 var agents = <Agent>[
   new Agent(
