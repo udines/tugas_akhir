@@ -63,7 +63,7 @@ class _AgentPageState extends State<AgentPage> implements AgentViewContract {
       child: Card(
         margin: EdgeInsets.only(left: 8, top: 4, bottom: 4, right: 8),
         child: Padding(
-          padding: EdgeInsets.only(top: 8),
+          padding: EdgeInsets.only(top: 8, bottom: 8),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
