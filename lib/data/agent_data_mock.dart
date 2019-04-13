@@ -1,0 +1,73 @@
+import 'package:location/location.dart';
+
+import 'agent_data.dart';
+import 'user_data.dart';
+
+class MockAgentRepository implements AgentRepository {
+  @override
+  Future<List<Agent>> fetchAgents() {
+    return new Future.value(agents);
+  }
+}
+
+var location = new Location();
+
+var agents = <Agent>[
+  new Agent(
+    id: "agentA",
+    address: "Baturetno, Banguntapan",
+    costPerKM: 1000,
+    costPerKG: 1000,
+    isReceiveOrder: true,
+    name: "Agenpos Jogoragan",
+    phone: "0224207081",
+    timeOpen: "07:00",
+    timeClose: "19:00",
+    location: location,
+    userAdmin: new User(
+        id: "userAgentA",
+        name: "Pranowo",
+        address: "Wiyoro Banguntapan",
+        phone: "08978873886",
+        location: location
+    )
+  ),
+  new Agent(
+      id: "agentB",
+      address: "Jl. Sorogenen No. 1",
+      costPerKM: 1000,
+      costPerKG: 2000,
+      isReceiveOrder: false,
+      name: "Post Office Sorogenen",
+      phone: "02749171179",
+      timeOpen: "07:00",
+      timeClose: "21:00",
+      location: location,
+      userAdmin: new User(
+          id: "userAgentB",
+          name: "Hamid",
+          address: "Sorogenen",
+          phone: "089619237368",
+          location: location
+      )
+  ),
+  new Agent(
+      id: "agentC",
+      address: "Jl. Karanglo No. 16",
+      costPerKM: 2000,
+      costPerKG: 1000,
+      isReceiveOrder: true,
+      name: "Kantor Pos Karanglo",
+      phone: "02743994632",
+      timeOpen: "09:00",
+      timeClose: "20:00",
+      location: location,
+      userAdmin: new User(
+          id: "userAgentC",
+          name: "Somad",
+          address: "Karanglo",
+          phone: "08917327493",
+          location: location
+      )
+  )
+];
