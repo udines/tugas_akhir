@@ -12,11 +12,28 @@ class PickupTransaction {
   Agent agent;
   User user;
 
-  int getTotalWeight() {
-    int _weight = 0;
-    for (var transaction in transactions) {
-      _weight = _weight + transaction.barang.weight;
-    }
-    return _weight;
+  PickupTransaction({
+    this.id,
+    this.date,
+    this.latitude,
+    this.longitude,
+    this.transactions,
+    this.agent,
+    this.user
+  });
+}
+
+abstract class PickupTransactionRepository {
+  Future<List<PickupTransaction>> fetchPickupTransactions();
+}
+
+class FetchDataException implements Exception {
+  final _message;
+
+  FetchDataException([this._message]);
+
+  String toString() {
+    if (_message == null) return "Exception";
+    return "Exception: $_message";
   }
 }

@@ -1,6 +1,6 @@
 import 'transaction_data.dart';
 
-class MockTransactionRepository implements TransactionRepository {
+class ProdTransactionRepository implements TransactionRepository {
   @override
   Future<List<Transaction>> fetchTransactions() {
     // TODO: implement fetchTransactions
