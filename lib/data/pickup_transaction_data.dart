@@ -5,6 +5,8 @@ import 'user_data.dart';
 class PickupTransaction {
   String id;
   DateTime date;
+  double latitude;
+  double longitude;
   List<Transaction> transactions;
   //Relations
   Agent agent;
