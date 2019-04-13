@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class KatalogPage extends StatelessWidget {
+class AgentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

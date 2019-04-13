@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-class PesananPage extends StatelessWidget {
+class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text('Pesanan'),
+        child: Text('Pesan'),
       ),
     );
   }
-
 }
