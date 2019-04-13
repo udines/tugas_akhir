@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tugas_akhir/home_katalog_widget.dart';
-import 'package:tugas_akhir/home_map_widget.dart';
-import 'package:tugas_akhir/home_pesanan_widget.dart';
+import 'package:tugas_akhir/view/katalog_page/home_katalog_widget.dart';
+import 'package:tugas_akhir/view/map_page/home_map_widget.dart';
+import 'package:tugas_akhir/view/order_list_page/home_order_list_widget.dart';
 
 class Home extends StatefulWidget {
 
@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tugas Akhir'),
+        title: Text('Agen Pos Indonesia'),
       ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -34,11 +34,11 @@ class _HomeState extends State<Home> {
         items: [
           BottomNavigationBarItem(
             icon: new Icon(Icons.map),
-            title: Text('Map')
+            title: Text('Peta')
           ),
           BottomNavigationBarItem(
             icon: new Icon(Icons.store),
-            title: Text('Katalog')
+            title: Text('Agen')
           ),
           BottomNavigationBarItem(
             icon: new Icon(Icons.swap_horiz),
