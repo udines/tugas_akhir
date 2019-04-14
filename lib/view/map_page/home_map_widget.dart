@@ -43,7 +43,7 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
 
   Widget _mapContainer() {
     return GoogleMap(
-      mapType: MapType.hybrid,
+      mapType: MapType.normal,
       initialCameraPosition: _cameraPosition,
       onMapCreated: (GoogleMapController controller) {
         _controller.complete(controller);
