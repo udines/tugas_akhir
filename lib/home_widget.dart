@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tugas_akhir/view/agent_page/home_agent_widget.dart';
 import 'package:tugas_akhir/view/conversation_page/home_conversation_page.dart';
 import 'package:tugas_akhir/view/map_page/home_map_widget.dart';
-import 'package:tugas_akhir/view/transaction_page/home_transaction_widget.dart';
+import 'package:tugas_akhir/view/pickup_transaction_page/pickup_transaction_page.dart';
 
 class Home extends StatefulWidget {
 
@@ -20,7 +20,7 @@ class _HomeState extends State<Home> {
     MapPage(),
     AgentPage(),
     ConversationPage(),
-    TransactionPage()
+    PickupTransactionPage()
   ];
 
   @override
