@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -14,6 +16,9 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
   List<Agent> _agents;
   bool _isLoading;
   LatLng _userLocation;
+  CameraPosition _cameraPosition;
+  double zoom = 14.4746;
+  Completer<GoogleMapController> _controller = Completer();
 
   _MapPageState() {
     _presenter = MapPresenter(this);
@@ -23,6 +28,7 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
   void initState() {
     super.initState();
     _isLoading = true;
+    _presenter.getUserCurrentLocation();
   }
 
   @override
@@ -36,7 +42,13 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
   }
 
   Widget _mapContainer() {
-
+    return GoogleMap(
+      mapType: MapType.hybrid,
+      initialCameraPosition: _cameraPosition,
+      onMapCreated: (GoogleMapController controller) {
+        _controller.complete(controller);
+      },
+    );
   }
 
   @override
@@ -62,6 +74,10 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
     _presenter.loadAgents();
     setState(() {
       _userLocation = new LatLng(latitude, longitude);
+      _cameraPosition = new CameraPosition(
+        target: LatLng(latitude, longitude),
+        zoom: zoom
+      );
     });
   }
 
