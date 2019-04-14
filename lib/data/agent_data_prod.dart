@@ -6,4 +6,10 @@ class ProdAgentRepository implements AgentRepository {
     // TODO: implement fetchAgents
     return null;
   }
+
+  @override
+  Future<Agent> fetchAgent(String agentId) {
+    // TODO: implement fetchAgent
+    return null;
+  }
 }

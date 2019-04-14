@@ -6,6 +6,31 @@ class MockAgentRepository implements AgentRepository {
   Future<List<Agent>> fetchAgents() {
     return new Future.value(agents);
   }
+
+  @override
+  Future<Agent> fetchAgent(String agentId) {
+    return new Future.value(
+      new Agent(
+        id: "agentC",
+        address: "Jl. Kemasan No. 1",
+        costPerKM: 2000,
+        costPerKG: 1000,
+        isReceiveOrder: true,
+        name: "Kantorpos Yogyakarta Kotagede",
+        phone: "02743994632",
+        timeOpen: "09:00",
+        timeClose: "15:00",
+        latitude: -7.827481,
+        longitude: 110.400527,
+        userAdmin: new User(
+          id: "userAgentC",
+          name: "Somad",
+          address: "Karanglo",
+          phone: "08917327493"
+        )
+      )
+    );
+  }
 }
 
 var agents = <Agent>[

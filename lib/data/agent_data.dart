@@ -34,6 +34,7 @@ class Agent {
 
 abstract class AgentRepository {
   Future<List<Agent>> fetchAgents();
+  Future<Agent> fetchAgent(String agentId);
 }
 
 class FetchDataException implements Exception {
