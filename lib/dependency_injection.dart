@@ -20,6 +20,10 @@ import 'package:tugas_akhir/data/user_data.dart';
 import 'package:tugas_akhir/data/user_data_mock.dart';
 import 'package:tugas_akhir/data/user_data_prod.dart';
 
+import 'data/location_data.dart';
+import 'data/location_data_mock.dart';
+import 'data/location_data_prod.dart';
+
 enum Flavor { MOCK, PROD }
 
 class Injector {
@@ -96,6 +100,15 @@ class Injector {
         return new MockUserRepository();
       default:
         return new ProdUserRepository();
+    }
+  }
+
+  LocationRepository get locationRepository {
+    switch (_flavor) {
+      case Flavor.MOCK:
+        return new MockLocationRepository();
+      default:
+        return new ProdLocationRepository();
     }
   }
 }
