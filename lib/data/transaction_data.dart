@@ -39,6 +39,7 @@ class Transaction {
 
 abstract class TransactionRepository {
   Future<List<Transaction>> fetchTransactions();
+  Future<Transaction> fetchTransaction(String transactionId);
 }
 
 class FetchDataException implements Exception {

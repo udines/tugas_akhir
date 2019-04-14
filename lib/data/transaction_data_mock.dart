@@ -8,6 +8,11 @@ class MockTransactionRepository implements TransactionRepository {
   Future<List<Transaction>> fetchTransactions() {
     return new Future.value(transactions);
   }
+
+  @override
+  Future<Transaction> fetchTransaction(String transactionId) {
+    return new Future.value(transactions[0]);
+  }
 }
 
 var barangs = <Barang>[

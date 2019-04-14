@@ -6,4 +6,10 @@ class ProdTransactionRepository implements TransactionRepository {
     // TODO: implement fetchTransactions
     return null;
   }
+
+  @override
+  Future<Transaction> fetchTransaction(String transactionId) {
+    // TODO: implement fetchTransaction
+    return null;
+  }
 }
