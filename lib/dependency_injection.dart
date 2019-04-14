@@ -72,7 +72,7 @@ class Injector {
     }
   }
 
-  PickupTransactionRepository get pickupTransaction {
+  PickupTransactionRepository get pickupTransactionRepository {
     switch (_flavor) {
       case Flavor.MOCK:
         return new MockPickupTransactionRepository();

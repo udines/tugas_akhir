@@ -1,0 +1,22 @@
+import 'package:tugas_akhir/data/pickup_transaction_data.dart';
+import 'package:tugas_akhir/dependency_injection.dart';
+
+abstract class PickupTransactionViewContract {
+  void onLoadPickupTransactionComplete(List<PickupTransaction> pickups);
+  void onLoadPickupTransactionError();
+}
+
+class PickupTransactionPresenter {
+  PickupTransactionViewContract _view;
+  PickupTransactionRepository _repository;
+
+  PickupTransactionPresenter(this._view) {
+    _repository = new Injector().pickupTransactionRepository;
+  }
+
+  void loadPickupTransactions() {
+    _repository.fetchPickupTransactions()
+        .then((pickups) => _view.onLoadPickupTransactionComplete(pickups))
+        .catchError((onError) => _view.onLoadPickupTransactionError());
+  }
+}
