@@ -38,14 +38,13 @@ class MapPresenter {
   }
 
   void checkLocationPermission() {
-    Future<GeolocationStatus> geolocationStatus  = Geolocator().checkGeolocationPermissionStatus();
-    geolocationStatus.then((status) => _processPermission(status));
+    _locationRepo.getLocationPermission()
+        .then((status) => _processPermission(status));
   }
 
   void requestLocationPermission() {
-    Future<Map<PermissionGroup, PermissionStatus>> status =  PermissionHandler()
-      .requestPermissions([PermissionGroup.location]);
-    status.then((response) => _processRequest(response));
+    _locationRepo.requestLocationPermission()
+        .then((response) => _processRequest(response));
   }
 
   void _processPermission(GeolocationStatus status) {
