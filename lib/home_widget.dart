@@ -5,16 +5,13 @@ import 'package:tugas_akhir/view/map_page/home_map_widget.dart';
 import 'package:tugas_akhir/view/pickup_transaction_page/pickup_transaction_page.dart';
 
 class Home extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return _HomeState();
   }
-
 }
 
 class _HomeState extends State<Home> {
-
   int _currentIndex = 0;
   final List<Widget> _children = [
     MapPage(),

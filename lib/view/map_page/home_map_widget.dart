@@ -28,7 +28,7 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
   void initState() {
     super.initState();
     _isLoading = true;
-    _presenter.getUserCurrentLocation();
+    _presenter.checkLocationPermission();
   }
 
   @override
@@ -61,8 +61,9 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
 
   @override
   void onLoadAgentError() {
+    _isLoading = false;
     Fluttertoast.showToast(
-        msg: "Gagal memuat, coba lagi.",
+        msg: "Gagal memuat data agen, coba lagi.",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIos: 1
@@ -71,7 +72,6 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
 
   @override
   void onGetCurrentUserLocationComplete(double latitude, double longitude) {
-    _presenter.loadAgents();
     setState(() {
       _userLocation = new LatLng(latitude, longitude);
       _cameraPosition = new CameraPosition(
@@ -79,16 +79,28 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
         zoom: zoom
       );
     });
+    _presenter.loadAgents();
   }
 
   @override
-  void onGetCurrentUserLocationError() {
+  void onGetCurrentUserLocationError(String errorMessage) {
+    _isLoading = false;
     Fluttertoast.showToast(
-        msg: "Gagal memuat, coba lagi.",
+        msg: errorMessage,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIos: 1
     );
+  }
+
+  @override
+  void onLocationPermissionDenied() {
+    _presenter.requestLocationPermission();
+  }
+
+  @override
+  void onLocationPermissionGranted() {
+    _presenter.getUserCurrentLocation();
   }
 
 }
