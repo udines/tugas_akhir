@@ -1,5 +1,3 @@
-import 'package:location/location.dart';
-
 class User {
   String id;
   String name;
