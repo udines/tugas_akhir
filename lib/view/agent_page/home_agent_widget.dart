@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:tugas_akhir/data/agent_data.dart';
 import 'package:tugas_akhir/presenter/agent_presenter.dart';
 import 'package:tugas_akhir/view/agent_detail_page/agent_detail.dart';
@@ -69,7 +70,7 @@ class _AgentPageState extends State<AgentPage> implements AgentViewContract {
             children: <Widget>[
               ListTile(
                 onTap: () {
-                  _onItemTapped(agent)
+                  _onItemTapped(agent);
                 },
                 title: Text(agent.name),
                 subtitle: Text("$_address ($_phone)\nBuka jam $_timeOpen - $_timeClose")
@@ -78,8 +79,10 @@ class _AgentPageState extends State<AgentPage> implements AgentViewContract {
                 child: ButtonBar(
                   children: <Widget>[
                     FlatButton.icon(
-                      onPressed: () {},
-                      label: Text("Telpon"),
+                      onPressed: () {
+                        _makePhoneCall(agent.phone);
+                      },
+                      label: Text("Telepon"),
                       icon: new Icon(Icons.phone),
                     ),
                     FlatButton.icon(
@@ -100,6 +103,15 @@ class _AgentPageState extends State<AgentPage> implements AgentViewContract {
         )
       ),
     );
+  }
+
+  void _makePhoneCall(String phone) async {
+    var url = "tel:" + phone;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   void _onItemTapped(Agent agent) {
