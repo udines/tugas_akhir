@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tugas_akhir/data/conversation_data.dart';
 import 'package:tugas_akhir/presenter/conversation_presenter.dart';
 
@@ -77,11 +76,6 @@ class _ConversationPageState extends State<ConversationPage> implements Conversa
 
   @override
   void onLoadConversationError() {
-    Fluttertoast.showToast(
-        msg: "Gagal memuat, coba lagi.",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIos: 1
-    );
+
   }
 }

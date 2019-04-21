@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tugas_akhir/data/agent_data.dart';
 import 'package:tugas_akhir/presenter/map_presenter.dart';
@@ -91,13 +90,7 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
 
   @override
   void onLoadAgentError() {
-    _isLoading = false;
-    Fluttertoast.showToast(
-        msg: "Gagal memuat data agen, coba lagi.",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIos: 1
-    );
+
   }
 
   @override
@@ -140,13 +133,7 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
 
   @override
   void onGetCurrentUserLocationError(String errorMessage) {
-    _isLoading = false;
-    Fluttertoast.showToast(
-      msg: errorMessage,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
-      timeInSecForIos: 1
-    );
+
   }
 
   @override

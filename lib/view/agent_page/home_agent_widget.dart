@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:tugas_akhir/data/agent_data.dart';
 import 'package:tugas_akhir/presenter/agent_presenter.dart';
@@ -135,12 +134,7 @@ class _AgentPageState extends State<AgentPage> implements AgentViewContract {
 
   @override
   void onLoadAgentError() {
-    Fluttertoast.showToast(
-        msg: "Gagal memuat, coba lagi.",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIos: 1
-    );
+
   }
 
 }

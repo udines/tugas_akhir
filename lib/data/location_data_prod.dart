@@ -1,6 +1,5 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:permission_handler/src/permission_enums.dart';
 import 'location_data.dart';
 
 class ProdLocationRepository implements LocationRepository {
