@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tugas_akhir/data/agent_data.dart';
 import 'package:tugas_akhir/presenter/map_presenter.dart';
+import 'package:tugas_akhir/view/agent_detail_page/agent_detail.dart';
 
 class MapPage extends StatefulWidget {
   @override
@@ -108,9 +109,6 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
       position: LatLng(latitude, longitude),
       infoWindow: InfoWindow(
         title: "Lokasi Anda",
-        onTap: () {
-          _onMarkerTapped(markerId);
-        }
       ),
       icon: BitmapDescriptor.defaultMarker
     );
@@ -128,17 +126,26 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
   }
 
   void _onMarkerTapped(MarkerId markerId) {
-
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgentDetail(
+          agent: _agents.firstWhere(
+            (agent) => agent.id == markerId.toString()
+          ),
+        )
+      )
+    );
   }
 
   @override
   void onGetCurrentUserLocationError(String errorMessage) {
     _isLoading = false;
     Fluttertoast.showToast(
-        msg: errorMessage,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIos: 1
+      msg: errorMessage,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIos: 1
     );
   }
 
