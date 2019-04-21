@@ -58,7 +58,34 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
     setState(() {
       _isLoading = false;
       _agents = agents;
+      _markers.addAll(_createAgentMarker(agents));
     });
+  }
+
+  Map<MarkerId, Marker> _createAgentMarker(List<Agent> agents) {
+    Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
+    var it = agents.iterator;
+    while(it.moveNext()) {
+      var id = it.current.id;
+      MarkerId markerId = MarkerId(id);
+      Marker agentMarker = Marker(
+          markerId: markerId,
+          position: LatLng(
+            it.current.latitude,
+            it.current.longitude
+          ),
+          infoWindow: InfoWindow(
+              title: it.current.name,
+              snippet: it.current.address,
+              onTap: () {
+                _onMarkerTapped(markerId);
+              }
+          ),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange)
+      );
+      markers[markerId] = agentMarker;
+    }
+    return markers;
   }
 
   @override
@@ -74,9 +101,10 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
 
   @override
   void onGetCurrentUserLocationComplete(double latitude, double longitude) {
-    var markerId = "Lokasi Pengguna";
+    var id = "Lokasi Pengguna";
+    MarkerId markerId = MarkerId(id);
     Marker userMarker = Marker(
-      markerId: MarkerId(markerId),
+      markerId: markerId,
       position: LatLng(latitude, longitude),
       infoWindow: InfoWindow(
         title: "Lokasi Anda",
@@ -93,13 +121,13 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
         target: LatLng(latitude, longitude),
         zoom: zoom
       );
-      _markers[MarkerId(markerId)] = userMarker;
+      _markers[markerId] = userMarker;
     });
 
     _presenter.loadAgents();
   }
 
-  void _onMarkerTapped(String markerId) {
+  void _onMarkerTapped(MarkerId markerId) {
 
   }
 
