@@ -35,10 +35,10 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
   @override
   Widget build(BuildContext context) {
     return new Container(
-        child: _isLoading ?
-        new Center(
-          child: new CircularProgressIndicator(),
-        ) : _mapContainer()
+      child: _isLoading ?
+      new Center(
+        child: new CircularProgressIndicator(),
+      ) : _mapContainer()
     );
   }
 
@@ -69,19 +69,19 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
       var id = it.current.id;
       MarkerId markerId = MarkerId(id);
       Marker agentMarker = Marker(
-          markerId: markerId,
-          position: LatLng(
-            it.current.latitude,
-            it.current.longitude
-          ),
-          infoWindow: InfoWindow(
-              title: it.current.name,
-              snippet: it.current.address,
-              onTap: () {
-                _onMarkerTapped(markerId);
-              }
-          ),
-          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange)
+        markerId: markerId,
+        position: LatLng(
+          it.current.latitude,
+          it.current.longitude
+        ),
+        infoWindow: InfoWindow(
+          title: it.current.name,
+          snippet: it.current.address,
+          onTap: () {
+            _onMarkerTapped(markerId);
+          }
+        ),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange)
       );
       markers[markerId] = agentMarker;
     }
@@ -119,16 +119,17 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
   }
 
   void _onMarkerTapped(MarkerId markerId) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AgentDetail(
-          agent: _agents.firstWhere(
-            (agent) => agent.id == markerId.toString()
-          ),
+    var agent = _agents.firstWhere((agent) => agent.id == markerId.toString());
+    if(agent != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AgentDetail(
+            agent: agent
+          )
         )
-      )
-    );
+      );
+    }
   }
 
   @override
