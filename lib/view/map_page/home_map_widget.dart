@@ -19,6 +19,7 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
   CameraPosition _cameraPosition;
   double zoom = 14.4746;
   Completer<GoogleMapController> _controller = Completer();
+  Map<MarkerId, Marker> _markers = <MarkerId, Marker>{};
 
   _MapPageState() {
     _presenter = MapPresenter(this);
@@ -48,6 +49,7 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
       onMapCreated: (GoogleMapController controller) {
         _controller.complete(controller);
       },
+      markers: Set<Marker>.of(_markers.values),
     );
   }
 
@@ -72,14 +74,33 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
 
   @override
   void onGetCurrentUserLocationComplete(double latitude, double longitude) {
+    var markerId = "Lokasi Pengguna";
+    Marker userMarker = Marker(
+      markerId: MarkerId(markerId),
+      position: LatLng(latitude, longitude),
+      infoWindow: InfoWindow(
+        title: "Lokasi Anda",
+        onTap: () {
+          _onMarkerTapped(markerId);
+        }
+      ),
+      icon: BitmapDescriptor.defaultMarker
+    );
+
     setState(() {
       _userLocation = new LatLng(latitude, longitude);
       _cameraPosition = new CameraPosition(
         target: LatLng(latitude, longitude),
         zoom: zoom
       );
+      _markers[MarkerId(markerId)] = userMarker;
     });
+
     _presenter.loadAgents();
+  }
+
+  void _onMarkerTapped(String markerId) {
+
   }
 
   @override
