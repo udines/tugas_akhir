@@ -13,6 +13,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
+  String _appBarTitle = "Peta Agen Pos";
   final List<Widget> _children = [
     MapPage(),
     AgentPage(),
@@ -24,7 +25,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Agen Pos Indonesia'),
+        title: Text(_appBarTitle),
       ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -56,6 +57,23 @@ class _HomeState extends State<Home> {
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
+      switch(index) {
+        case 0:
+          _appBarTitle = "Peta Agen Pos";
+          break;
+        case 1:
+          _appBarTitle = "Katalog Agen Pos";
+          break;
+        case 2:
+          _appBarTitle = "Percakapan";
+          break;
+        case 3:
+          _appBarTitle = "Daftar Transaksi";
+          break;
+        default:
+          _appBarTitle= "Agen Pos Indonesia";
+          break;
+      }
     });
   }
 }
