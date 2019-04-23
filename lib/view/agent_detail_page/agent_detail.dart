@@ -1,18 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_akhir/data/agent_data.dart';
+import 'package:tugas_akhir/data/user_data.dart';
+import 'package:tugas_akhir/view/order_input_page/order_input_page.dart';
+import 'package:tugas_akhir/presenter/agent_detail_presenter.dart';
 
-class AgentDetail extends StatelessWidget {
+class AgentDetail extends StatefulWidget {
   final Agent agent;
-  BuildContext context;
 
   AgentDetail({Key key, @required this.agent}) : super(key: key);
+
+  @override
+  _AgentDetailState createState() => _AgentDetailState();
+}
+
+class _AgentDetailState extends State<AgentDetail> implements AgentDetailViewContract {
+  BuildContext context;
+  AgentDetailPresenter _presenter;
+  User _currentUser;
+
+  _AgentDetailState() {
+    _presenter = AgentDetailPresenter(this);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _presenter.getCurrentUser();
+  }
 
   @override
   Widget build(BuildContext context) {
     this.context = context;
     return Scaffold(
       appBar: AppBar(
-        title: Text(agent.name),
+        title: Text(widget.agent.name),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -22,7 +43,7 @@ class AgentDetail extends StatelessWidget {
             children: <Widget>[
               //alamat dan jam buka/tutup
               Text("Alamat", style: TextStyle(fontSize: 12, color: Colors.grey[500])),
-              Text(agent.address, style: TextStyle(fontSize: 16, color: Colors.black)),
+              Text(widget.agent.address, style: TextStyle(fontSize: 16, color: Colors.black)),
               Padding(padding: EdgeInsets.only(top: 16),),
               Row(
                 children: <Widget>[
@@ -30,7 +51,7 @@ class AgentDetail extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text("Jam buka", style: TextStyle(fontSize: 12, color: Colors.grey[500])),
-                      Text(agent.timeOpen, style: TextStyle(fontSize: 16, color: Colors.black))
+                      Text(widget.agent.timeOpen, style: TextStyle(fontSize: 16, color: Colors.black))
                     ],
                   ),
                   Padding(padding: EdgeInsets.only(left: 32),),
@@ -38,7 +59,7 @@ class AgentDetail extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text("Jam tutup", style: TextStyle(fontSize: 12, color: Colors.grey[500])),
-                      Text(agent.timeClose, style: TextStyle(fontSize: 16, color: Colors.black))
+                      Text(widget.agent.timeClose, style: TextStyle(fontSize: 16, color: Colors.black))
                     ],
                   ),
                 ],
@@ -48,7 +69,7 @@ class AgentDetail extends StatelessWidget {
               Padding(padding: EdgeInsets.only(top: 16),),
               //no telepon dan button telepon & chat
               Text("Nomor telepon", style: TextStyle(fontSize: 12, color: Colors.grey[500])),
-              Text(agent.phone, style: TextStyle(fontSize: 16, color: Colors.black)),
+              Text(widget.agent.phone, style: TextStyle(fontSize: 16, color: Colors.black)),
               ButtonTheme.bar(
                 child: Row(
                   children: <Widget>[
@@ -70,7 +91,7 @@ class AgentDetail extends StatelessWidget {
               //fitur menerima pesanan jemput dan tarif
               Padding(padding: EdgeInsets.only(top: 16),),
               Text("Menerima penjemputan", style: TextStyle(fontSize: 12, color: Colors.grey[500])),
-              _receiveOrder(agent.isReceiveOrder),
+              _receiveOrder(widget.agent.isReceiveOrder),
 
               Padding(padding: EdgeInsets.only(top: 16),),
               Row(
@@ -79,7 +100,7 @@ class AgentDetail extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text("Tarif per KM", style: TextStyle(fontSize: 12, color: Colors.grey[500])),
-                      Text(agent.costPerKM.toString(), style: TextStyle(fontSize: 16, color: Colors.black))
+                      Text(widget.agent.costPerKM.toString(), style: TextStyle(fontSize: 16, color: Colors.black))
                     ],
                   ),
                   Padding(padding: EdgeInsets.only(left: 32),),
@@ -87,7 +108,7 @@ class AgentDetail extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text("Tarif per KG", style: TextStyle(fontSize: 12, color: Colors.grey[500])),
-                      Text(agent.costPerKG.toString(), style: TextStyle(fontSize: 16, color: Colors.black))
+                      Text(widget.agent.costPerKG.toString(), style: TextStyle(fontSize: 16, color: Colors.black))
                     ],
                   ),
                 ],
@@ -96,7 +117,9 @@ class AgentDetail extends StatelessWidget {
               Padding(padding: EdgeInsets.only(top: 16),),
               ButtonTheme.bar(
                 child: RaisedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _goToOrderInputPage(widget.agent);
+                  },
                   child: Text("Pesan Penjemputan", style: TextStyle(color: Colors.white),),
                 ),
               )
@@ -105,6 +128,26 @@ class AgentDetail extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _goToOrderInputPage(Agent agent) {
+    if(agent != null && _currentUser != null) {
+      if(_presenter.isAgentOpen(agent, DateTime.now())) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OrderInputPage(
+              agent: agent,
+              user: _currentUser,
+            )
+          )
+        );
+      } else {
+        //Agen sedang tutup
+      }
+    } else {
+      //data agen atau pengguna tidak ada
+    }
   }
 
   Widget _receiveOrder(bool isReceiveOrder) {
@@ -120,5 +163,27 @@ class AgentDetail extends StatelessWidget {
       fontWeight: FontWeight.w800
       )
     );
+  }
+
+  @override
+  void onGetCurrentUserComplete(User user) {
+    setState(() {
+      _currentUser = user;
+    });
+  }
+
+  @override
+  void onGetCurrentUserError() {
+    // TODO: implement onGetCurrentUserError
+  }
+
+  @override
+  void onLoadAgentComplete(Agent agent) {
+    // TODO: implement onLoadAgentComplete
+  }
+
+  @override
+  void onLoadAgentError() {
+    // TODO: implement onLoadAgentError
   }
 }
