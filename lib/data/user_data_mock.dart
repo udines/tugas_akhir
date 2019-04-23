@@ -5,6 +5,20 @@ class MockUserRepository implements UserRepository {
   Future<List<User>> fetchUsers() {
     return new Future.value(users);
   }
+
+  @override
+  Future<User> fetchCurrentUser() {
+    return new Future.value(users[0]);
+  }
+
+  @override
+  Future<User> fetchUser(String id) {
+    return new Future.value(
+      users.firstWhere(
+        (user) => user.id == id
+      )
+    );
+  }
 }
 
 var users = <User>[

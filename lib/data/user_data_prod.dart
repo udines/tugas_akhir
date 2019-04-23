@@ -6,4 +6,16 @@ class ProdUserRepository implements UserRepository {
     // TODO: implement fetchUsers
     return null;
   }
+
+  @override
+  Future<User> fetchCurrentUser() {
+    // TODO: implement fetchCurrentUser
+    return null;
+  }
+
+  @override
+  Future<User> fetchUser(String id) {
+    // TODO: implement fetchUser
+    return null;
+  }
 }

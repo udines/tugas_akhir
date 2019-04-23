@@ -9,6 +9,8 @@ class User {
 
 abstract class UserRepository {
   Future<List<User>> fetchUsers();
+  Future<User> fetchCurrentUser();
+  Future<User> fetchUser(String id);
 }
 
 class FetchDataException implements Exception {
