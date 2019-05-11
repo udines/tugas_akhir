@@ -15,6 +15,7 @@ abstract class LocationRepository {
   Future<LatLng> getCurrentLocation();
   Future<GeolocationStatus> getLocationPermission();
   Future<Map<PermissionGroup, PermissionStatus>> requestLocationPermission();
+  Future<String> getAddress(double latitude, double longitude);
 }
 
 class FetchDataException implements Exception {

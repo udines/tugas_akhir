@@ -86,11 +86,6 @@ class _AgentPageState extends State<AgentPage> implements AgentViewContract {
                     ),
                     FlatButton.icon(
                       onPressed: () {},
-                      label: Text("Pesan"),
-                      icon: new Icon(Icons.message),
-                    ),
-                    FlatButton.icon(
-                      onPressed: () {},
                       label: Text("Arah"),
                       icon: new Icon(Icons.directions),
                     )

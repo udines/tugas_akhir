@@ -17,7 +17,6 @@ class _HomeState extends State<Home> {
   final List<Widget> _children = [
     MapPage(),
     AgentPage(),
-    ConversationPage(),
     PickupTransactionPage()
   ];
 
@@ -42,10 +41,6 @@ class _HomeState extends State<Home> {
             title: Text('Agen')
           ),
           BottomNavigationBarItem(
-              icon: new Icon(Icons.message),
-              title: Text('Pesan')
-          ),
-          BottomNavigationBarItem(
             icon: new Icon(Icons.swap_horiz),
             title: Text('Transaksi')
           )
@@ -63,9 +58,6 @@ class _HomeState extends State<Home> {
           break;
         case 1:
           _appBarTitle = "Katalog Agen Pos";
-          break;
-        case 2:
-          _appBarTitle = "Percakapan";
           break;
         case 3:
           _appBarTitle = "Daftar Transaksi";

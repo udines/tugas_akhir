@@ -78,12 +78,6 @@ class _AgentDetailState extends State<AgentDetail> implements AgentDetailViewCon
                       textColor: Colors.white,
                       child: Text("Telepon"),
                     ),
-                    Padding(padding: EdgeInsets.only(left: 16),),
-                    RaisedButton(
-                      onPressed: () {},
-                      textColor: Colors.white,
-                      child: Text("Kirim Pesan"),
-                    )
                   ],
                 ),
               ),
@@ -144,9 +138,15 @@ class _AgentDetailState extends State<AgentDetail> implements AgentDetailViewCon
         );
       } else {
         //Agen sedang tutup
+        Scaffold.of(context).showSnackBar(SnackBar(content: Text('Agen tutup')));
       }
     } else {
       //data agen atau pengguna tidak ada
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Tidak ditemukan data agen atau data pengguna')
+        )
+      );
     }
   }
 
