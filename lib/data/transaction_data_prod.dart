@@ -12,4 +12,10 @@ class ProdTransactionRepository implements TransactionRepository {
     // TODO: implement fetchTransaction
     return null;
   }
+
+  @override
+  Future<String> createId() {
+    // TODO: implement createId
+    return null;
+  }
 }

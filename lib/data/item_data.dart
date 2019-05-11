@@ -1,8 +1,8 @@
 class Item {
   String id;
-  String name;
+  String name = "Barang";
   String type;
-  int value;
+  int value = 0;
   int weight;
 
   Item({
@@ -14,8 +14,9 @@ class Item {
   });
 }
 
-abstract class BarangRepository {
+abstract class ItemRepository {
   Future<List<Item>> fetchBarangs();
+  Future<String> createId();
 }
 
 class FetchDataException implements Exception {

@@ -49,7 +49,7 @@ class Injector {
     }
   }
 
-  BarangRepository get barangRepository {
+  ItemRepository get itemRepository {
     switch (_flavor) {
       case Flavor.MOCK:
         return new MockBarangRepository();

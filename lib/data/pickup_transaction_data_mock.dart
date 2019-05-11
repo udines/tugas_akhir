@@ -136,7 +136,7 @@ var transactions = <Transaction>[
       receiverProvince: "Jawa Timur",
       receiverAddress: "Jalan Bali No. 5",
       date: new DateTime.now(),
-      barang: barangs[0],
+      item: barangs[0],
       user: users[0],
       agent: agents[0]
   ),
@@ -151,7 +151,7 @@ var transactions = <Transaction>[
       receiverProvince: "Jawa Timur",
       receiverAddress: "Jalan Bali No. 5",
       date: new DateTime.now(),
-      barang: barangs[1],
+      item: barangs[1],
       user: users[0],
       agent: agents[0]
   ),
@@ -166,7 +166,7 @@ var transactions = <Transaction>[
       receiverProvince: "Jawa Timur",
       receiverAddress: "Jalan Bali No. 5",
       date: new DateTime.now(),
-      barang: barangs[1],
+      item: barangs[1],
       user: users[0],
       agent: agents[0]
   ),

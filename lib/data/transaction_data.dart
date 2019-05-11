@@ -7,16 +7,16 @@ class Transaction {
   //Sender information
   String senderName;
   String senderPhone;
-  String senderProvince;
+  String senderProvince = "Provinsi";
   String senderAddress;
   //Receiver information
   String receiverName;
   String receiverPhone;
-  String receiverProvince;
+  String receiverProvince = "Provinsi";
   String receiverAddress;
   DateTime date;
   //Relations
-  Item barang;
+  Item item;
   User user;
   Agent agent;
 
@@ -31,7 +31,7 @@ class Transaction {
     this.receiverProvince,
     this.receiverAddress,
     this.date,
-    this.barang,
+    this.item,
     this.user,
     this.agent
   });
@@ -40,6 +40,7 @@ class Transaction {
 abstract class TransactionRepository {
   Future<List<Transaction>> fetchTransactions();
   Future<Transaction> fetchTransaction(String transactionId);
+  Future<String> createId();
 }
 
 class FetchDataException implements Exception {

@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tugas_akhir/data/agent_data.dart';
+import 'package:tugas_akhir/data/item_data.dart';
+import 'package:tugas_akhir/data/transaction_data.dart';
+import 'package:tugas_akhir/data/user_data.dart';
 import 'package:tugas_akhir/presenter/add_item_presenter.dart';
 
 class AddItemPage extends StatefulWidget {
+
+  final Agent agent;
+  final User user;
+
+  AddItemPage({Key key, this.agent, this.user}) : super(key: key);
+
   @override
   _AddItemState createState() => _AddItemState();
 }
 
-class _AddItemState extends State<AddItemPage> {
+class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
 
+  final inputName = TextEditingController();
   final inputType = TextEditingController();
   final inputWeight = TextEditingController();
   final inputSenderName = TextEditingController();
@@ -19,9 +30,16 @@ class _AddItemState extends State<AddItemPage> {
   final inputReceiverPhone = TextEditingController();
   AddItemPresenter _presenter;
   bool _validate = false;
+  String _itemId, _transactionId;
+  User _user;
+
+  _AddItemState() {
+    _presenter = AddItemPresenter(this);
+  }
 
   @override
   void dispose() {
+    inputName.dispose();
     inputType.dispose();
     inputWeight.dispose();
     inputSenderName.dispose();
@@ -31,6 +49,13 @@ class _AddItemState extends State<AddItemPage> {
     inputReceiverAddress.dispose();
     inputReceiverPhone.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    _presenter.createItemId();
+    _presenter.createTransactionId();
+    super.initState();
   }
 
   @override
@@ -50,6 +75,14 @@ class _AddItemState extends State<AddItemPage> {
                   color: Colors.black
                 ),
               ),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: 'Nama barang (opsional)'
+                ),
+                textCapitalization: TextCapitalization.words,
+                controller: inputName,
+              ),
+              SizedBox(height: 8,),
               TextField(
                 decoration: InputDecoration(
                   hintText: 'Jenis barang'
@@ -133,7 +166,8 @@ class _AddItemState extends State<AddItemPage> {
                 child: Text('Tambahkan barang'),
                 onPressed: () {
                   _validateData();
-                  if (_validate) {
+                  if (_validate && _itemId.isNotEmpty && 
+                      _transactionId.isNotEmpty) {
                     _constructData();
                   }
                 },
@@ -147,18 +181,77 @@ class _AddItemState extends State<AddItemPage> {
 
   void _validateData() {
     setState(() {
-      inputType.text.isEmpty ? _validate = true : _validate = false;
-      inputWeight.text.isEmpty ? _validate = true : _validate = false;
-      inputSenderName.text.isEmpty ? _validate = true : _validate = false;
-      inputSenderAddress.text.isEmpty ? _validate = true : _validate = false;
-      inputSenderPhone.text.isEmpty ? _validate = true : _validate = false;
-      inputReceiverName.text.isEmpty ? _validate = true : _validate = false;
-      inputReceiverAddress.text.isEmpty ? _validate = true : _validate = false;
-      inputReceiverPhone.text.isEmpty ? _validate = true : _validate = false;
+      inputType.text.isNotEmpty ? _validate = true : _validate = false;
+      inputWeight.text.isNotEmpty ? _validate = true : _validate = false;
+      inputSenderName.text.isNotEmpty ? _validate = true : _validate = false;
+      inputSenderAddress.text.isNotEmpty ? _validate = true : _validate = false;
+      inputSenderPhone.text.isNotEmpty ? _validate = true : _validate = false;
+      inputReceiverName.text.isNotEmpty ? _validate = true : _validate = false;
+      inputReceiverAddress.text.isNotEmpty ? _validate = true : _validate = false;
+      inputReceiverPhone.text.isNotEmpty ? _validate = true : _validate = false;
     });
   }
 
   void _constructData() {
-    
+    //construct item object
+    Item item = Item(
+      id: _itemId,
+      name: inputName.text.isNotEmpty ? inputName.text : "Barang",
+      type: inputType.text,
+      weight: int.parse(inputWeight.text)
+    );
+
+    //construct transaction object
+    Transaction transaction = Transaction(
+      id: _transactionId,
+      senderName: inputSenderName.text,
+      senderAddress: inputSenderAddress.text,
+      senderPhone: inputSenderPhone.text,
+      receiverName: inputReceiverName.text,
+      receiverAddress: inputReceiverAddress.text,
+      receiverPhone: inputReceiverPhone.text,
+      date: DateTime.now(),
+      item: item,
+      user: widget.user,
+      agent: widget.agent
+    );
+
+    Navigator.pop(context, transaction);
+  }
+
+  @override
+  onGetIdError() {
+    // TODO: implement onGetIdError
+  }
+
+  @override
+  onGetIdSuccess(String id) {
+    setState(() {
+      _itemId = id;
+    });
+  }
+
+  @override
+  void onGetTransactionIdError() {
+    // TODO: implement onGetTransactionIdError
+  }
+
+  @override
+  void onGetTransactionIdSuccess(String id) {
+    setState(() {
+      _transactionId = id;
+    });
+  }
+
+  @override
+  void onGetCurrentUserError() {
+    // TODO: implement onGetCurrentUserError
+  }
+
+  @override
+  void onGetCurrentUserSuccess(User user) {
+    setState(() {
+      _user = user;
+    });
   }
 }
