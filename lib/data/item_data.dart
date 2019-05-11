@@ -1,11 +1,11 @@
-class Barang {
+class Item {
   String id;
   String name;
   String type;
   int value;
   int weight;
 
-  Barang({
+  Item({
     this.id,
     this.type,
     this.name,
@@ -15,7 +15,7 @@ class Barang {
 }
 
 abstract class BarangRepository {
-  Future<List<Barang>> fetchBarangs();
+  Future<List<Item>> fetchBarangs();
 }
 
 class FetchDataException implements Exception {

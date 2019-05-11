@@ -27,7 +27,7 @@ class _OrderInputPageState extends State<OrderInputPage> implements OrderInputVi
   OrderInputPresenter _presenter;
   double zoom = 14.4746;
   String _address;
-  List<Barang> items = [];
+  List<Item> items = [];
 
   _OrderInputPageState() {
     _presenter = OrderInputPresenter(this);

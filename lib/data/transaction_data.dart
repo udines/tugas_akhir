@@ -16,7 +16,7 @@ class Transaction {
   String receiverAddress;
   DateTime date;
   //Relations
-  Barang barang;
+  Item barang;
   User user;
   Agent agent;
 

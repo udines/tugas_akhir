@@ -15,29 +15,29 @@ class MockTransactionRepository implements TransactionRepository {
   }
 }
 
-var barangs = <Barang>[
-  new Barang(
+var barangs = <Item>[
+  new Item(
     id: "barangA",
     name: "Kopi Robusta",
     type: "Makanan",
     value: 150000,
     weight: 1,
   ),
-  new Barang(
+  new Item(
     id: "barangB",
     name: "Headphone",
     type: "Elektronik",
     value: 500000,
     weight: 2,
   ),
-  new Barang(
+  new Item(
     id: "barangC",
     name: "Matras Yoga",
     type: "Peralatan",
     value: 80000,
     weight: 1,
   ),
-  new Barang(
+  new Item(
     id: "barangD",
     name: "Nintendo Switch",
     type: "Elektronik",
