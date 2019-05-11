@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:tugas_akhir/data/pickup_transaction_data.dart';
 import 'package:tugas_akhir/presenter/pickup_transaction_presenter.dart';
@@ -102,11 +101,6 @@ class _PickupTransactionState extends State<PickupTransactionPage> implements Pi
 
   @override
   void onLoadPickupTransactionError() {
-    Fluttertoast.showToast(
-        msg: "Gagal memuat, coba lagi.",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIos: 1
-    );
+
   }
 }

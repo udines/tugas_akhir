@@ -1,4 +1,9 @@
-geolocator=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\geolocator-3.0.1\\
-google_api_availability=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\google_api_availability-2.0.0\\
-location=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\location-2.3.5\\
-permission_handler=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\permission_handler-3.0.0\\
+firebase_analytics=/Users/fata/.pub-cache/hosted/pub.dartlang.org/firebase_analytics-2.1.1+1/
+firebase_core=/Users/fata/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.3.4/
+firebase_database=/Users/fata/.pub-cache/hosted/pub.dartlang.org/firebase_database-2.0.3/
+geolocator=/Users/fata/.pub-cache/hosted/pub.dartlang.org/geolocator-4.0.0/
+google_api_availability=/Users/fata/.pub-cache/hosted/pub.dartlang.org/google_api_availability-2.0.0/
+google_maps_flutter=/Users/fata/.pub-cache/hosted/pub.dartlang.org/google_maps_flutter-0.5.7/
+location_permissions=/Users/fata/.pub-cache/hosted/pub.dartlang.org/location_permissions-1.0.2/
+permission_handler=/Users/fata/.pub-cache/hosted/pub.dartlang.org/permission_handler-3.0.0/
+url_launcher=/Users/fata/.pub-cache/hosted/pub.dartlang.org/url_launcher-5.0.2/

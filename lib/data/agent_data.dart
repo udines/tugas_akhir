@@ -1,5 +1,3 @@
-import 'package:location/location.dart';
-
 import 'user_data.dart';
 
 class Agent {

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:tugas_akhir/data/agent_data.dart';
 import 'package:tugas_akhir/presenter/agent_presenter.dart';
+import 'package:tugas_akhir/view/agent_detail_page/agent_detail.dart';
 
 class AgentPage extends StatefulWidget {
   @override
@@ -58,7 +59,6 @@ class _AgentPageState extends State<AgentPage> implements AgentViewContract {
     String _phone = agent.phone;
     String _timeOpen = agent.timeOpen;
     String _timeClose = agent.timeClose;
-
     return Center(
       child: Card(
         margin: EdgeInsets.only(left: 8, top: 4, bottom: 4, right: 8),
@@ -68,21 +68,21 @@ class _AgentPageState extends State<AgentPage> implements AgentViewContract {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ListTile(
-                  title: Text(agent.name),
-                  subtitle: Text("$_address ($_phone)\nBuka jam $_timeOpen - $_timeClose")
+                onTap: () {
+                  _onItemTapped(agent);
+                },
+                title: Text(agent.name),
+                subtitle: Text("$_address ($_phone)\nBuka jam $_timeOpen - $_timeClose")
               ),
               ButtonTheme.bar(
                 child: ButtonBar(
                   children: <Widget>[
                     FlatButton.icon(
-                      onPressed: () {},
-                      label: Text("Telpon"),
+                      onPressed: () {
+                        _makePhoneCall(agent.phone);
+                      },
+                      label: Text("Telepon"),
                       icon: new Icon(Icons.phone),
-                    ),
-                    FlatButton.icon(
-                      onPressed: () {},
-                      label: Text("Pesan"),
-                      icon: new Icon(Icons.message),
                     ),
                     FlatButton.icon(
                       onPressed: () {},
@@ -99,6 +99,26 @@ class _AgentPageState extends State<AgentPage> implements AgentViewContract {
     );
   }
 
+  void _makePhoneCall(String phone) async {
+    var url = "tel:" + phone;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  void _onItemTapped(Agent agent) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AgentDetail(
+              agent: agent
+            )
+        )
+    );
+  }
+
   @override
   void onLoadAgentComplete(List<Agent> agents) {
     setState(() {
@@ -109,12 +129,7 @@ class _AgentPageState extends State<AgentPage> implements AgentViewContract {
 
   @override
   void onLoadAgentError() {
-    Fluttertoast.showToast(
-        msg: "Gagal memuat, coba lagi.",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIos: 1
-    );
+
   }
 
 }

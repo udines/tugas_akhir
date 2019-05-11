@@ -5,21 +5,18 @@ import 'package:tugas_akhir/view/map_page/home_map_widget.dart';
 import 'package:tugas_akhir/view/pickup_transaction_page/pickup_transaction_page.dart';
 
 class Home extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return _HomeState();
   }
-
 }
 
 class _HomeState extends State<Home> {
-
   int _currentIndex = 0;
+  String _appBarTitle = "Peta Agen Pos";
   final List<Widget> _children = [
     MapPage(),
     AgentPage(),
-    ConversationPage(),
     PickupTransactionPage()
   ];
 
@@ -27,7 +24,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Agen Pos Indonesia'),
+        title: Text(_appBarTitle),
       ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -44,10 +41,6 @@ class _HomeState extends State<Home> {
             title: Text('Agen')
           ),
           BottomNavigationBarItem(
-              icon: new Icon(Icons.message),
-              title: Text('Pesan')
-          ),
-          BottomNavigationBarItem(
             icon: new Icon(Icons.swap_horiz),
             title: Text('Transaksi')
           )
@@ -59,6 +52,20 @@ class _HomeState extends State<Home> {
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
+      switch(index) {
+        case 0:
+          _appBarTitle = "Peta Agen Pos";
+          break;
+        case 1:
+          _appBarTitle = "Katalog Agen Pos";
+          break;
+        case 3:
+          _appBarTitle = "Daftar Transaksi";
+          break;
+        default:
+          _appBarTitle= "Agen Pos Indonesia";
+          break;
+      }
     });
   }
 }
