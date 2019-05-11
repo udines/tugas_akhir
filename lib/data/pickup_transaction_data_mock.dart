@@ -1,5 +1,5 @@
 import 'package:tugas_akhir/data/agent_data.dart';
-import 'package:tugas_akhir/data/barang_data.dart';
+import 'package:tugas_akhir/data/item_data.dart';
 import 'package:tugas_akhir/data/transaction_data.dart';
 import 'package:tugas_akhir/data/user_data.dart';
 

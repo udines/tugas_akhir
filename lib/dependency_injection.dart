@@ -1,9 +1,9 @@
 import 'package:tugas_akhir/data/agent_data.dart';
 import 'package:tugas_akhir/data/agent_data_mock.dart';
 import 'package:tugas_akhir/data/agent_data_prod.dart';
-import 'package:tugas_akhir/data/barang_data.dart';
-import 'package:tugas_akhir/data/barang_data_mock.dart';
-import 'package:tugas_akhir/data/barang_data_prod.dart';
+import 'package:tugas_akhir/data/item_data.dart';
+import 'package:tugas_akhir/data/item_data_mock.dart';
+import 'package:tugas_akhir/data/item_data_prod.dart';
 import 'package:tugas_akhir/data/chat_data.dart';
 import 'package:tugas_akhir/data/chat_data_mock.dart';
 import 'package:tugas_akhir/data/chat_data_prod.dart';

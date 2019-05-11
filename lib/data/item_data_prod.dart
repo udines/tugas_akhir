@@ -1,4 +1,4 @@
-import 'barang_data.dart';
+import 'item_data.dart';
 
 class ProdBarangRepository implements BarangRepository {
   @override

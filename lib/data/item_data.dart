@@ -7,8 +7,8 @@ class Barang {
 
   Barang({
     this.id,
-    this.name,
     this.type,
+    this.name,
     this.value,
     this.weight
   });

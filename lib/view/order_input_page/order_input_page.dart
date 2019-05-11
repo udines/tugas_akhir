@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tugas_akhir/data/agent_data.dart';
-import 'package:tugas_akhir/data/barang_data.dart';
+import 'package:tugas_akhir/data/item_data.dart';
 import 'package:tugas_akhir/data/user_data.dart';
 import 'package:tugas_akhir/presenter/order_input_presenter.dart';
 import 'package:tugas_akhir/view/add_item_page/add_item_page.dart';
