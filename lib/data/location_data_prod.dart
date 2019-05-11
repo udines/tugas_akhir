@@ -21,4 +21,10 @@ class ProdLocationRepository implements LocationRepository {
         .requestPermissions([PermissionGroup.location]);
     return response;
   }
+
+  @override
+  Future<String> getAddress(double latitude, double longitude) {
+    // TODO: implement getAddress
+    return null;
+  }
 }

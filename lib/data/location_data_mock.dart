@@ -28,5 +28,12 @@ class MockLocationRepository implements LocationRepository {
       map
     );
   }
+
+  @override
+  Future<String> getAddress(double latitude, double longitude) {
+    return Future.value(
+      "Mock: Jalan Sukabirus No.418"
+    );
+  }
 }
 

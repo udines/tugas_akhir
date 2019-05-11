@@ -32,17 +32,17 @@ class AgentDetailPresenter {
   }
 
   bool isAgentOpen(Agent agent, DateTime now) {
-    bool isOpen = false;
-    String strFormatOpen = now.toYyyyMmDdString() + " " + agent.timeOpen + ":00";
-    String strFormatClose = now.toYyyyMmDdString() + " " + agent.timeClose + ":00";
-    DateTime dateOpen, dateClose;
-    dateOpen = DateTime.parse(strFormatOpen);
-    dateClose = DateTime.parse(strFormatClose);
-    if(now.compareTo(dateOpen) >= 0 && now.compareTo(dateClose) <= 0) {
-      isOpen = true;
-    } else {
-      isOpen = false;
-    }
+    bool isOpen = true;
+    // String strFormatOpen = now.toYyyyMmDdString() + " " + agent.timeOpen + ":00";
+    // String strFormatClose = now.toYyyyMmDdString() + " " + agent.timeClose + ":00";
+    // DateTime dateOpen, dateClose;
+    // dateOpen = DateTime.parse(strFormatOpen);
+    // dateClose = DateTime.parse(strFormatClose);
+    // if(now.compareTo(dateOpen) >= 0 && now.compareTo(dateClose) <= 0) {
+    //   isOpen = true;
+    // } else {
+    //   isOpen = false;
+    // }
     return isOpen;
   }
 }
