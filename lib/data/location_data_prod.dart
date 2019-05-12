@@ -5,7 +5,9 @@ import 'location_data.dart';
 class ProdLocationRepository implements LocationRepository {
   @override
   Future<LatLng> getCurrentLocation() async {
-    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    Position position = await Geolocator().getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high
+    );
     return LatLng(latitude: position.latitude, longitude: position.longitude);
   }
 
@@ -23,8 +25,24 @@ class ProdLocationRepository implements LocationRepository {
   }
 
   @override
-  Future<String> getAddress(double latitude, double longitude) {
-    // TODO: implement getAddress
-    return null;
+  Future<String> getAddress(double latitude, double longitude) async {
+    List<Placemark> placemark = await Geolocator().placemarkFromCoordinates(latitude, longitude);
+    if (placemark.isEmpty) {
+      return null;
+    } else {
+      return placemark[0].subThoroughfare;
+    }
+  }
+
+  @override
+  Future<String> getCity() async {
+    Position position = await Geolocator().getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high
+    );
+
+    List<Placemark> placemark = await Geolocator()
+    .placemarkFromCoordinates(position.latitude, position.longitude);
+
+    return placemark[0].locality;
   }
 }

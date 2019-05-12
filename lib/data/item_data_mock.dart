@@ -1,35 +1,40 @@
-import 'barang_data.dart';
+import 'item_data.dart';
 
-class MockBarangRepository implements BarangRepository {
+class MockBarangRepository implements ItemRepository {
   @override
-  Future<List<Barang>> fetchBarangs() {
+  Future<List<Item>> fetchItems() {
     return new Future.value(barangs);
+  }
+
+  @override
+  Future<Item> fetchItem(String pickupId, String transactionId, String itemId) {
+    return new Future.value(barangs[0]);
   }
 }
 
-var barangs = <Barang>[
-  new Barang(
+var barangs = <Item>[
+  new Item(
     id: "barangA",
     name: "Kopi Robusta",
     type: "Makanan",
     value: 150000,
     weight: 1,
   ),
-  new Barang(
+  new Item(
     id: "barangB",
     name: "Headphone",
     type: "Elektronik",
     value: 500000,
     weight: 2,
   ),
-  new Barang(
+  new Item(
     id: "barangC",
     name: "Matras Yoga",
     type: "Peralatan",
     value: 80000,
     weight: 1,
   ),
-  new Barang(
+  new Item(
     id: "barangD",
     name: "Nintendo Switch",
     type: "Elektronik",

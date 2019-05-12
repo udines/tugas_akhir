@@ -1,5 +1,5 @@
 import 'package:tugas_akhir/data/agent_data.dart';
-import 'package:tugas_akhir/data/barang_data.dart';
+import 'package:tugas_akhir/data/item_data.dart';
 import 'package:tugas_akhir/data/transaction_data.dart';
 import 'package:tugas_akhir/data/user_data.dart';
 
@@ -7,34 +7,39 @@ import 'pickup_transaction_data.dart';
 
 class MockPickupTransactionRepository implements PickupTransactionRepository {
   @override
-  Future<List<PickupTransaction>> fetchPickupTransactions() {
+  Future<List<PickupTransaction>> fetchPickupTransactionsByUser(String userId) {
     return new Future.value(pickups);
+  }
+
+  @override
+  Future<List<PickupTransaction>> fetchPickupTransactionsByAgent(String agentId) {
+    return Future.value(pickups);
   }
 }
 
-var barangs = <Barang>[
-  new Barang(
+var barangs = <Item>[
+  new Item(
     id: "barangA",
     name: "Kopi Robusta",
     type: "Makanan",
     value: 150000,
     weight: 1,
   ),
-  new Barang(
+  new Item(
     id: "barangB",
     name: "Headphone",
     type: "Elektronik",
     value: 500000,
     weight: 2,
   ),
-  new Barang(
+  new Item(
     id: "barangC",
     name: "Matras Yoga",
     type: "Peralatan",
     value: 80000,
     weight: 1,
   ),
-  new Barang(
+  new Item(
     id: "barangD",
     name: "Nintendo Switch",
     type: "Elektronik",
@@ -136,7 +141,7 @@ var transactions = <Transaction>[
       receiverProvince: "Jawa Timur",
       receiverAddress: "Jalan Bali No. 5",
       date: new DateTime.now(),
-      barang: barangs[0],
+      item: barangs[0],
       user: users[0],
       agent: agents[0]
   ),
@@ -151,7 +156,7 @@ var transactions = <Transaction>[
       receiverProvince: "Jawa Timur",
       receiverAddress: "Jalan Bali No. 5",
       date: new DateTime.now(),
-      barang: barangs[1],
+      item: barangs[1],
       user: users[0],
       agent: agents[0]
   ),
@@ -166,7 +171,7 @@ var transactions = <Transaction>[
       receiverProvince: "Jawa Timur",
       receiverAddress: "Jalan Bali No. 5",
       date: new DateTime.now(),
-      barang: barangs[1],
+      item: barangs[1],
       user: users[0],
       agent: agents[0]
   ),
@@ -179,7 +184,7 @@ var pickups = <PickupTransaction>[
     latitude: -7.823334,
     longitude: 110.428962,
     transactions: transactions,
-    agent: agents[0],
-    user: users[0]
+    agentId: agents[0].id,
+    userId: users[0].id
   )
 ];

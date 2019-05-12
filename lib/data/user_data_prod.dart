@@ -1,12 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'user_data.dart';
 
 class ProdUserRepository implements UserRepository {
-  @override
-  Future<List<User>> fetchUsers() {
-    // TODO: implement fetchUsers
-    return null;
-  }
-
+  
   @override
   Future<User> fetchCurrentUser() {
     // TODO: implement fetchCurrentUser
@@ -14,8 +11,11 @@ class ProdUserRepository implements UserRepository {
   }
 
   @override
-  Future<User> fetchUser(String id) {
-    // TODO: implement fetchUser
-    return null;
+  Future<User> fetchUser(String id) async {
+    User user;
+    Firestore.instance.collection('users').document(id).get().then((data) => {
+      user = data as User
+    });
+    return user;
   }
 }

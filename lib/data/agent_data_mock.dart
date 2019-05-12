@@ -3,7 +3,7 @@ import 'user_data.dart';
 
 class MockAgentRepository implements AgentRepository {
   @override
-  Future<List<Agent>> fetchAgents() {
+  Future<List<Agent>> fetchAgentsByCity(String city) {
     return new Future.value(agents);
   }
 
@@ -30,6 +30,11 @@ class MockAgentRepository implements AgentRepository {
         )
       )
     );
+  }
+
+  @override
+  Future<List<Agent>> getAgents() {
+    return new Future.value(agents);
   }
 }
 

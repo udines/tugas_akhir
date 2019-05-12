@@ -1,5 +1,5 @@
 import 'agent_data.dart';
-import 'barang_data.dart';
+import 'item_data.dart';
 import 'user_data.dart';
 
 class Transaction {
@@ -7,16 +7,16 @@ class Transaction {
   //Sender information
   String senderName;
   String senderPhone;
-  String senderProvince;
+  String senderProvince = "Provinsi";
   String senderAddress;
   //Receiver information
   String receiverName;
   String receiverPhone;
-  String receiverProvince;
+  String receiverProvince = "Provinsi";
   String receiverAddress;
   DateTime date;
   //Relations
-  Barang barang;
+  Item item;
   User user;
   Agent agent;
 
@@ -31,15 +31,31 @@ class Transaction {
     this.receiverProvince,
     this.receiverAddress,
     this.date,
-    this.barang,
+    this.item,
     this.user,
     this.agent
   });
+
+  Map<String, dynamic> toMap() => {
+    'id': id,
+    'senderName': senderName,
+    'senderPhone': senderPhone,
+    'senderProvince': senderProvince,
+    'senderAddress': senderAddress,
+    'receiverName': receiverName,
+    'receiverPhone': receiverPhone,
+    'receiverProvince': receiverProvince,
+    'receiverAddress': receiverAddress,
+    'date': date, //need mapping
+    'item': item.toMap(),
+    'user': user.toMap(),
+    'agent': agent.toMap()
+  };
 }
 
 abstract class TransactionRepository {
-  Future<List<Transaction>> fetchTransactions();
-  Future<Transaction> fetchTransaction(String transactionId);
+  Future<List<Transaction>> fetchTransactions(String pickupId);
+  Future<Transaction> fetchTransaction(String pickupId, String transactionId);
 }
 
 class FetchDataException implements Exception {

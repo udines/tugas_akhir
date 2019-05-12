@@ -1,10 +1,6 @@
 import 'user_data.dart';
 
 class MockUserRepository implements UserRepository {
-  @override
-  Future<List<User>> fetchUsers() {
-    return new Future.value(users);
-  }
 
   @override
   Future<User> fetchCurrentUser() {

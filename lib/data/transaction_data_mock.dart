@@ -1,43 +1,43 @@
 import 'transaction_data.dart';
-import 'barang_data.dart';
+import 'item_data.dart';
 import 'user_data.dart';
 import 'agent_data.dart';
 
 class MockTransactionRepository implements TransactionRepository {
   @override
-  Future<List<Transaction>> fetchTransactions() {
+  Future<List<Transaction>> fetchTransactions(String pickupId) {
     return new Future.value(transactions);
   }
 
   @override
-  Future<Transaction> fetchTransaction(String transactionId) {
+  Future<Transaction> fetchTransaction(String pickupId, String transactionId) {
     return new Future.value(transactions[0]);
   }
 }
 
-var barangs = <Barang>[
-  new Barang(
+var barangs = <Item>[
+  new Item(
     id: "barangA",
     name: "Kopi Robusta",
     type: "Makanan",
     value: 150000,
     weight: 1,
   ),
-  new Barang(
+  new Item(
     id: "barangB",
     name: "Headphone",
     type: "Elektronik",
     value: 500000,
     weight: 2,
   ),
-  new Barang(
+  new Item(
     id: "barangC",
     name: "Matras Yoga",
     type: "Peralatan",
     value: 80000,
     weight: 1,
   ),
-  new Barang(
+  new Item(
     id: "barangD",
     name: "Nintendo Switch",
     type: "Elektronik",
@@ -139,7 +139,7 @@ var transactions = <Transaction>[
       receiverProvince: "Jawa Timur",
       receiverAddress: "Jalan Bali No. 5",
       date: new DateTime.now(),
-      barang: barangs[0],
+      item: barangs[0],
       user: users[0],
       agent: agents[0]
   ),
@@ -154,7 +154,7 @@ var transactions = <Transaction>[
       receiverProvince: "Jawa Timur",
       receiverAddress: "Jalan Bali No. 5",
       date: new DateTime.now(),
-      barang: barangs[1],
+      item: barangs[1],
       user: users[0],
       agent: agents[0]
   ),
@@ -169,7 +169,7 @@ var transactions = <Transaction>[
       receiverProvince: "Jawa Timur",
       receiverAddress: "Jalan Bali No. 5",
       date: new DateTime.now(),
-      barang: barangs[1],
+      item: barangs[1],
       user: users[0],
       agent: agents[0]
   ),

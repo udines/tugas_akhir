@@ -14,8 +14,8 @@ class TransactionDetailPresenter {
     _repository = new Injector().transactionRepository;
   }
 
-  void loadTransactions(String transactionId) {
-    _repository.fetchTransaction(transactionId)
+  void loadTransactions(String pickupId, String transactionId) {
+    _repository.fetchTransaction(pickupId, transactionId)
         .then((transactions) => _view.onLoadTransactionComplete(transactions))
         .catchError((onError) => _view.onLoadTransactionError());
   }
