@@ -5,10 +5,16 @@ class User {
   String phone;
 
   User({this.id, this.name, this.address, this.phone});
+
+  Map<String, dynamic> toMap() => {
+    'id': id,
+    'name': name,
+    'address': address,
+    'phone': phone,
+  };
 }
 
 abstract class UserRepository {
-  Future<List<User>> fetchUsers();
   Future<User> fetchCurrentUser();
   Future<User> fetchUser(String id);
 }

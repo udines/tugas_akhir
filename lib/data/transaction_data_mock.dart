@@ -5,20 +5,13 @@ import 'agent_data.dart';
 
 class MockTransactionRepository implements TransactionRepository {
   @override
-  Future<List<Transaction>> fetchTransactions() {
+  Future<List<Transaction>> fetchTransactions(String pickupId) {
     return new Future.value(transactions);
   }
 
   @override
-  Future<Transaction> fetchTransaction(String transactionId) {
+  Future<Transaction> fetchTransaction(String pickupId, String transactionId) {
     return new Future.value(transactions[0]);
-  }
-
-  @override
-  Future<String> createId() {
-    return Future.value(
-      "transactionA"
-    );
   }
 }
 

@@ -15,7 +15,7 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
   MapPresenter _presenter;
   List<Agent> _agents;
   bool _isLoading;
-  LatLng _userLocation;
+  // LatLng _userLocation;
   CameraPosition _cameraPosition;
   double zoom = 14.4746;
   Completer<GoogleMapController> _controller = Completer();
@@ -107,7 +107,7 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
     );
 
     setState(() {
-      _userLocation = new LatLng(latitude, longitude);
+      // _userLocation = new LatLng(latitude, longitude);
       _cameraPosition = new CameraPosition(
         target: LatLng(latitude, longitude),
         zoom: zoom

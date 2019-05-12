@@ -35,12 +35,27 @@ class Transaction {
     this.user,
     this.agent
   });
+
+  Map<String, dynamic> toMap() => {
+    'id': id,
+    'senderName': senderName,
+    'senderPhone': senderPhone,
+    'senderProvince': senderProvince,
+    'senderAddress': senderAddress,
+    'receiverName': receiverName,
+    'receiverPhone': receiverPhone,
+    'receiverProvince': receiverProvince,
+    'receiverAddress': receiverAddress,
+    'date': date, //need mapping
+    'item': item.toMap(),
+    'user': user.toMap(),
+    'agent': agent.toMap()
+  };
 }
 
 abstract class TransactionRepository {
-  Future<List<Transaction>> fetchTransactions();
-  Future<Transaction> fetchTransaction(String transactionId);
-  Future<String> createId();
+  Future<List<Transaction>> fetchTransactions(String pickupId);
+  Future<Transaction> fetchTransaction(String pickupId, String transactionId);
 }
 
 class FetchDataException implements Exception {

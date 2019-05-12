@@ -9,7 +9,9 @@ class PickupTransaction {
   double longitude;
   List<Transaction> transactions;
   //Relations
+  String agentId;
   Agent agent;
+  String userId;
   User user;
 
   PickupTransaction({
@@ -18,13 +20,28 @@ class PickupTransaction {
     this.latitude,
     this.longitude,
     this.transactions,
+    this.agentId,
     this.agent,
+    this.userId,
     this.user
   });
+
+  Map<String, dynamic> toMap() => {
+    'id': id,
+    'date': date, //need mapping
+    'latitude': latitude,
+    'longitude': longitude,
+    'transactions': transactions, //need mapping
+    'agentId': agentId,
+    'agent': agent.toMap(),
+    'userId': userId,
+    'user': user.toMap()
+  };
 }
 
 abstract class PickupTransactionRepository {
-  Future<List<PickupTransaction>> fetchPickupTransactions();
+  Future<List<PickupTransaction>> fetchPickupTransactionsByUser(String userId);
+  Future<List<PickupTransaction>> fetchPickupTransactionsByAgent(String agentId);
 }
 
 class FetchDataException implements Exception {

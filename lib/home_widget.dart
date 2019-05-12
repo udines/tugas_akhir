@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:tugas_akhir/data/agent_data.dart';
+import 'package:tugas_akhir/data/user_data.dart';
 import 'package:tugas_akhir/view/agent_page/home_agent_widget.dart';
-import 'package:tugas_akhir/view/conversation_page/home_conversation_page.dart';
 import 'package:tugas_akhir/view/map_page/home_map_widget.dart';
 import 'package:tugas_akhir/view/pickup_transaction_page/pickup_transaction_page.dart';
 
@@ -26,6 +28,12 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text(_appBarTitle),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          _addData();
+        },
+      ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
@@ -47,6 +55,34 @@ class _HomeState extends State<Home> {
         ],
       ),
     );
+  }
+
+  void _addData() {
+    Agent data;
+
+    data = Agent(
+        id: "agentC",
+        address: "Jl. Kemasan No. 1",
+        costPerKM: 2000,
+        costPerKG: 1000,
+        isReceiveOrder: true,
+        name: "Kantorpos Yogyakarta Kotagede",
+        phone: "02743994632",
+        timeOpen: "09:00",
+        timeClose: "15:00",
+        latitude: -7.827481,
+        longitude: 110.400527,
+        userAdmin: User(
+          id: "userAgentC",
+          name: "Somad",
+          address: "Karanglo",
+          phone: "08917327493"
+        ),
+        adminId: "userAgentC",
+        city: "Yogyakarta"
+      );
+
+    Firestore.instance.collection('agents').add(data.toMap());
   }
 
   void onTabTapped(int index) {

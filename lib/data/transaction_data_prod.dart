@@ -1,21 +1,26 @@
-import 'transaction_data.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as fs;
+import 'package:tugas_akhir/data/transaction_data.dart';
 
 class ProdTransactionRepository implements TransactionRepository {
   @override
-  Future<List<Transaction>> fetchTransactions() {
-    // TODO: implement fetchTransactions
-    return null;
+  Future<Transaction> fetchTransaction(String pickupId, String transactionId) async {
+    Transaction transaction;
+    fs.Firestore.instance.collection('pickups').document(pickupId)
+      .collection('transanctions').document(transactionId).get()
+      .then((document) => transaction = document as Transaction);
+    return transaction;
   }
 
   @override
-  Future<Transaction> fetchTransaction(String transactionId) {
-    // TODO: implement fetchTransaction
-    return null;
+  Future<List<Transaction>> fetchTransactions(String pickupId) async {
+    List<Transaction> list = [];
+    fs.Firestore.instance.collection('pickups').document(pickupId)
+      .collection('transanctions').snapshots().listen((snapshots) => {
+        for (var document in snapshots.documents) {
+          list.add(document as Transaction)
+        }
+      });
+    return list;
   }
-
-  @override
-  Future<String> createId() {
-    // TODO: implement createId
-    return null;
-  }
+  
 }

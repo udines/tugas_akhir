@@ -30,8 +30,6 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
   final inputReceiverPhone = TextEditingController();
   AddItemPresenter _presenter;
   bool _validate = false;
-  String _itemId, _transactionId;
-  User _user;
 
   _AddItemState() {
     _presenter = AddItemPresenter(this);
@@ -49,13 +47,6 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
     inputReceiverAddress.dispose();
     inputReceiverPhone.dispose();
     super.dispose();
-  }
-
-  @override
-  void initState() {
-    _presenter.createItemId();
-    _presenter.createTransactionId();
-    super.initState();
   }
 
   @override
@@ -166,8 +157,7 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
                 child: Text('Tambahkan barang'),
                 onPressed: () {
                   _validateData();
-                  if (_validate && _itemId.isNotEmpty && 
-                      _transactionId.isNotEmpty) {
+                  if (_validate) {
                     _constructData();
                   }
                 },
@@ -195,7 +185,7 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
   void _constructData() {
     //construct item object
     Item item = Item(
-      id: _itemId,
+      id: _presenter.createItemId(),
       name: inputName.text.isNotEmpty ? inputName.text : "Barang",
       type: inputType.text,
       weight: int.parse(inputWeight.text)
@@ -203,7 +193,7 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
 
     //construct transaction object
     Transaction transaction = Transaction(
-      id: _transactionId,
+      id: _presenter.createTransactionId(),
       senderName: inputSenderName.text,
       senderAddress: inputSenderAddress.text,
       senderPhone: inputSenderPhone.text,
@@ -226,21 +216,7 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
 
   @override
   onGetIdSuccess(String id) {
-    setState(() {
-      _itemId = id;
-    });
-  }
-
-  @override
-  void onGetTransactionIdError() {
-    // TODO: implement onGetTransactionIdError
-  }
-
-  @override
-  void onGetTransactionIdSuccess(String id) {
-    setState(() {
-      _transactionId = id;
-    });
+    
   }
 
   @override
@@ -250,8 +226,6 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
 
   @override
   void onGetCurrentUserSuccess(User user) {
-    setState(() {
-      _user = user;
-    });
+    
   }
 }

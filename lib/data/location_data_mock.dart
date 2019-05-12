@@ -35,5 +35,10 @@ class MockLocationRepository implements LocationRepository {
       "Mock: Jalan Sukabirus No.418"
     );
   }
+
+  @override
+  Future<String> getCity() {
+    return Future.value('Yogyakarta');
+  }
 }
 

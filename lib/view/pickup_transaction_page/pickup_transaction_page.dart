@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tugas_akhir/data/pickup_transaction_data.dart';
+import 'package:tugas_akhir/data/user_data.dart';
 import 'package:tugas_akhir/presenter/pickup_transaction_presenter.dart';
 
 class PickupTransactionPage extends StatefulWidget{
+  final User user;
+
+  PickupTransactionPage({Key key, this.user});
+
   @override
   _PickupTransactionState createState() => new _PickupTransactionState();
 }
@@ -21,7 +26,7 @@ class _PickupTransactionState extends State<PickupTransactionPage> implements Pi
   void initState() {
     super.initState();
     _isLoading = true;
-    _presenter.loadPickupTransactions();
+    _presenter.loadPickupTransactionsUser(widget.user.id);
   }
 
   @override

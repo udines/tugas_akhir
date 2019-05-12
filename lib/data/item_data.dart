@@ -12,11 +12,19 @@ class Item {
     this.value,
     this.weight
   });
+
+  Map<String, dynamic> toMap() => {
+    'id': id,
+    'name': name,
+    'type': type,
+    'value': value,
+    'weight': weight
+  };
 }
 
 abstract class ItemRepository {
-  Future<List<Item>> fetchBarangs();
-  Future<String> createId();
+  Future<List<Item>> fetchItems();
+  Future<Item> fetchItem(String pickupId, String transactionId, String itemId);
 }
 
 class FetchDataException implements Exception {

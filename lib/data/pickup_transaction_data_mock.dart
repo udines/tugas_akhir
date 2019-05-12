@@ -7,8 +7,13 @@ import 'pickup_transaction_data.dart';
 
 class MockPickupTransactionRepository implements PickupTransactionRepository {
   @override
-  Future<List<PickupTransaction>> fetchPickupTransactions() {
+  Future<List<PickupTransaction>> fetchPickupTransactionsByUser(String userId) {
     return new Future.value(pickups);
+  }
+
+  @override
+  Future<List<PickupTransaction>> fetchPickupTransactionsByAgent(String agentId) {
+    return Future.value(pickups);
   }
 }
 
@@ -179,7 +184,7 @@ var pickups = <PickupTransaction>[
     latitude: -7.823334,
     longitude: 110.428962,
     transactions: transactions,
-    agent: agents[0],
-    user: users[0]
+    agentId: agents[0].id,
+    userId: users[0].id
   )
 ];

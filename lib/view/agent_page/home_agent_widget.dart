@@ -132,4 +132,9 @@ class _AgentPageState extends State<AgentPage> implements AgentViewContract {
 
   }
 
+  @override
+  void onGetCityComplete(String city) {
+    
+  }
+
 }

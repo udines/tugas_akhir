@@ -135,7 +135,9 @@ class _OrderInputPageState extends State<OrderInputPage> implements OrderInputVi
     );
 
     setState(() {
-      _transactions.add(result);
+      if (result != null) {
+        _transactions.add(result);
+      }
     });
   }
 
@@ -174,7 +176,9 @@ class _OrderInputPageState extends State<OrderInputPage> implements OrderInputVi
                     FlatButton(
                       onPressed: () {
                         //delete item
-                        
+                        setState(() {
+                          _transactions.removeAt(position);
+                        });
                       }, 
                       child: Text('Hapus'),
                     ),

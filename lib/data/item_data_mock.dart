@@ -2,15 +2,13 @@ import 'item_data.dart';
 
 class MockBarangRepository implements ItemRepository {
   @override
-  Future<List<Item>> fetchBarangs() {
+  Future<List<Item>> fetchItems() {
     return new Future.value(barangs);
   }
 
   @override
-  Future<String> createId() {
-    return Future.value(
-      'barangA'
-    );
+  Future<Item> fetchItem(String pickupId, String transactionId, String itemId) {
+    return new Future.value(barangs[0]);
   }
 }
 
