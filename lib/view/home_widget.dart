@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tugas_akhir/data/agent_data.dart';
 import 'package:tugas_akhir/data/user_data.dart';
-import 'package:tugas_akhir/view/agent_page/home_agent_widget.dart';
-import 'package:tugas_akhir/view/map_page/home_map_widget.dart';
-import 'package:tugas_akhir/view/pickup_transaction_page/pickup_transaction_page.dart';
+import 'package:tugas_akhir/view/home_agent_widget.dart';
+import 'package:tugas_akhir/view/home_map_widget.dart';
+import 'package:tugas_akhir/view/pickup_transaction_page.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -28,12 +28,12 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text(_appBarTitle),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          _addData();
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.add),
+      //   onPressed: () {
+      //     _addData();
+      //   },
+      // ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_akhir/data/agent_data.dart';
 import 'package:tugas_akhir/data/user_data.dart';
-import 'package:tugas_akhir/view/order_input_page/order_input_page.dart';
+import 'package:tugas_akhir/view/order_input_page.dart';
 import 'package:tugas_akhir/presenter/agent_detail_presenter.dart';
 
 class AgentDetail extends StatefulWidget {

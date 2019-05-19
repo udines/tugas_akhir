@@ -1,3 +1,0 @@
-class OrderListView {
-  void showList() {}
-}

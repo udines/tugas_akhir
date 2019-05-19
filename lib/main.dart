@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tugas_akhir/home_widget.dart';
 import 'package:tugas_akhir/dependency_injection.dart';
 import 'package:tugas_akhir/view/login_page.dart';
 

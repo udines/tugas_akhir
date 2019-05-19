@@ -6,7 +6,7 @@ import 'package:tugas_akhir/data/agent_data.dart';
 import 'package:tugas_akhir/data/transaction_data.dart';
 import 'package:tugas_akhir/data/user_data.dart';
 import 'package:tugas_akhir/presenter/order_input_presenter.dart';
-import 'package:tugas_akhir/view/add_item_page/add_item_page.dart';
+import 'package:tugas_akhir/view/add_item_page.dart';
 
 class OrderInputPage extends StatefulWidget {
   final Agent agent;
