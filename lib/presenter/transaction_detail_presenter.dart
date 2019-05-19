@@ -1,4 +1,4 @@
-import 'package:tugas_akhir/data/transaction_data.dart';
+import 'package:tugas_akhir/data/transaction/transaction_data.dart';
 import 'package:tugas_akhir/dependency_injection.dart';
 
 abstract class TransactionDetailViewContract {

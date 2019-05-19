@@ -1,9 +1,9 @@
-import 'package:tugas_akhir/data/agent_data.dart';
-import 'package:tugas_akhir/data/item_data.dart';
-import 'package:tugas_akhir/data/transaction_data.dart';
-import 'package:tugas_akhir/data/user_data.dart';
+import 'package:tugas_akhir/data/agent/agent_data.dart';
+import 'package:tugas_akhir/data/item/item_data.dart';
+import 'package:tugas_akhir/data/transaction/transaction_data.dart';
+import 'package:tugas_akhir/data/user/user_data.dart';
 
-import 'pickup_transaction_data.dart';
+import 'package:tugas_akhir/data/pickup/pickup_transaction_data.dart';
 
 class MockPickupTransactionRepository implements PickupTransactionRepository {
   @override

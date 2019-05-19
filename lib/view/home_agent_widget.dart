@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:tugas_akhir/data/agent_data.dart';
+import 'package:tugas_akhir/data/agent/agent_data.dart';
 import 'package:tugas_akhir/presenter/agent_presenter.dart';
 import 'package:tugas_akhir/view/agent_detail.dart';
 

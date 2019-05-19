@@ -1,5 +1,5 @@
-import 'package:tugas_akhir/data/agent_data.dart';
-import 'package:tugas_akhir/data/location_data.dart';
+import 'package:tugas_akhir/data/agent/agent_data.dart';
+import 'package:tugas_akhir/data/location/location_data.dart';
 import 'package:tugas_akhir/dependency_injection.dart';
 
 abstract class AgentViewContract {

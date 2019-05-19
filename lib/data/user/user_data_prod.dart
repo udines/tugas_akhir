@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'user_data.dart';
+import 'package:tugas_akhir/data/user/user_data.dart';
 
 class ProdUserRepository implements UserRepository {
   

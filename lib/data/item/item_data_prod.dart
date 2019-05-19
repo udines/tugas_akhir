@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'item_data.dart';
+import 'package:tugas_akhir/data/item/item_data.dart';
 
 class ProdBarangRepository implements ItemRepository {
   @override

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_akhir/view/home_agent_page.dart';
+import 'package:tugas_akhir/view/home_widget.dart';
 
-import '../home_widget.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -35,7 +36,14 @@ class _LoginState extends State<LoginPage> {
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeAgent()
+            )
+          );
+        },
         child: Text("Login Agen",
           textAlign: TextAlign.center,
           style: style.copyWith(

@@ -1,4 +1,4 @@
-import 'agent_data.dart';
+import 'package:tugas_akhir/data/agent/agent_data.dart';
 import 'user_data.dart';
 
 class MockAgentRepository implements AgentRepository {

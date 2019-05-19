@@ -1,7 +1,7 @@
-import 'transaction_data.dart';
-import 'item_data.dart';
-import 'user_data.dart';
-import 'agent_data.dart';
+import 'package:tugas_akhir/data/transaction/transaction_data.dart';
+import 'package:tugas_akhir/data/item/item_data.dart';
+import 'package:tugas_akhir/data/user/user_data.dart';
+import 'package:tugas_akhir/data/agent/agent_data.dart';
 
 class MockTransactionRepository implements TransactionRepository {
   @override

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'pickup_transaction_data.dart';
+import 'package:tugas_akhir/data/pickup/pickup_transaction_data.dart';
 
 class ProdPickupTransactionRepository implements PickupTransactionRepository {
   @override

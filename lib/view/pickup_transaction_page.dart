@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:tugas_akhir/data/pickup_transaction_data.dart';
-import 'package:tugas_akhir/data/user_data.dart';
+import 'package:tugas_akhir/data/pickup/pickup_transaction_data.dart';
+import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/presenter/pickup_transaction_presenter.dart';
 
 class PickupTransactionPage extends StatefulWidget{

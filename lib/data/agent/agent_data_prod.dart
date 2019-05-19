@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tugas_akhir/data/agent_data.dart';
+import 'package:tugas_akhir/data/agent/agent_data.dart';
 
 class ProdAgentRepository implements AgentRepository {
   @override
@@ -29,30 +29,13 @@ class ProdAgentRepository implements AgentRepository {
 
   @override
   Future<List<Agent>> getAgents() async {
-    // String city;
     List<Agent> list = [];
 
-    // Position position = await Geolocator().getCurrentPosition(
-    //   desiredAccuracy: LocationAccuracy.high
-    // );
-
-    // List<Placemark> placemark = await Geolocator()
-    // .placemarkFromCoordinates(position.latitude, position.longitude);
-    // city = placemark[0].locality;
-
-    Firestore.instance.collection('agents').where('city', isEqualTo: 'Yogyakarta')
-    .snapshots().listen((data) => {
+    Firestore.instance.collection('agents').snapshots().listen((data) => {
       for (var document in data.documents) {
-        list.add(document as Agent)
+        list.add(Agent.fromSnapshot(document))
       }
     });
-
-    // QuerySnapshot snapshot = await Firestore.instance.collection('agents')
-    // .where('city', isEqualTo: 'Yogyakarta').getDocuments();
-
-    // for (var document in snapshot.documents) {
-    //   list.add(document as Agent);
-    // }
 
     return list;
   }

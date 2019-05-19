@@ -1,6 +1,6 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'location_data.dart';
+import 'package:tugas_akhir/data/location/location_data.dart';
 
 class ProdLocationRepository implements LocationRepository {
   @override

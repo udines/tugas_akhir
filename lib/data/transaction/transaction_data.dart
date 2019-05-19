@@ -1,6 +1,6 @@
-import 'agent_data.dart';
-import 'item_data.dart';
-import 'user_data.dart';
+import 'package:tugas_akhir/data/agent/agent_data.dart';
+import 'package:tugas_akhir/data/item/item_data.dart';
+import 'package:tugas_akhir/data/user/user_data.dart';
 
 class Transaction {
   String id;

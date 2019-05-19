@@ -1,4 +1,4 @@
-import 'item_data.dart';
+import 'package:tugas_akhir/data/item/item_data.dart';
 
 class MockBarangRepository implements ItemRepository {
   @override

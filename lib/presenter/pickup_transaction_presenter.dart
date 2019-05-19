@@ -1,4 +1,4 @@
-import 'package:tugas_akhir/data/pickup_transaction_data.dart';
+import 'package:tugas_akhir/data/pickup/pickup_transaction_data.dart';
 import 'package:tugas_akhir/dependency_injection.dart';
 
 abstract class PickupTransactionViewContract {

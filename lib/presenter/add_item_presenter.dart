@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart' as fs;
-import 'package:tugas_akhir/data/item_data.dart';
-import 'package:tugas_akhir/data/transaction_data.dart';
-import 'package:tugas_akhir/data/user_data.dart';
+import 'package:tugas_akhir/data/item/item_data.dart';
+import 'package:tugas_akhir/data/transaction/transaction_data.dart';
+import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/dependency_injection.dart';
 
 abstract class AddItemViewContract {
