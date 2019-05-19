@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'user_data.dart';
 
 class Agent {
@@ -57,7 +59,24 @@ class Agent {
     this.costPerKM = map['costPerKM'];
     this.costPerKG = map['costPerKG'];
 
-  } 
+  }
+
+  Agent.fromSnapshot(DocumentSnapshot snapshot) {
+    id = snapshot.documentID;
+    address = snapshot['address'];
+    city = snapshot['city'];
+    costPerKM = snapshot['costPerKM'];
+    costPerKG = snapshot['costPerKG'];
+    isReceiveOrder = snapshot['isReceiveOrder'];
+    name = snapshot['name'];
+    phone = snapshot['phone'];
+    timeOpen = snapshot['timeOpen'];
+    timeClose = snapshot['timeClose'];
+    latitude = snapshot['latitude'];
+    longitude = snapshot['longitude'];
+    adminId = snapshot['adminId'];
+    userAdmin = snapshot['userAdmin'];
+  }
 }
 
 abstract class AgentRepository {
