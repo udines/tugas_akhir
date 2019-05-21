@@ -1,4 +1,4 @@
-import 'package:tugas_akhir/data/chat_data.dart';
+import 'package:tugas_akhir/data/chat/chat_data.dart';
 import 'package:tugas_akhir/dependency_injection.dart';
 
 abstract class ChatViewContract {

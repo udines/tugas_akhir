@@ -11,7 +11,7 @@ class TransactionDetailPresenter {
   TransactionRepository _repository;
 
   TransactionDetailPresenter(this._view) {
-    _repository = new Injector().transactionRepository;
+    _repository = Injector().transactionRepository;
   }
 
   void loadTransactions(String pickupId, String transactionId) {

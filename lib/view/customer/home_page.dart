@@ -2,24 +2,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tugas_akhir/data/agent/agent_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
-import 'package:tugas_akhir/view/home_agent_widget.dart';
-import 'package:tugas_akhir/view/home_map_widget.dart';
-import 'package:tugas_akhir/view/pickup_transaction_page.dart';
+import 'package:tugas_akhir/view/customer/agent_list_page.dart';
+import 'package:tugas_akhir/view/customer/map_page.dart';
+import 'package:tugas_akhir/view/customer/pickup_list_page.dart';
 
-class Home extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _HomeState();
+    return _HomePageState();
   }
 }
 
-class _HomeState extends State<Home> {
+class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   String _appBarTitle = "Peta Agen Pos";
   final List<Widget> _children = [
     MapPage(),
-    AgentPage(),
-    PickupTransactionPage()
+    AgentListPage(),
+    PickupPage()
   ];
 
   @override

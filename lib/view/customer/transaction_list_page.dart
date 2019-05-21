@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TransactionPage extends StatelessWidget {
+class TransactionListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -1,18 +1,18 @@
 import 'package:tugas_akhir/data/location/location_data.dart';
 import 'package:tugas_akhir/dependency_injection.dart';
 
-abstract class OrderInputViewContract {
+abstract class InputPickupViewContract {
   void onGetCurrentUserLocationComplete(double latitude, double longitude);
   void onGetCurrentUserLocationError(String errorMessage);
   void onGetAddressComplete(String address);
   void onGetAddressError(String errorMessage);
 }
 
-class OrderInputPresenter {
-  OrderInputViewContract _view;
+class InputPickupPresenter {
+  InputPickupViewContract _view;
   LocationRepository _locationRepo;
 
-  OrderInputPresenter(this._view) {
+  InputPickupPresenter(this._view) {
     _locationRepo = new Injector().locationRepository;
   }
 

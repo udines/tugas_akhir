@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_akhir/data/agent/agent_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
-import 'package:tugas_akhir/view/order_input_page.dart';
-import 'package:tugas_akhir/presenter/agent_detail_presenter.dart';
+import 'package:tugas_akhir/view/customer/input_pickup_page.dart';
+import 'package:tugas_akhir/presenter/customer/agent_detail_presenter.dart';
 
-class AgentDetail extends StatefulWidget {
+class AgentDetailPage extends StatefulWidget {
   final Agent agent;
 
-  AgentDetail({Key key, @required this.agent}) : super(key: key);
+  AgentDetailPage({Key key, @required this.agent}) : super(key: key);
 
   @override
-  _AgentDetailState createState() => _AgentDetailState();
+  _AgentDetailPageState createState() => _AgentDetailPageState();
 }
 
-class _AgentDetailState extends State<AgentDetail> implements AgentDetailViewContract {
+class _AgentDetailPageState extends State<AgentDetailPage> implements AgentDetailViewContract {
   BuildContext context;
   AgentDetailPresenter _presenter;
   User _currentUser;
 
-  _AgentDetailState() {
+  _AgentDetailPageState() {
     _presenter = AgentDetailPresenter(this);
   }
 
@@ -130,7 +130,7 @@ class _AgentDetailState extends State<AgentDetail> implements AgentDetailViewCon
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => OrderInputPage(
+            builder: (context) => InputPickupPage(
               agent: agent,
               user: _currentUser,
             )

@@ -1,4 +1,4 @@
-import 'package:tugas_akhir/data/conversation_data.dart';
+import 'package:tugas_akhir/data/conversation/conversation_data.dart';
 import 'package:tugas_akhir/dependency_injection.dart';
 
 abstract class ConversationViewContract {

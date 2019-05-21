@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tugas_akhir/data/agent/agent_data.dart';
-import 'package:tugas_akhir/presenter/map_presenter.dart';
-import 'package:tugas_akhir/view/agent_detail.dart';
+import 'package:tugas_akhir/presenter/customer/map_presenter.dart';
+import 'package:tugas_akhir/view/customer/agent_detail_page.dart';
 
 class MapPage extends StatefulWidget {
   @override
@@ -124,7 +124,7 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AgentDetail(
+          builder: (context) => AgentDetailPage(
             agent: agent
           )
         )

@@ -1,7 +1,7 @@
 import 'package:tugas_akhir/data/agent/agent_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 
-import 'conversation_data.dart';
+import 'package:tugas_akhir/data/conversation/conversation_data.dart';
 
 class MockConversationRepository implements ConversationRepository {
   @override

@@ -1,4 +1,4 @@
-import 'conversation_data.dart';
+import 'package:tugas_akhir/data/conversation/conversation_data.dart';
 
 class ProdConversationRepository implements ConversationRepository {
   @override

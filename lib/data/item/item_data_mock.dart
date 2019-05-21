@@ -1,6 +1,6 @@
 import 'package:tugas_akhir/data/item/item_data.dart';
 
-class MockBarangRepository implements ItemRepository {
+class MockItemRepository implements ItemRepository {
   @override
   Future<List<Item>> fetchItems() {
     return new Future.value(barangs);

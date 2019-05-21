@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tugas_akhir/data/conversation_data.dart';
-import 'package:tugas_akhir/presenter/conversation_presenter.dart';
+import 'package:tugas_akhir/data/conversation/conversation_data.dart';
+import 'package:tugas_akhir/presenter/customer/conversation_presenter.dart';
 
 class ConversationPage extends StatefulWidget {
   @override

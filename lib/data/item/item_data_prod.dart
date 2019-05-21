@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:tugas_akhir/data/item/item_data.dart';
 
-class ProdBarangRepository implements ItemRepository {
+class ProdItemRepository implements ItemRepository {
   @override
   Future<List<Item>> fetchItems() {
     // TODO: implement fetchBarangs

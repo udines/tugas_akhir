@@ -3,16 +3,16 @@ import 'package:tugas_akhir/data/item/item_data.dart';
 import 'package:tugas_akhir/data/transaction/transaction_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 
-import 'package:tugas_akhir/data/pickup/pickup_transaction_data.dart';
+import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 
-class MockPickupTransactionRepository implements PickupTransactionRepository {
+class MockPickupRepository implements PickupTransactionRepository {
   @override
-  Future<List<PickupTransaction>> fetchPickupTransactionsByUser(String userId) {
+  Future<List<Pickup>> fetchPickupTransactionsByUser(String userId) {
     return new Future.value(pickups);
   }
 
   @override
-  Future<List<PickupTransaction>> fetchPickupTransactionsByAgent(String agentId) {
+  Future<List<Pickup>> fetchPickupTransactionsByAgent(String agentId) {
     return Future.value(pickups);
   }
 }
@@ -177,8 +177,8 @@ var transactions = <Transaction>[
   ),
 ];
 
-var pickups = <PickupTransaction>[
-  new PickupTransaction(
+var pickups = <Pickup>[
+  new Pickup(
     id: "pickupA",
     date: new DateTime.now(),
     latitude: -7.823334,

@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:tugas_akhir/data/agent/agent_data.dart';
-import 'package:tugas_akhir/presenter/agent_presenter.dart';
-import 'package:tugas_akhir/view/agent_detail.dart';
+import 'package:tugas_akhir/presenter/customer/agent_presenter.dart';
+import 'package:tugas_akhir/view/customer/agent_detail_page.dart';
 
-class AgentPage extends StatefulWidget {
+class AgentListPage extends StatefulWidget {
   @override
-  _AgentPageState createState() => new _AgentPageState();
+  _AgentListPageState createState() => new _AgentListPageState();
 }
 
-class _AgentPageState extends State<AgentPage> implements AgentViewContract {
+class _AgentListPageState extends State<AgentListPage> implements AgentViewContract {
   AgentPresenter _presenter;
   List<Agent> _agents;
   bool _isLoading;
 
-  _AgentPageState() {
+  _AgentListPageState() {
     _presenter = new AgentPresenter(this);
   }
 
@@ -112,7 +112,7 @@ class _AgentPageState extends State<AgentPage> implements AgentViewContract {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => AgentDetail(
+            builder: (context) => AgentDetailPage(
               agent: agent
             )
         )

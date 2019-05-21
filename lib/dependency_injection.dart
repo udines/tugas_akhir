@@ -4,15 +4,15 @@ import 'package:tugas_akhir/data/agent/agent_data_prod.dart';
 import 'package:tugas_akhir/data/item/item_data.dart';
 import 'package:tugas_akhir/data/item/item_data_mock.dart';
 import 'package:tugas_akhir/data/item/item_data_prod.dart';
-import 'package:tugas_akhir/data/chat_data.dart';
-import 'package:tugas_akhir/data/chat_data_mock.dart';
-import 'package:tugas_akhir/data/chat_data_prod.dart';
-import 'package:tugas_akhir/data/conversation_data.dart';
-import 'package:tugas_akhir/data/conversation_data_mock.dart';
-import 'package:tugas_akhir/data/conversation_data_prod.dart';
-import 'package:tugas_akhir/data/pickup/pickup_transaction_data.dart';
-import 'package:tugas_akhir/data/pickup/pickup_transaction_data_mock.dart';
-import 'package:tugas_akhir/data/pickup/pickup_transaction_data_prod.dart';
+import 'package:tugas_akhir/data/chat/chat_data.dart';
+import 'package:tugas_akhir/data/chat/chat_data_mock.dart';
+import 'package:tugas_akhir/data/chat/chat_data_prod.dart';
+import 'package:tugas_akhir/data/conversation/conversation_data.dart';
+import 'package:tugas_akhir/data/conversation/conversation_data_mock.dart';
+import 'package:tugas_akhir/data/conversation/conversation_data_prod.dart';
+import 'package:tugas_akhir/data/pickup/pickup_data.dart';
+import 'package:tugas_akhir/data/pickup/pickup_data_mock.dart';
+import 'package:tugas_akhir/data/pickup/pickup_data_prod.dart';
 import 'package:tugas_akhir/data/transaction/transaction_data.dart';
 import 'package:tugas_akhir/data/transaction/transaction_data_mock.dart';
 import 'package:tugas_akhir/data/transaction/transaction_data_prod.dart';
@@ -52,9 +52,9 @@ class Injector {
   ItemRepository get itemRepository {
     switch (_flavor) {
       case Flavor.MOCK:
-        return new MockBarangRepository();
+        return new MockItemRepository();
       default:
-        return new ProdBarangRepository();
+        return new ProdItemRepository();
     }
   }
 
@@ -76,12 +76,12 @@ class Injector {
     }
   }
 
-  PickupTransactionRepository get pickupTransactionRepository {
+  PickupTransactionRepository get pickupRepository {
     switch (_flavor) {
       case Flavor.MOCK:
-        return new MockPickupTransactionRepository();
+        return new MockPickupRepository();
       default:
-        return new ProdPickupTransactionRepository();
+        return new ProdPickupRepository();
     }
   }
 

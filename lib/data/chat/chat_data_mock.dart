@@ -1,4 +1,4 @@
-import 'chat_data.dart';
+import 'package:tugas_akhir/data/chat/chat_data.dart';
 
 class MockChatRepository implements ChatRepository {
   @override

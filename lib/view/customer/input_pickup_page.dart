@@ -5,32 +5,32 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tugas_akhir/data/agent/agent_data.dart';
 import 'package:tugas_akhir/data/transaction/transaction_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
-import 'package:tugas_akhir/presenter/order_input_presenter.dart';
-import 'package:tugas_akhir/view/add_item_page.dart';
+import 'package:tugas_akhir/presenter/customer/input_pickup_presenter.dart';
+import 'package:tugas_akhir/view/customer/add_item_page.dart';
 
-class OrderInputPage extends StatefulWidget {
+class InputPickupPage extends StatefulWidget {
   final Agent agent;
   final User user;
 
-  OrderInputPage({Key key, this.agent, this.user}) : super(key: key);
+  InputPickupPage({Key key, this.agent, this.user}) : super(key: key);
 
   @override
-  _OrderInputPageState createState() => _OrderInputPageState();
+  _InputPickupPageState createState() => _InputPickupPageState();
 }
 
-class _OrderInputPageState extends State<OrderInputPage> implements OrderInputViewContract{
+class _InputPickupPageState extends State<InputPickupPage> implements InputPickupViewContract{
 
   Completer<GoogleMapController> _controller = Completer();
   Map<MarkerId, Marker> _markers = <MarkerId, Marker>{};
   CameraPosition _cameraPosition;
   bool _isLoading;
-  OrderInputPresenter _presenter;
+  InputPickupPresenter _presenter;
   double zoom = 14.4746;
   String _address;
   List<Transaction> _transactions = [];
 
-  _OrderInputPageState() {
-    _presenter = OrderInputPresenter(this);
+  _InputPickupPageState() {
+    _presenter = InputPickupPresenter(this);
   }
 
   @override

@@ -2,7 +2,7 @@ import 'package:tugas_akhir/data/agent/agent_data.dart';
 import 'package:tugas_akhir/data/transaction/transaction_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 
-class PickupTransaction {
+class Pickup {
   String id;
   DateTime date;
   double latitude;
@@ -14,7 +14,7 @@ class PickupTransaction {
   String userId;
   User user;
 
-  PickupTransaction({
+  Pickup({
     this.id,
     this.date,
     this.latitude,
@@ -40,8 +40,8 @@ class PickupTransaction {
 }
 
 abstract class PickupTransactionRepository {
-  Future<List<PickupTransaction>> fetchPickupTransactionsByUser(String userId);
-  Future<List<PickupTransaction>> fetchPickupTransactionsByAgent(String agentId);
+  Future<List<Pickup>> fetchPickupTransactionsByUser(String userId);
+  Future<List<Pickup>> fetchPickupTransactionsByAgent(String agentId);
 }
 
 class FetchDataException implements Exception {

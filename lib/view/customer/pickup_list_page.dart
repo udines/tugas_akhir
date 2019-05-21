@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:tugas_akhir/data/pickup/pickup_transaction_data.dart';
+import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
-import 'package:tugas_akhir/presenter/pickup_transaction_presenter.dart';
+import 'package:tugas_akhir/presenter/customer/pickup_list_presenter.dart';
 
-class PickupTransactionPage extends StatefulWidget{
+class PickupPage extends StatefulWidget{
   final User user;
 
-  PickupTransactionPage({Key key, this.user});
+  PickupPage({Key key, this.user});
 
   @override
-  _PickupTransactionState createState() => new _PickupTransactionState();
+  _PickupState createState() => new _PickupState();
 }
 
-class _PickupTransactionState extends State<PickupTransactionPage> implements PickupTransactionViewContract {
-  PickupTransactionPresenter _presenter;
-  List<PickupTransaction> _pickups;
+class _PickupState extends State<PickupPage> implements PickupViewContract {
+  PickupPresenter _presenter;
+  List<Pickup> _pickups;
   bool _isLoading;
 
-  _PickupTransactionState() {
-    _presenter = new PickupTransactionPresenter(this);
+  _PickupState() {
+    _presenter = new PickupPresenter(this);
   }
 
   @override
@@ -58,7 +58,7 @@ class _PickupTransactionState extends State<PickupTransactionPage> implements Pi
     );
   }
 
-  Widget _itemPickupTransaction(PickupTransaction pickup) {
+  Widget _itemPickupTransaction(Pickup pickup) {
     return Card(
       margin: EdgeInsets.only(top: 4, bottom: 4, left: 8, right: 8),
       child: Padding(
@@ -97,7 +97,7 @@ class _PickupTransactionState extends State<PickupTransactionPage> implements Pi
   }
 
   @override
-  void onLoadPickupTransactionComplete(List<PickupTransaction> pickups) {
+  void onLoadPickupTransactionComplete(List<Pickup> pickups) {
     setState(() {
       _isLoading = false;
       _pickups = pickups;

@@ -1,16 +1,16 @@
 import 'package:tugas_akhir/data/transaction/transaction_data.dart';
 import 'package:tugas_akhir/dependency_injection.dart';
 
-abstract class TransactionViewContract {
+abstract class TransactionListViewContract {
   void onLoadTransactionComplete(List<Transaction> transactions);
   void onLoadTransactionError();
 }
 
-class TransactionPresenter {
-  TransactionViewContract _view;
+class TransactionListPresenter {
+  TransactionListViewContract _view;
   TransactionRepository _repository;
 
-  TransactionPresenter(this._view) {
+  TransactionListPresenter(this._view) {
     _repository = new Injector().transactionRepository;
   }
 

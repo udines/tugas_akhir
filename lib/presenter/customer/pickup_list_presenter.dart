@@ -1,17 +1,17 @@
-import 'package:tugas_akhir/data/pickup/pickup_transaction_data.dart';
+import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 import 'package:tugas_akhir/dependency_injection.dart';
 
-abstract class PickupTransactionViewContract {
-  void onLoadPickupTransactionComplete(List<PickupTransaction> pickups);
+abstract class PickupViewContract {
+  void onLoadPickupTransactionComplete(List<Pickup> pickups);
   void onLoadPickupTransactionError();
 }
 
-class PickupTransactionPresenter {
-  PickupTransactionViewContract _view;
+class PickupPresenter {
+  PickupViewContract _view;
   PickupTransactionRepository _repository;
 
-  PickupTransactionPresenter(this._view) {
-    _repository = new Injector().pickupTransactionRepository;
+  PickupPresenter(this._view) {
+    _repository = new Injector().pickupRepository;
   }
 
   void loadPickupTransactionsUser(String userId) {

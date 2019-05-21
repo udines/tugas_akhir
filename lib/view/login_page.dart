@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tugas_akhir/view/home_agent_page.dart';
-import 'package:tugas_akhir/view/home_widget.dart';
+import 'package:tugas_akhir/view/agent/home_page.dart' as agent;
+import 'package:tugas_akhir/view/customer/home_page.dart' as customer;
 
 
 class LoginPage extends StatefulWidget {
@@ -9,7 +9,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginState extends State<LoginPage> {
-  TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 12.0);
+  TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 14.0);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class _LoginState extends State<LoginPage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => HomeAgent()
+              builder: (context) => agent.HomePage()
             )
           );
         },
@@ -61,7 +61,7 @@ class _LoginState extends State<LoginPage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => Home()
+              builder: (context) => customer.HomePage()
             )
           );
         },
@@ -86,15 +86,19 @@ class _LoginState extends State<LoginPage> {
                 SizedBox(height: 8,),
                 passwordField,
                 SizedBox(height: 8,),
-                Flexible(
-                  flex: 1,
-                  child: loginButonAgent,
+                Row(
+                  children: <Widget>[
+                    Flexible(
+                      flex: 1,
+                      child: loginButonAgent,
+                    ),
+                    SizedBox(width: 8,),
+                    Flexible(
+                      flex: 1,
+                      child: loginButonCustomer,
+                    )
+                  ],
                 ),
-                SizedBox(height: 8,),
-                Flexible(
-                  flex: 1,
-                  child: loginButonCustomer,
-                )
               ],
             ),
           ),
