@@ -39,4 +39,8 @@ class AddItemPresenter {
         .then((user) => _view.onGetCurrentUserSuccess(user))
         .catchError((onError) => _view.onGetCurrentUserError());
   }
+
+  void postItem(Item item, String transactionId) {
+
+  }
 }
