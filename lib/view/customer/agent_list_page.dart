@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:tugas_akhir/data/agent/agent_data.dart';
-import 'package:tugas_akhir/presenter/customer/agent_presenter.dart';
+import 'package:tugas_akhir/presenter/customer/agent_list_presenter.dart';
 import 'package:tugas_akhir/view/customer/agent_detail_page.dart';
 
 class AgentListPage extends StatefulWidget {
