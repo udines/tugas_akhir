@@ -7,7 +7,7 @@ class LoginMock extends Mock {
   LoginPresenter presenter = LoginPresenter(view);
 }
 
-void main() {
+main() {
   group('validate password', () {
     final LoginMock loginMock = LoginMock();
 
