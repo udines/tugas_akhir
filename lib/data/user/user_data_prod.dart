@@ -18,4 +18,10 @@ class ProdUserRepository implements UserRepository {
     });
     return user;
   }
+
+  @override
+  Future<User> loginUser(String email, String password) {
+    // TODO: implement loginUser
+    return null;
+  }
 }

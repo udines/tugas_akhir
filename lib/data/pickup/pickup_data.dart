@@ -40,8 +40,8 @@ class Pickup {
 }
 
 abstract class PickupTransactionRepository {
-  Future<List<Pickup>> fetchPickupTransactionsByUser(String userId);
-  Future<List<Pickup>> fetchPickupTransactionsByAgent(String agentId);
+  Future<List<Pickup>> fetchPickupsByUser(String userId);
+  Future<List<Pickup>> fetchPickupsByAgent(String agentId);
 }
 
 class FetchDataException implements Exception {

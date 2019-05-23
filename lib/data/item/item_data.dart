@@ -23,7 +23,7 @@ class Item {
 }
 
 abstract class ItemRepository {
-  Future<List<Item>> fetchItems();
+  Future<List<Item>> fetchItems(String transactionId);
   Future<Item> fetchItem(String pickupId, String transactionId, String itemId);
 }
 

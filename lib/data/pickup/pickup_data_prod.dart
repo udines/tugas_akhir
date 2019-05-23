@@ -4,7 +4,7 @@ import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 
 class ProdPickupRepository implements PickupTransactionRepository {
   @override
-  Future<List<Pickup>> fetchPickupTransactionsByUser(String userId) async {
+  Future<List<Pickup>> fetchPickupsByUser(String userId) async {
     List<Pickup> list = [];
     CollectionReference pickupRef = Firestore.instance.collection('pickups');
     Query query = pickupRef.where('userId', isEqualTo: userId);
@@ -17,7 +17,7 @@ class ProdPickupRepository implements PickupTransactionRepository {
   }
 
   @override
-  Future<List<Pickup>> fetchPickupTransactionsByAgent(String agentId) async {
+  Future<List<Pickup>> fetchPickupsByAgent(String agentId) async {
     List<Pickup> list = [];
     Firestore.instance.collection('pickups').where('agentId', isEqualTo: agentId)
       .snapshots().listen((snapshots) => {

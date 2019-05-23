@@ -7,12 +7,12 @@ import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 
 class MockPickupRepository implements PickupTransactionRepository {
   @override
-  Future<List<Pickup>> fetchPickupTransactionsByUser(String userId) {
+  Future<List<Pickup>> fetchPickupsByUser(String userId) {
     return new Future.value(pickups);
   }
 
   @override
-  Future<List<Pickup>> fetchPickupTransactionsByAgent(String agentId) {
+  Future<List<Pickup>> fetchPickupsByAgent(String agentId) {
     return Future.value(pickups);
   }
 }

@@ -20,7 +20,7 @@ class HomePresenter {
   }
 
   void loadPickupTransactions(String agentId) {
-    _repository.fetchPickupTransactionsByUser(agentId)
+    _repository.fetchPickupsByUser(agentId)
         .then((pickups) => _view.onLoadPickupTransactionComplete(pickups))
         .catchError((onError) => _view.onLoadPickupTransactionError());
   }

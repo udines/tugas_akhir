@@ -14,15 +14,17 @@ class LoginPresenter {
     _userRepo = Injector().userRepository;
   }
 
-  void loginAgent(String email, String password) {
-
-  }
-
-  void loginCustomer(String email, String password) {
-
+  void loginUser(String email, String password) {
+    _userRepo.loginUser(email, password)
+        .then((user) => _view.onLoginSuccess(user))
+        .catchError((onError) => _view.onLoginError());
   }
 
   bool validateEmail(String email) {
-    return true;
+    return false;
+  }
+
+  bool validatePassword(String password) {
+    return false;
   }
 }

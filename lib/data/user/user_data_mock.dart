@@ -15,6 +15,11 @@ class MockUserRepository implements UserRepository {
       )
     );
   }
+
+  @override
+  Future<User> loginUser(String email, String password) {
+    return new Future.value(users[0]);
+  }
 }
 
 var users = <User>[
