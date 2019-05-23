@@ -7,23 +7,23 @@ class UserMock extends MockUserRepository {}
 class UserProd extends ProdUserRepository {}
 
 main () {
-  group('mock testing', () {
+  group('mock user testing', () {
     var mock = UserMock();
     test('mock fetch current user', () async {
       var result = await mock.fetchCurrentUser();
       expect(result, isInstanceOf<User>());
     });
-    test('prod fetch user by id', () async {
+    test('mock fetch user by id', () async {
       var result = await mock.fetchUser("userId");
       expect(result, isInstanceOf<User>());
     });
-    test('login user', () async {
+    test('mock login user', () async {
       var result = await mock.loginUser("user@email.com", "password");
       expect(result, isInstanceOf<User>());
     });
   });
 
-  group('production testing', () {
+  group('production user testing', () {
     var prod = UserProd();
     test('prod fetch current user', () async {
       var result = await prod.fetchCurrentUser();
