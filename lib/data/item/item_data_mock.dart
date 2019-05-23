@@ -2,7 +2,7 @@ import 'package:tugas_akhir/data/item/item_data.dart';
 
 class MockItemRepository implements ItemRepository {
   @override
-  Future<List<Item>> fetchItems() {
+  Future<List<Item>> fetchItems(String transactionid) {
     return new Future.value(barangs);
   }
 

@@ -4,7 +4,7 @@ import 'package:tugas_akhir/data/item/item_data.dart';
 
 class ProdItemRepository implements ItemRepository {
   @override
-  Future<List<Item>> fetchItems() {
+  Future<List<Item>> fetchItems(String transactionId) {
     // TODO: implement fetchBarangs
     return null;
   }
