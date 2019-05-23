@@ -3,12 +3,12 @@ import 'package:tugas_akhir/data/transaction/transaction_data.dart';
 import 'package:tugas_akhir/data/transaction/transaction_data_mock.dart';
 import 'package:tugas_akhir/data/transaction/transaction_data_prod.dart';
 
-class MockTransaction extends MockTransactionRepository {}
-class ProdTransaction extends ProdTransactionRepository {}
+class TransactionMock extends MockTransactionRepository {}
+class TransactionProd extends ProdTransactionRepository {}
 
 main () {
   group('mock transaction testing', () {
-    var mock = MockTransaction();
+    var mock = TransactionMock();
     test('mock fetch list of transaction', () async {
       var result = await mock.fetchTransactions("pickupId");
       expect(result, isInstanceOf<List<Transaction>>());
@@ -20,7 +20,7 @@ main () {
   });
 
   group('production transaction testing', () {
-    var prod = ProdTransaction();
+    var prod = TransactionProd();
     test('prod fetch list of transaction', () async {
       var result = await prod.fetchTransactions("pickupId");
       expect(result, isInstanceOf<List<Transaction>>());
