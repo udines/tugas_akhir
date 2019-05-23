@@ -15,7 +15,7 @@ class PickupPresenter {
   }
 
   void loadPickupTransactionsUser(String userId) {
-    _repository.fetchPickupTransactionsByUser(userId)
+    _repository.fetchPickupsByUser(userId)
         .then((pickups) => _view.onLoadPickupTransactionComplete(pickups))
         .catchError((onError) => _view.onLoadPickupTransactionError());
   }
