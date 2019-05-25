@@ -35,7 +35,7 @@ class _LoginState extends State<LoginPage> {
       color: Color(0xff01A0C7),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+        padding: EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 15.0),
         onPressed: () {
           Navigator.push(
             context,
@@ -56,7 +56,7 @@ class _LoginState extends State<LoginPage> {
       color: Color(0xff01A0C7),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+        padding: EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 15.0),
         onPressed: () {
           Navigator.push(
             context,
@@ -77,7 +77,7 @@ class _LoginState extends State<LoginPage> {
         child: Container(
           color: Colors.white,
           child: Padding(
-            padding: EdgeInsets.all(36),
+            padding: EdgeInsets.all(12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,

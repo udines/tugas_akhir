@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart' as fs;
 import 'package:tugas_akhir/data/agent/agent_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 
@@ -33,8 +34,7 @@ var conversations = <Conversation>[
       phone: "0224207081",
       timeOpen: "07:00",
       timeClose: "19:00",
-      latitude: -7.821813,
-      longitude: 110.417288,
+      geoPoint: fs.GeoPoint(-7.821813, 110.417288),
       userAdmin: new User(
         id: "userAgentA",
         name: "Pranowo",
@@ -66,8 +66,7 @@ var conversations = <Conversation>[
       phone: "0224207081",
       timeOpen: "07:00",
       timeClose: "19:00",
-      latitude: -7.821813,
-      longitude: 110.417288,
+      geoPoint: fs.GeoPoint(-7.828114, 110.406007),
       userAdmin: new User(
         id: "userAgentB",
         name: "Pranowo",

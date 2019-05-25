@@ -35,6 +35,12 @@ class MapPresenter {
         .catchError((onError) => _view.onLoadAgentError());
   }
 
+  void fetchAgentsNearby(double latitude, double longitude, double radius) {
+    _agentRepo.fetchAgentsNearby(latitude, longitude, radius)
+        .then((agents) => _view.onLoadAgentComplete(agents))
+        .catchError((onError) => _view.onLoadAgentError());
+  }
+
   void getUserCurrentLocation() {
     _locationRepo.getCurrentLocation()
         .then((location) => _view.onGetCurrentUserLocationComplete(

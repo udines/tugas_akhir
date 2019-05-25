@@ -26,7 +26,7 @@ class _PickupState extends State<PickupPage> implements PickupViewContract {
   void initState() {
     super.initState();
     _isLoading = true;
-    _presenter.loadPickupTransactionsUser(widget.user.id);
+    _presenter.loadPickupsByUser(widget.user.id);
   }
 
   @override

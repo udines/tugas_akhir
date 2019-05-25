@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tugas_akhir/data/agent/agent_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 
@@ -9,8 +10,8 @@ class MockAgentRepository implements AgentRepository {
 
   @override
   Future<Agent> fetchAgent(String agentId) {
-    return new Future.value(
-      new Agent(
+    return Future.value(
+      Agent(
         id: "agentC",
         address: "Jl. Kemasan No. 1",
         costPerKM: 2000,
@@ -20,8 +21,7 @@ class MockAgentRepository implements AgentRepository {
         phone: "02743994632",
         timeOpen: "09:00",
         timeClose: "15:00",
-        latitude: -7.827481,
-        longitude: 110.400527,
+        geoPoint: GeoPoint(-7.827481, 110.400527),
         userAdmin: new User(
           id: "userAgentC",
           name: "Somad",
@@ -34,12 +34,17 @@ class MockAgentRepository implements AgentRepository {
 
   @override
   Future<List<Agent>> getAgents() {
-    return new Future.value(agents);
+    return Future.value(agents);
+  }
+
+  @override
+  Future<List<Agent>> fetchAgentsNearby(double latitude, double longitude, double radius) {
+    return Future.value(agents);
   }
 }
 
 var agents = <Agent>[
-  new Agent(
+  Agent(
     id: "agentA",
     address: "Baturetno, Banguntapan",
     costPerKM: 1000,
@@ -49,8 +54,7 @@ var agents = <Agent>[
     phone: "0224207081",
     timeOpen: "07:00",
     timeClose: "19:00",
-    latitude: -7.821813,
-    longitude: 110.417288,
+    geoPoint: GeoPoint(-7.821813, 110.417288),
     userAdmin: new User(
         id: "userAgentA",
         name: "Pranowo",
@@ -58,7 +62,7 @@ var agents = <Agent>[
         phone: "08978873886"
     )
   ),
-  new Agent(
+  Agent(
       id: "agentB",
       address: "Jl. Sorogenen No. 1",
       costPerKM: 1000,
@@ -68,8 +72,7 @@ var agents = <Agent>[
       phone: "02749171179",
       timeOpen: "07:00",
       timeClose: "21:00",
-      latitude: -7.828114,
-      longitude: 110.406007,
+      geoPoint: GeoPoint(-7.828114, 110.406007),
       userAdmin: new User(
           id: "userAgentB",
           name: "Hamid",
@@ -77,7 +80,7 @@ var agents = <Agent>[
           phone: "089619237368"
       )
   ),
-  new Agent(
+  Agent(
       id: "agentC",
       address: "Jl. Kemasan No. 1",
       costPerKM: 2000,
@@ -87,8 +90,7 @@ var agents = <Agent>[
       phone: "02743994632",
       timeOpen: "09:00",
       timeClose: "15:00",
-      latitude: -7.827481,
-      longitude: 110.400527,
+      geoPoint: GeoPoint(-7.827481, 110.400527),
       userAdmin: new User(
           id: "userAgentC",
           name: "Somad",

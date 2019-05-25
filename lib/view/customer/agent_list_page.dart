@@ -9,20 +9,20 @@ class AgentListPage extends StatefulWidget {
   _AgentListPageState createState() => new _AgentListPageState();
 }
 
-class _AgentListPageState extends State<AgentListPage> implements AgentViewContract {
-  AgentPresenter _presenter;
+class _AgentListPageState extends State<AgentListPage> implements AgentListViewContract {
+  AgentListPresenter _presenter;
   List<Agent> _agents;
   bool _isLoading;
 
   _AgentListPageState() {
-    _presenter = new AgentPresenter(this);
+    _presenter = new AgentListPresenter(this);
   }
 
   @override
   void initState() {
     super.initState();
     _isLoading = true;
-    _presenter.loadAgents();
+    _presenter.checkLocationPermission();
   }
 
   @override
@@ -135,6 +135,26 @@ class _AgentListPageState extends State<AgentListPage> implements AgentViewContr
   @override
   void onGetCityComplete(String city) {
     
+  }
+
+  @override
+  void onGetCurrentUserLocationComplete(double latitude, double longitude) {
+    _presenter.fetchAgentsNearby(latitude, longitude, 50);
+  }
+
+  @override
+  void onGetCurrentUserLocationError(String errorMessage) {
+    // TODO: implement onGetCurrentUserLocationError
+  }
+
+  @override
+  void onLocationPermissionDenied() {
+    _presenter.requestLocationPermission();
+  }
+
+  @override
+  void onLocationPermissionGranted() {
+    _presenter.getUserCurrentLocation();
   }
 
 }

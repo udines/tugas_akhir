@@ -27,4 +27,8 @@ class LoginPresenter {
   bool validatePassword(String password) {
     return false;
   }
+
+  bool isSignedIn() {
+    return false;
+  }
 }

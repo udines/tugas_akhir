@@ -21,6 +21,10 @@ main () {
       var result = await mock.fetchAgentsByCity('city');
       expect(result, isInstanceOf<List<Agent>>());
     });
+    test('mock fetch nearby agents', () async {
+      var result = await mock.fetchAgentsNearby(-7.821251, 110.417633, 30);
+      expect(result, isInstanceOf<List<Agent>>());
+    });
   });
   group('production agent testing', () {
     var prod = AgentProd();
@@ -47,6 +51,10 @@ main () {
     test('prod fetch agents by city failed', () async {
       var result = await prod.fetchAgentsByCity('cityFake');
       expect(result, throwsException);
+    });
+    test('prod fetch nearby agents', () async {
+      var result = await prod.fetchAgentsNearby(-7.821251, 110.417633, 30);
+      expect(result, isInstanceOf<List<Agent>>());
     });
   });
 }

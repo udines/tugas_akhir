@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:tugas_akhir/data/user/user_data.dart';
 
 class Agent {
@@ -13,10 +12,9 @@ class Agent {
   String phone;
   String timeOpen;
   String timeClose;
-  double latitude;
-  double longitude;
   String adminId;
   User userAdmin;
+  GeoPoint geoPoint;
 
   Agent({
     this.id,
@@ -29,8 +27,7 @@ class Agent {
     this.phone,
     this.timeOpen,
     this.timeClose,
-    this.latitude,
-    this.longitude,
+    this.geoPoint,
     this.adminId,
     this.userAdmin
   });
@@ -46,20 +43,10 @@ class Agent {
     'phone': phone,
     'timeOpen': timeOpen,
     'timeClose': timeClose,
-    'latitude': latitude,
-    'longitude': longitude,
-    'adminId': adminId,
+    'geoPoint': geoPoint,
+    'adminId': userAdmin.id,
     'userAdmin': userAdmin.toMap()
   };
-
-  Agent.fromMap(Map<String, dynamic> map) {
-    this.id = map['id'];
-    this.address = map['address'];
-    this.city = map['city'];
-    this.costPerKM = map['costPerKM'];
-    this.costPerKG = map['costPerKG'];
-
-  }
 
   Agent.fromSnapshot(DocumentSnapshot snapshot) {
     id = snapshot.documentID;
@@ -72,8 +59,7 @@ class Agent {
     phone = snapshot['phone'];
     timeOpen = snapshot['timeOpen'];
     timeClose = snapshot['timeClose'];
-    latitude = snapshot['latitude'];
-    longitude = snapshot['longitude'];
+    geoPoint = snapshot['geoPoint'];
     adminId = snapshot['adminId'];
     userAdmin = snapshot['userAdmin'];
   }
@@ -83,6 +69,7 @@ abstract class AgentRepository {
   Future<List<Agent>> fetchAgentsByCity(String city);
   Future<List<Agent>> getAgents();
   Future<Agent> fetchAgent(String agentId);
+  Future<List<Agent>> fetchAgentsNearby(double latitude, double longitude, double radius);
 }
 
 class FetchDataException implements Exception {
