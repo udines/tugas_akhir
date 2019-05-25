@@ -3,14 +3,16 @@ class User {
   String name;
   String address;
   String phone;
+  bool isAdmin;
 
-  User({this.id, this.name, this.address, this.phone});
+  User({this.id, this.name, this.address, this.phone, this.isAdmin});
 
   Map<String, dynamic> toMap() => {
     'id': id,
     'name': name,
     'address': address,
     'phone': phone,
+    'isAdmin': isAdmin
   };
 }
 

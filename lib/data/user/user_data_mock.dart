@@ -23,22 +23,25 @@ class MockUserRepository implements UserRepository {
 }
 
 var users = <User>[
-  new User(
+  User(
     id: "userA",
     name: "Farhan",
     address: "Jalan Sukabirus No. 418",
-    phone: "08976378464"
+    phone: "08976378464",
+    isAdmin: true
   ),
-  new User(
-      id: "userB",
-      name: "Aisyah",
-      address: "Perumahan paradice no. F20",
-      phone: "08976378464"
+  User(
+    id: "userB",
+    name: "Aisyah",
+    address: "Perumahan paradice no. F20",
+    phone: "08976378464",
+    isAdmin: false
   ),
-  new User(
-      id: "userC",
-      name: "Karisma",
-      address: "Pogung dalangan RT 50",
-      phone: "08976378464"
+  User(
+    id: "userC",
+    name: "Karisma",
+    address: "Pogung dalangan RT 50",
+    phone: "08976378464",
+    isAdmin: false
   ),
 ];

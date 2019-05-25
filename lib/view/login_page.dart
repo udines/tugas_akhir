@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_akhir/data/user/user_data.dart';
+import 'package:tugas_akhir/presenter/login_presenter.dart';
 import 'package:tugas_akhir/view/agent/home_page.dart' as agent;
 import 'package:tugas_akhir/view/customer/home_page.dart' as customer;
 
@@ -8,14 +10,32 @@ class LoginPage extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
-class _LoginState extends State<LoginPage> {
+class _LoginState extends State<LoginPage> implements LoginViewContract {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 14.0);
+  LoginPresenter _presenter;
+  String _password;
+  String _email;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  _LoginState() {
+    _presenter = LoginPresenter(this);
+  }
+
+  @override
+  void initState() {
+    _password = "";
+    _email = "";
+    _presenter.checkUserLoggedIn();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final emailField = TextField(
       obscureText: false,
       style: style,
+      controller: emailController,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         hintText: "Email",
@@ -24,12 +44,13 @@ class _LoginState extends State<LoginPage> {
     final passwordField = TextField(
       obscureText: true,
       style: style,
+      controller: passwordController,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         hintText: "Password",
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
-    final loginButonAgent = Material(
+    final loginButtonAgent = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
       color: Color(0xff01A0C7),
@@ -37,12 +58,11 @@ class _LoginState extends State<LoginPage> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 15.0),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => agent.HomePage()
-            )
-          );
+          setState(() {
+            _email = emailController.text;
+            _password = passwordController.text;
+          });
+          _presenter.loginUser(_email, _password);
         },
         child: Text("Login Agen",
           textAlign: TextAlign.center,
@@ -50,7 +70,7 @@ class _LoginState extends State<LoginPage> {
             color: Colors.white)),
       ),
     );
-    final loginButonCustomer = Material(
+    final loginButtonCustomer = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
       color: Color(0xff01A0C7),
@@ -58,12 +78,11 @@ class _LoginState extends State<LoginPage> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 15.0),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => customer.HomePage()
-            )
-          );
+          setState(() {
+            _email = emailController.text;
+            _password = passwordController.text;
+          });
+          _presenter.loginUser(_email, _password);
         },
         child: Text("Login Pelanggan",
           textAlign: TextAlign.center,
@@ -90,12 +109,12 @@ class _LoginState extends State<LoginPage> {
                   children: <Widget>[
                     Flexible(
                       flex: 1,
-                      child: loginButonAgent,
+                      child: loginButtonAgent,
                     ),
                     SizedBox(width: 8,),
                     Flexible(
                       flex: 1,
-                      child: loginButonCustomer,
+                      child: loginButtonCustomer,
                     )
                   ],
                 ),
@@ -105,5 +124,56 @@ class _LoginState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void onEmailInvalid() {
+    Scaffold.of(context).showSnackBar(
+      SnackBar(content: Text('Email tidak benar'))
+    );
+  }
+
+  @override
+  void onLoginError() {
+    Scaffold.of(context).showSnackBar(
+        SnackBar(content: Text('Gagal login'))
+    );
+  }
+
+  @override
+  void onPasswordInvalid() {
+    Scaffold.of(context).showSnackBar(
+        SnackBar(content: Text('Password kurang dari 6'))
+    );
+  }
+
+  @override
+  void onUserLoggedIn(User user) {
+    if (user.isAdmin) {
+      Navigator.push(
+        context, 
+        MaterialPageRoute(builder: (context) => agent.HomePage())
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => customer.HomePage())
+      );
+    }
+  }
+
+  @override
+  void onLoginSuccess(User user) {
+    if (user.isAdmin) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => agent.HomePage())
+      );
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => customer.HomePage())
+      );
+    }
   }
 }

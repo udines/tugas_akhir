@@ -4,6 +4,9 @@ import 'package:tugas_akhir/dependency_injection.dart';
 abstract class LoginViewContract {
   void onLoginSuccess(User user);
   void onLoginError();
+  void onEmailInvalid();
+  void onPasswordInvalid();
+  void onUserLoggedIn(User user);
 }
 
 class LoginPresenter {
@@ -15,20 +18,33 @@ class LoginPresenter {
   }
 
   void loginUser(String email, String password) {
-    _userRepo.loginUser(email, password)
-        .then((user) => _view.onLoginSuccess(user))
-        .catchError((onError) => _view.onLoginError());
+    if (validateEmail(email) && validatePassword(password)) {
+      _userRepo.loginUser(email, password)
+          .then((user) => _view.onLoginSuccess(user))
+          .catchError((onError) => _view.onLoginError());
+    }
   }
 
   bool validateEmail(String email) {
-    return false;
+    if (RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email)) {
+      return true;
+    } else {
+      _view.onEmailInvalid();
+      return false;
+    }
   }
 
   bool validatePassword(String password) {
-    return false;
+    if (password.length < 6) {
+      _view.onPasswordInvalid();
+      return false;
+    } else {
+      return true;
+    }
   }
 
-  bool isSignedIn() {
-    return false;
+  void checkUserLoggedIn() {
+    _userRepo.fetchCurrentUser()
+        .then((user) => {if (user !=null) _view.onUserLoggedIn(user)});
   }
 }

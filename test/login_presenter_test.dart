@@ -25,11 +25,6 @@ main() {
       var result = loginMock.presenter.validatePassword("abcdefghijkl");
       expect(result, true);
     });
-
-    test('check user is signed in', () {
-      var result = loginMock.presenter.isSignedIn();
-      expect(result, bool);
-    });
   });
 
   group('validate email', () {
