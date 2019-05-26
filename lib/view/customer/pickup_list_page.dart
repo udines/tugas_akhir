@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 import 'package:tugas_akhir/presenter/customer/pickup_list_presenter.dart';
+import 'package:tugas_akhir/view/customer/item_list_page.dart';
 
-class PickupPage extends StatefulWidget{
+class PickupListPage extends StatefulWidget{
   @override
-  _PickupState createState() => new _PickupState();
+  _PickupListState createState() => new _PickupListState();
 }
 
-class _PickupState extends State<PickupPage> implements PickupViewContract {
+class _PickupListState extends State<PickupListPage> implements PickupViewContract {
   PickupPresenter _presenter;
   List<Pickup> _pickups;
   bool _isLoading;
 
-  _PickupState() {
+  _PickupListState() {
     _presenter = new PickupPresenter(this);
   }
 
@@ -94,7 +95,14 @@ class _PickupState extends State<PickupPage> implements PickupViewContract {
                 FlatButton(
                   child: Text("Lihat barang"),
                   textColor: Colors.blueAccent,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ItemListPage()
+                      )
+                    );
+                  },
                 )
               ],
             )
