@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tugas_akhir/data/pickup/pickup_data.dart';
-import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/presenter/customer/pickup_list_presenter.dart';
 
 class PickupPage extends StatefulWidget{
-  final User user;
-
-  PickupPage({Key key, this.user});
-
   @override
   _PickupState createState() => new _PickupState();
 }
@@ -26,7 +21,7 @@ class _PickupState extends State<PickupPage> implements PickupViewContract {
   void initState() {
     super.initState();
     _isLoading = true;
-    _presenter.loadPickupsByUser(widget.user.id);
+    _presenter.loadPickupsByUser("userId");
   }
 
   @override
@@ -62,25 +57,38 @@ class _PickupState extends State<PickupPage> implements PickupViewContract {
     return Card(
       margin: EdgeInsets.only(top: 4, bottom: 4, left: 8, right: 8),
       child: Padding(
-        padding: EdgeInsets.only(top: 12),
+        padding: EdgeInsets.only(top: 16, left: 16, right: 16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Text(
-              new DateFormat.yMMMMd().format(pickup.date), 
+              DateFormat.yMMMMd().format(pickup.date) + " (" + pickup.status + ")",
               style: TextStyle(fontSize: 18)
             ),
-            ListTile(
-              title: Text(pickup.agent.name),
-              subtitle: Text(pickup.agent.address),
+            SizedBox(height: 8,),
+            Text(
+              'Agen',
+              style: TextStyle(fontSize: 20),
             ),
-            ListTile(
-              title: Text("3KM 10KG"),
-              subtitle: Text("Rp.100.000"),
+            SizedBox(height: 4,),
+            Text(pickup.agent.name, style: TextStyle(fontSize: 16),),
+            Text(pickup.agent.address),
+            SizedBox(height: 8,),
+            Text(
+              'Tarif',
+              style: TextStyle(fontSize: 20),
             ),
-            ListTile(
-              title: Text(pickup.user.name),
-              subtitle: Text(pickup.user.address),
+            SizedBox(height: 4,),
+            Text("3km 10kg"),
+            Text("Rp.100.000"),
+            SizedBox(height: 8,),
+            Text(
+              'Pengguna',
+              style: TextStyle(fontSize: 20),
             ),
+            SizedBox(height: 4,),
+            Text(pickup.user.name, style: TextStyle(fontSize: 16),),
+            Text(pickup.user.address),
             ButtonBar(
               children: <Widget>[
                 FlatButton(

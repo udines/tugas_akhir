@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tugas_akhir/presenter/login_presenter.dart';
 
-class LoginMock extends Mock {
+class LoginMock extends Mock implements LoginViewContract {
   static LoginViewContract view;
   LoginPresenter presenter = LoginPresenter(view);
 }

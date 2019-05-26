@@ -183,6 +183,9 @@ var pickups = <Pickup>[
     longitude: 110.428962,
     transactions: transactions,
     agentId: agents[0].id,
-    userId: users[0].id
+    userId: users[0].id,
+    agent: agents[0],
+    user: users[0],
+    status: "Sukses"
   )
 ];

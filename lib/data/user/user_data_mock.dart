@@ -4,7 +4,7 @@ class MockUserRepository implements UserRepository {
 
   @override
   Future<User> fetchCurrentUser() {
-    return new Future.value(users[0]);
+    return new Future.value(users[1]);
   }
 
   @override
@@ -18,7 +18,7 @@ class MockUserRepository implements UserRepository {
 
   @override
   Future<User> loginUser(String email, String password) {
-    return new Future.value(users[0]);
+    return new Future.value(users[1]);
   }
 }
 

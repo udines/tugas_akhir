@@ -7,6 +7,7 @@ class Pickup {
   DateTime date;
   double latitude;
   double longitude;
+  String status;
   List<Transaction> transactions;
   //Relations
   String agentId;
@@ -23,7 +24,8 @@ class Pickup {
     this.agentId,
     this.agent,
     this.userId,
-    this.user
+    this.user,
+    this.status
   });
 
   Map<String, dynamic> toMap() => {
@@ -35,7 +37,8 @@ class Pickup {
     'agentId': agentId,
     'agent': agent.toMap(),
     'userId': userId,
-    'user': user.toMap()
+    'user': user.toMap(),
+    'status': status
   };
 }
 
