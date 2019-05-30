@@ -10,6 +10,11 @@ class MockItemRepository implements ItemRepository {
   Future<Item> fetchItem(String pickupId, String transactionId, String itemId) {
     return new Future.value(items[0]);
   }
+
+  @override
+  void postItem(Item item, String transactionId) {
+
+  }
 }
 
 var items = <Item>[

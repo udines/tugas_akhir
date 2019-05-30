@@ -41,6 +41,6 @@ class AddItemPresenter {
   }
 
   void postItem(Item item, String transactionId) {
-
+    _itemRepo.postItem(item, transactionId);
   }
 }
