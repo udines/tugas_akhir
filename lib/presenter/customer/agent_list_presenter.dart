@@ -23,22 +23,6 @@ class AgentListPresenter {
     _repository = new Injector().agentRepository;
     _locationRepo = Injector().locationRepository;
   }
-
-  void loadAgentsByCity(String city) {
-    _repository.fetchAgentsByCity(city)
-        .then((agents) => _view.onLoadAgentComplete(agents))
-        .catchError((onError) => _view.onLoadAgentError());
-  }
-
-  void getCityName() {
-    _locationRepo.getCity()
-        .then((city) => _view.onGetCityComplete(city));
-  }
-
-  void loadAgents() {
-    _repository.getAgents()
-        .then((agents) => _view.onLoadAgentComplete(agents));
-  }
   
   void fetchAgentsNearby(double latitude, double longitude, double radius) {
     _repository.fetchAgentsNearby(latitude, longitude, radius)

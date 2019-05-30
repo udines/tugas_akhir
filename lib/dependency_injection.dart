@@ -4,12 +4,6 @@ import 'package:tugas_akhir/data/agent/agent_data_prod.dart';
 import 'package:tugas_akhir/data/item/item_data.dart';
 import 'package:tugas_akhir/data/item/item_data_mock.dart';
 import 'package:tugas_akhir/data/item/item_data_prod.dart';
-import 'package:tugas_akhir/data/chat/chat_data.dart';
-import 'package:tugas_akhir/data/chat/chat_data_mock.dart';
-import 'package:tugas_akhir/data/chat/chat_data_prod.dart';
-import 'package:tugas_akhir/data/conversation/conversation_data.dart';
-import 'package:tugas_akhir/data/conversation/conversation_data_mock.dart';
-import 'package:tugas_akhir/data/conversation/conversation_data_prod.dart';
 import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 import 'package:tugas_akhir/data/pickup/pickup_data_mock.dart';
 import 'package:tugas_akhir/data/pickup/pickup_data_prod.dart';
@@ -55,24 +49,6 @@ class Injector {
         return new MockItemRepository();
       default:
         return new ProdItemRepository();
-    }
-  }
-
-  ChatRepository get chatRepository {
-    switch (_flavor) {
-      case Flavor.MOCK:
-        return new MockChatRepository();
-      default:
-        return new ProdChatRepository();
-    }
-  }
-
-  ConversationRepository get conversationRepository {
-    switch (_flavor) {
-      case Flavor.MOCK:
-        return new MockConversationRepository();
-      default:
-        return new ProdConversationRepository();
     }
   }
 

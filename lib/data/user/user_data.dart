@@ -18,7 +18,6 @@ class User {
 
 abstract class UserRepository {
   Future<User> fetchCurrentUser();
-  Future<User> fetchUser(String id);
   Future<User> loginUser(String email, String password);
 }
 

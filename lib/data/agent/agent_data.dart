@@ -66,8 +66,6 @@ class Agent {
 }
 
 abstract class AgentRepository {
-  Future<List<Agent>> fetchAgentsByCity(String city);
-  Future<List<Agent>> getAgents();
   Future<Agent> fetchAgent(String agentId);
   Future<List<Agent>> fetchAgentsNearby(double latitude, double longitude, double radius);
 }
