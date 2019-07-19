@@ -11,7 +11,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginState extends State<LoginPage> implements LoginViewContract {
-  TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 14.0);
+  TextStyle style = TextStyle(/*fontFamily: 'Montserrat', */fontSize: 14.0);
   LoginPresenter _presenter;
   String _password;
   String _email;
@@ -24,10 +24,10 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
 
   @override
   void initState() {
+    super.initState();
     _password = "";
     _email = "";
     _presenter.checkUserLoggedIn();
-    super.initState();
   }
 
   @override
@@ -127,23 +127,9 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
   }
 
   @override
-  void onEmailInvalid() {
-    Scaffold.of(context).showSnackBar(
-      SnackBar(content: Text('Email tidak benar'))
-    );
-  }
-
-  @override
   void onLoginError() {
     Scaffold.of(context).showSnackBar(
         SnackBar(content: Text('Gagal login'))
-    );
-  }
-
-  @override
-  void onPasswordInvalid() {
-    Scaffold.of(context).showSnackBar(
-        SnackBar(content: Text('Password kurang dari 6'))
     );
   }
 
@@ -175,5 +161,25 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
           MaterialPageRoute(builder: (context) => customer.HomePage())
       );
     }
+  }
+
+  @override
+  void onCredentialInvalid(bool isEmailValid, bool isPasswordValid) {
+    var message = '';
+    if (!isEmailValid && !isPasswordValid) {
+      message = 'email dan password tidak valid';
+    } else if (!isEmailValid) {
+      message = 'email tidak valid';
+    } else if (!isPasswordValid) {
+      message = 'password tidak valid';
+    }
+    Scaffold.of(context).showSnackBar(
+        SnackBar(content: Text(message))
+    );
+  }
+
+  @override
+  void showLoading(bool isShowing) {
+    // TODO: implement showLoading
   }
 }
