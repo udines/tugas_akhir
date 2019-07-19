@@ -1,24 +1,29 @@
 import 'package:tugas_akhir/data/user/user_data.dart';
 
-class MockUserRepository implements UserRepository {
+class MockUserRepository implements UserRepository{
 
   @override
   Future<User> fetchCurrentUser() {
-    return new Future.value(users[1]);
+    return Future.value(users[1]);
   }
 
   @override
-  Future<User> fetchUser(String id) {
-    return new Future.value(
+  Future<User> getUser(String uid) {
+    return Future.value(
       users.firstWhere(
-        (user) => user.id == id
+        (user) => user.id == uid
       )
     );
   }
 
   @override
   Future<User> loginUser(String email, String password) {
-    return new Future.value(users[1]);
+    return Future.value(users[1]);
+  }
+
+  @override
+  Future<User> registerUser(String email, String password, User user) {
+    return new Future.value(user);
   }
 }
 

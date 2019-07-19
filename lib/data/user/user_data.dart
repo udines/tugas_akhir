@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class User {
   String id;
   String name;
@@ -5,29 +7,27 @@ class User {
   String phone;
   bool isAdmin;
 
-  User({this.id, this.name, this.address, this.phone, this.isAdmin});
+  User({this.id, this.name, this.address, this.phone, this.isAdmin = false});
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toSnapshot() => {
     'id': id,
     'name': name,
     'address': address,
     'phone': phone,
     'isAdmin': isAdmin
   };
+
+  User.fromSnapshot(DocumentSnapshot snapshot) :
+    id = snapshot['id'],
+    name = snapshot['name'],
+    address = snapshot['address'],
+    phone = snapshot['phone'],
+    isAdmin = snapshot['isAdmin'];
 }
 
 abstract class UserRepository {
   Future<User> fetchCurrentUser();
   Future<User> loginUser(String email, String password);
-}
-
-class FetchDataException implements Exception {
-  final _message;
-
-  FetchDataException([this._message]);
-
-  String toString() {
-    if (_message == null) return "Exception";
-    return "Exception: $_message";
-  }
+  Future<User> registerUser(String email, String password, User user);
+  Future<User> getUser(String uid);
 }
