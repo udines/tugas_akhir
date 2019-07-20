@@ -4,7 +4,8 @@ import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 
 class ProdPickupRepository implements PickupRepository {
 
-  CollectionReference _pickupCollection = Firestore.instance.collection('pickups');
+  static Firestore db = Firestore.instance;
+  final _pickupCollection = db.collection('pickups');
 
   @override
   Future<List<Pickup>> fetchPickupsByUser(String userId) async {
@@ -34,5 +35,10 @@ class ProdPickupRepository implements PickupRepository {
   Future<Pickup> fetchPickup(String pickupId) async {
     final snapshot = await _pickupCollection.document(pickupId).get();
     return Pickup.fromSnapshot(snapshot);
+  }
+
+  @override
+  Future<void> postPickup(Pickup pickup) {
+    return _pickupCollection.document(pickup.id).setData(pickup.toSnapshot());
   }
 }
