@@ -27,4 +27,8 @@ class RegisterPresenter {
         _view.showLoading(false)
       });
   }
+
+  void saveUserInformation(User user) {
+    _repo.saveUserInfo(user);
+  }
 }
