@@ -47,4 +47,8 @@ class LoginPresenter {
       .then((user) => _view.onUserCheckSuccess(true))
       .catchError((onError) => _view.onUserCheckSuccess(false));
   }
+
+  void saveUserInformation(User user) {
+    _userRepo.saveUserInfo(user);
+  }
 }
