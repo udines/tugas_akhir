@@ -4,7 +4,6 @@ import 'package:tugas_akhir/presenter/login_presenter.dart';
 import 'package:tugas_akhir/view/agent/home_page.dart' as agent;
 import 'package:tugas_akhir/view/customer/home_page.dart' as customer;
 
-
 class LoginPage extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -181,5 +180,10 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
   @override
   void showLoading(bool isShowing) {
     // TODO: implement showLoading
+  }
+
+  @override
+  void onUserCheckSuccess(bool isUserAvailable) {
+    // TODO: implement onUserCheckSuccess
   }
 }

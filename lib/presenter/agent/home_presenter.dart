@@ -11,7 +11,7 @@ abstract class HomeViewContract {
 
 class HomePresenter {
   HomeViewContract _view;
-  PickupTransactionRepository _repository;
+  PickupRepository _repository;
   UserRepository _userRepo;
 
   HomePresenter(this._view) {
