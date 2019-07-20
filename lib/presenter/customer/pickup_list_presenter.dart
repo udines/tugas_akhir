@@ -8,7 +8,7 @@ abstract class PickupViewContract {
 
 class PickupPresenter {
   PickupViewContract _view;
-  PickupTransactionRepository _repository;
+  PickupRepository _repository;
 
   PickupPresenter(this._view) {
     _repository = new Injector().pickupRepository;
