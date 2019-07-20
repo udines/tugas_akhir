@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:tugas_akhir/data/user/user_data.dart';
+import 'package:tugas_akhir/utils/shared_preferences.dart';
 
 class ProdUserRepository implements UserRepository {
 
@@ -35,5 +36,14 @@ class ProdUserRepository implements UserRepository {
   Future<void> registerUser(String email, String password, User user) async {
     final fireUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
     return _userCollection.document(fireUser.uid).setData(user.toSnapshot());
+  }
+
+  @override
+  void saveUserInfo(User user) {
+    SharedPref().saveString(SharedPref.KEY_USER_ID, user.id);
+    SharedPref().saveString(SharedPref.KEY_USER_NAME, user.name);
+    SharedPref().saveString(SharedPref.KEY_USER_ADDRESS, user.address);
+    SharedPref().saveString(SharedPref.KEY_USER_PHONE, user.phone);
+    SharedPref().saveBool(SharedPref.KEY_USER_ADMIN, user.isAdmin);
   }
 }

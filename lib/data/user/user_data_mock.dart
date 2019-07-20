@@ -25,6 +25,12 @@ class MockUserRepository implements UserRepository{
   Future<User> registerUser(String email, String password, User user) {
     return new Future.value(user);
   }
+
+  @override
+  Future<void> saveUserInfo(User user) {
+    // TODO: implement saveUserInfo
+    return null;
+  }
 }
 
 var users = <User>[
