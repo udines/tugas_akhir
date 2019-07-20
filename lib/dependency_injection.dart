@@ -1,9 +1,9 @@
 import 'package:tugas_akhir/data/agent/agent_data.dart';
 import 'package:tugas_akhir/data/agent/agent_data_mock.dart';
 import 'package:tugas_akhir/data/agent/agent_data_prod.dart';
-import 'package:tugas_akhir/data/item/item_data.dart';
-import 'package:tugas_akhir/data/item/item_data_mock.dart';
-import 'package:tugas_akhir/data/item/item_data_prod.dart';
+import 'package:tugas_akhir/data/location/location_data.dart';
+import 'package:tugas_akhir/data/location/location_data_mock.dart';
+import 'package:tugas_akhir/data/location/location_data_prod.dart';
 import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 import 'package:tugas_akhir/data/pickup/pickup_data_mock.dart';
 import 'package:tugas_akhir/data/pickup/pickup_data_prod.dart';
@@ -14,14 +14,10 @@ import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/data/user/user_data_mock.dart';
 import 'package:tugas_akhir/data/user/user_data_prod.dart';
 
-import 'package:tugas_akhir/data/location/location_data.dart';
-import 'package:tugas_akhir/data/location/location_data_mock.dart';
-import 'package:tugas_akhir/data/location/location_data_prod.dart';
-
 enum Flavor { MOCK, PROD }
 
 class Injector {
-  static final Injector _singleton = new Injector._internal();
+  static final Injector _singleton = Injector._internal();
   static Flavor _flavor;
 
   static void configure(Flavor flavor) {
@@ -43,16 +39,7 @@ class Injector {
     }
   }
 
-  ItemRepository get itemRepository {
-    switch (_flavor) {
-      case Flavor.MOCK:
-        return new MockItemRepository();
-      default:
-        return new ProdItemRepository();
-    }
-  }
-
-  PickupTransactionRepository get pickupRepository {
+  PickupRepository get pickupRepository {
     switch (_flavor) {
       case Flavor.MOCK:
         return new MockPickupRepository();
