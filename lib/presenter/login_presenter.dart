@@ -5,7 +5,7 @@ abstract class LoginViewContract {
   void onLoginSuccess(User user);
   void onLoginError();
   void onCredentialInvalid(bool isEmailValid, bool isPasswordValid);
-  void onUserLoggedIn(User user);
+  void onUserCheckSuccess(bool isUserAvailable);
   void showLoading(bool isShowing);
 }
 
@@ -44,6 +44,7 @@ class LoginPresenter {
 
   void checkUserLoggedIn() {
     _userRepo.fetchCurrentUser()
-        .then((user) => {if (user != null) _view.onUserLoggedIn(user)});
+      .then((user) => _view.onUserCheckSuccess(true))
+      .catchError((onError) => _view.onUserCheckSuccess(false));
   }
 }
