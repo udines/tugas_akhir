@@ -2,22 +2,23 @@ import 'package:cloud_firestore/cloud_firestore.dart' as fs;
 import 'package:tugas_akhir/data/transaction/transaction_data.dart';
 
 class ProdTransactionRepository implements TransactionRepository {
+
+  fs.CollectionReference _transactionCollection =
+  fs.Firestore.instance.collection('transactions');
+
   @override
-  Future<Transaction> fetchTransaction(String pickupId, String transactionId) async {
-    Transaction transaction;
-    fs.Firestore.instance.collection('pickups').document(pickupId)
-      .collection('transanctions').document(transactionId).get()
-      .then((document) => transaction = document as Transaction);
-    return transaction;
+  Future<Transaction> fetchTransaction(transactionId) async {
+    final snapshot = await _transactionCollection.document(transactionId).get();
+    return Transaction.fromSnapshot(snapshot);
   }
 
   @override
   Future<List<Transaction>> fetchTransactions(String pickupId) async {
     List<Transaction> list = [];
-    fs.Firestore.instance.collection('pickups').document(pickupId)
-      .collection('transanctions').snapshots().listen((snapshots) => {
-        for (var document in snapshots.documents) {
-          list.add(document as Transaction)
+    _transactionCollection.where('pickupId', isEqualTo: pickupId)
+      .snapshots().listen((snapshots) => {
+        for (var snapshot in snapshots.documents) {
+          list.add(Transaction.fromSnapshot(snapshot))
         }
       });
     return list;
