@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 abstract class AgentRepository {
   Future<Agent> fetchAgent(String agentId);
   Future<List<Agent>> fetchAgentsNearby(double latitude, double longitude, double radius);
+  Future<void> postAgent(Agent agent);
 }
 
 class Agent {

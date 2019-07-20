@@ -23,6 +23,12 @@ class MockAgentRepository implements AgentRepository {
   Future<List<Agent>> fetchAgentsNearby(double latitude, double longitude, double radius) {
     return Future.value(agents);
   }
+
+  @override
+  Future<void> postAgent(Agent agent) {
+    // TODO: implement postAgent
+    return null;
+  }
 }
 
 var agents = <Agent>[

@@ -33,4 +33,9 @@ class ProdAgentRepository implements AgentRepository {
     });
     return agents;
   }
+
+  @override
+  Future<void> postAgent(Agent agent) {
+    return _agentCollection.document(agent.id).setData(agent.toSnapshot());
+  }
 }
