@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 abstract class TransactionRepository {
   Future<List<Transaction>> fetchTransactions(String pickupId);
   Future<Transaction> fetchTransaction(String transactionId);
+  Future<void> postTransactions(List<Transaction> transactions);
+  Future<void> postTransaction(Transaction transaction);
 }
 
 class Transaction {
