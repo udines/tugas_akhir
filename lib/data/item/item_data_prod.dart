@@ -19,4 +19,9 @@ class ProdItemRepository implements ItemRepository {
     });
     return item;
   }
+
+  @override
+  void postItem(Item item, String transactionId) {
+    // TODO: implement postItem
+  }
 }

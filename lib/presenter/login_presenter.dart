@@ -4,6 +4,9 @@ import 'package:tugas_akhir/dependency_injection.dart';
 abstract class LoginViewContract {
   void onLoginSuccess(User user);
   void onLoginError();
+  void onCredentialInvalid(bool isEmailValid, bool isPasswordValid);
+  void onUserLoggedIn(User user);
+  void showLoading(bool isShowing);
 }
 
 class LoginPresenter {
@@ -15,16 +18,32 @@ class LoginPresenter {
   }
 
   void loginUser(String email, String password) {
-    _userRepo.loginUser(email, password)
-        .then((user) => _view.onLoginSuccess(user))
-        .catchError((onError) => _view.onLoginError());
+    if (validateEmail(email) && validatePassword(password)) {
+      _view.showLoading(true);
+      _userRepo.loginUser(email, password)
+          .then((user) => {
+            _view.onLoginSuccess(user),
+            _view.showLoading(false)
+          })
+          .catchError((onError) => {
+            _view.showLoading(false),
+            _view.onLoginError()
+          });
+    } else {
+      _view.onCredentialInvalid(validateEmail(email), validatePassword(password));
+    }
   }
 
   bool validateEmail(String email) {
-    return false;
+    return RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
   }
 
   bool validatePassword(String password) {
-    return false;
+    return password.length >= 6;
+  }
+
+  void checkUserLoggedIn() {
+    _userRepo.fetchCurrentUser()
+        .then((user) => {if (user != null) _view.onUserLoggedIn(user)});
   }
 }

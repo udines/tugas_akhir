@@ -1,44 +1,52 @@
 import 'package:tugas_akhir/data/user/user_data.dart';
 
-class MockUserRepository implements UserRepository {
+class MockUserRepository implements UserRepository{
 
   @override
   Future<User> fetchCurrentUser() {
-    return new Future.value(users[0]);
+    return Future.value(users[1]);
   }
 
   @override
-  Future<User> fetchUser(String id) {
-    return new Future.value(
+  Future<User> getUser(String uid) {
+    return Future.value(
       users.firstWhere(
-        (user) => user.id == id
+        (user) => user.id == uid
       )
     );
   }
 
   @override
   Future<User> loginUser(String email, String password) {
-    return new Future.value(users[0]);
+    return Future.value(users[1]);
+  }
+
+  @override
+  Future<User> registerUser(String email, String password, User user) {
+    return new Future.value(user);
   }
 }
 
 var users = <User>[
-  new User(
+  User(
     id: "userA",
     name: "Farhan",
     address: "Jalan Sukabirus No. 418",
-    phone: "08976378464"
+    phone: "08976378464",
+    isAdmin: true
   ),
-  new User(
-      id: "userB",
-      name: "Aisyah",
-      address: "Perumahan paradice no. F20",
-      phone: "08976378464"
+  User(
+    id: "userB",
+    name: "Aisyah",
+    address: "Perumahan paradice no. F20",
+    phone: "08976378464",
+    isAdmin: false
   ),
-  new User(
-      id: "userC",
-      name: "Karisma",
-      address: "Pogung dalangan RT 50",
-      phone: "08976378464"
+  User(
+    id: "userC",
+    name: "Karisma",
+    address: "Pogung dalangan RT 50",
+    phone: "08976378464",
+    isAdmin: false
   ),
 ];

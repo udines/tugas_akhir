@@ -1,27 +1,44 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:tugas_akhir/data/user/user_data.dart';
 
 class ProdUserRepository implements UserRepository {
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final CollectionReference _userCollection = Firestore.instance.collection("users");
   
   @override
-  Future<User> fetchCurrentUser() {
-    // TODO: implement fetchCurrentUser
-    return null;
+  Future<User> fetchCurrentUser() async {
+    final fireUser = await _auth.currentUser();
+    final user = await _userCollection.document(fireUser.uid).get();
+    return User.fromSnapshot(user);
   }
 
   @override
-  Future<User> fetchUser(String id) async {
-    User user;
-    Firestore.instance.collection('users').document(id).get().then((data) => {
-      user = data as User
-    });
+  Future<User> loginUser(String email, String password) async {
+    final fireUser = await _auth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    final snapshot = await _userCollection.document(fireUser.uid).get();
+    return User.fromSnapshot(snapshot);
+  }
+
+  @override
+  Future<User> getUser(String uid) async {
+    final user = await _userCollection.document(uid).get();
+    return User.fromSnapshot(user);
+  }
+
+  @override
+  Future<User> registerUser(String email, String password, User user) async {
+    final fireUser = await _auth.createUserWithEmailAndPassword(
+      email: email,
+      password: password
+    );
+    user.id = fireUser.uid;
+    _userCollection.document(user.id).setData(user.toSnapshot());
     return user;
-  }
-
-  @override
-  Future<User> loginUser(String email, String password) {
-    // TODO: implement loginUser
-    return null;
   }
 }

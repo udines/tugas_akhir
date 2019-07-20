@@ -14,7 +14,7 @@ class PickupPresenter {
     _repository = new Injector().pickupRepository;
   }
 
-  void loadPickupTransactionsUser(String userId) {
+  void loadPickupsByUser(String userId) {
     _repository.fetchPickupsByUser(userId)
         .then((pickups) => _view.onLoadPickupTransactionComplete(pickups))
         .catchError((onError) => _view.onLoadPickupTransactionError());

@@ -1,43 +1,54 @@
-import 'package:tugas_akhir/data/agent/agent_data.dart';
-import 'package:tugas_akhir/data/item/item_data.dart';
-import 'package:tugas_akhir/data/user/user_data.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+abstract class TransactionRepository {
+  Future<List<Transaction>> fetchTransactions(String pickupId);
+  Future<Transaction> fetchTransaction(String transactionId);
+}
 
 class Transaction {
   String id;
+  //item information
+  String itemName;
+  String itemType;
+  int itemWeight;
   //Sender information
   String senderName;
   String senderPhone;
-  String senderProvince = "Provinsi";
+  String senderProvince;
   String senderAddress;
   //Receiver information
   String receiverName;
   String receiverPhone;
-  String receiverProvince = "Provinsi";
+  String receiverProvince;
   String receiverAddress;
-  DateTime date;
-  //Relations
-  Item item;
-  User user;
-  Agent agent;
+  //Relation
+  String userId;
+  String agentId;
+  String pickupId;
 
   Transaction({
-    this.id,
-    this.senderName,
-    this.senderPhone,
-    this.senderProvince,
-    this.senderAddress,
-    this.receiverName,
-    this.receiverPhone,
-    this.receiverProvince,
-    this.receiverAddress,
-    this.date,
-    this.item,
-    this.user,
-    this.agent
+    this.id = '',
+    this.itemName = '',
+    this.itemType = '',
+    this.itemWeight = 1,
+    this.senderName = '',
+    this.senderPhone = '',
+    this.senderProvince = '',
+    this.senderAddress = '',
+    this.receiverName = '',
+    this.receiverPhone = '',
+    this.receiverProvince = '',
+    this.receiverAddress = '',
+    this.userId = '',
+    this.agentId = '',
+    this.pickupId = ''
   });
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toSnapshot() => {
     'id': id,
+    'itemName': itemName,
+    'itemType': itemType,
+    'itemWeight': itemWeight,
     'senderName': senderName,
     'senderPhone': senderPhone,
     'senderProvince': senderProvince,
@@ -46,25 +57,26 @@ class Transaction {
     'receiverPhone': receiverPhone,
     'receiverProvince': receiverProvince,
     'receiverAddress': receiverAddress,
-    'date': date, //need mapping
-    'item': item.toMap(),
-    'user': user.toMap(),
-    'agent': agent.toMap()
+    'userId': userId,
+    'agentId': agentId,
+    'pickupId': pickupId
   };
-}
 
-abstract class TransactionRepository {
-  Future<List<Transaction>> fetchTransactions(String pickupId);
-  Future<Transaction> fetchTransaction(String pickupId, String transactionId);
-}
-
-class FetchDataException implements Exception {
-  final _message;
-
-  FetchDataException([this._message]);
-
-  String toString() {
-    if (_message == null) return "Exception";
-    return "Exception: $_message";
+  Transaction.fromSnapshot(DocumentSnapshot snapshot) {
+    id = snapshot['id'];
+    itemName = snapshot['itemName'];
+    itemType = snapshot['itemType'];
+    itemWeight = snapshot['itemWeight'];
+    senderName = snapshot['senderName'];
+    senderPhone = snapshot['senderPhone'];
+    senderProvince = snapshot['senderProvince'];
+    senderAddress = snapshot['senderAddress'];
+    receiverName = snapshot['receiverName'];
+    receiverPhone = snapshot['receiverPhone'];
+    receiverProvince = snapshot['receiverProvince'];
+    receiverAddress = snapshot['receiverAddress'];
+    userId = snapshot['userId'];
+    agentId = snapshot['agentId'];
+    pickupId = snapshot['pickupId'];
   }
 }

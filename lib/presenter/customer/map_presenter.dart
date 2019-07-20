@@ -23,14 +23,8 @@ class MapPresenter {
     _locationRepo = new Injector().locationRepository;
   }
 
-  void loadAgentsByCity(String city) {
-    _agentRepo.fetchAgentsByCity(city)
-        .then((agents) => _view.onLoadAgentComplete(agents))
-        .catchError((onError) => _view.onLoadAgentError());
-  }
-
-  void loadAgents() {
-    _agentRepo.getAgents()
+  void fetchAgentsNearby(double latitude, double longitude, double radius) {
+    _agentRepo.fetchAgentsNearby(latitude, longitude, radius)
         .then((agents) => _view.onLoadAgentComplete(agents))
         .catchError((onError) => _view.onLoadAgentError());
   }

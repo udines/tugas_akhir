@@ -2,29 +2,37 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 
-class ProdPickupRepository implements PickupTransactionRepository {
+class ProdPickupRepository implements PickupRepository {
+
+  CollectionReference _pickupCollection = Firestore.instance.collection('pickups');
+
   @override
   Future<List<Pickup>> fetchPickupsByUser(String userId) async {
     List<Pickup> list = [];
-    CollectionReference pickupRef = Firestore.instance.collection('pickups');
-    Query query = pickupRef.where('userId', isEqualTo: userId);
-    query.snapshots().listen((data) => {
-      for (var document in data.documents) {
-        list.add(document as Pickup)
-      }
-    });
+    _pickupCollection.where('userId', isEqualTo: userId)
+      .snapshots().listen((snapshots) => {
+        for (var snapshot in snapshots.documents) {
+          list.add(Pickup.fromSnapshot(snapshot))
+        }
+      });
     return list;
   }
 
   @override
   Future<List<Pickup>> fetchPickupsByAgent(String agentId) async {
     List<Pickup> list = [];
-    Firestore.instance.collection('pickups').where('agentId', isEqualTo: agentId)
+    _pickupCollection.where('agentId', isEqualTo: agentId)
       .snapshots().listen((snapshots) => {
-        for (var document in snapshots.documents) {
-          list.add(document as Pickup)
+        for (var snapshot in snapshots.documents) {
+          list.add(Pickup.fromSnapshot(snapshot))
         }
       });
     return list;
+  }
+
+  @override
+  Future<Pickup> fetchPickup(String pickupId) async {
+    final snapshot = await _pickupCollection.document(pickupId).get();
+    return Pickup.fromSnapshot(snapshot);
   }
 }

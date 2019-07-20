@@ -1,56 +1,46 @@
-import 'package:tugas_akhir/data/agent/agent_data.dart';
-import 'package:tugas_akhir/data/transaction/transaction_data.dart';
-import 'package:tugas_akhir/data/user/user_data.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+abstract class PickupRepository {
+  Future<List<Pickup>> fetchPickupsByUser(String userId);
+  Future<List<Pickup>> fetchPickupsByAgent(String agentId);
+  Future<Pickup> fetchPickup(String pickupId);
+}
 
 class Pickup {
   String id;
-  DateTime date;
-  double latitude;
-  double longitude;
-  List<Transaction> transactions;
+  Timestamp timestamp;
+  GeoPoint geoPoint;
+  String status;
   //Relations
   String agentId;
-  Agent agent;
   String userId;
-  User user;
 
   Pickup({
     this.id,
-    this.date,
-    this.latitude,
-    this.longitude,
-    this.transactions,
+    this.timestamp,
+    this.geoPoint,
+    this.status,
     this.agentId,
-    this.agent,
     this.userId,
-    this.user
   });
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toSnapshot() => {
     'id': id,
-    'date': date, //need mapping
-    'latitude': latitude,
-    'longitude': longitude,
-    'transactions': transactions, //need mapping
     'agentId': agentId,
-    'agent': agent.toMap(),
+    'timestamp': timestamp,
+    'geoPoint': geoPoint,
+    'status': status,
+    'agentId': agentId,
     'userId': userId,
-    'user': user.toMap()
   };
-}
 
-abstract class PickupTransactionRepository {
-  Future<List<Pickup>> fetchPickupsByUser(String userId);
-  Future<List<Pickup>> fetchPickupsByAgent(String agentId);
-}
-
-class FetchDataException implements Exception {
-  final _message;
-
-  FetchDataException([this._message]);
-
-  String toString() {
-    if (_message == null) return "Exception";
-    return "Exception: $_message";
+  Pickup.fromSnapshot(DocumentSnapshot snapshot) {
+    id = snapshot['id'];
+    agentId = snapshot['agentId'];
+    timestamp = snapshot['timestamp'];
+    geoPoint = snapshot['geoPoint'];
+    status = snapshot['status'];
+    agentId = snapshot['agentId'];
+    userId = snapshot['userId'];
   }
 }

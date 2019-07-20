@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _children = [
     MapPage(),
     AgentListPage(),
-    PickupPage()
+    PickupListPage()
   ];
 
   @override
@@ -28,12 +28,12 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(_appBarTitle),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   child: Icon(Icons.add),
-      //   onPressed: () {
-      //     _addData();
-      //   },
-      // ),
+     /*floatingActionButton: FloatingActionButton(
+       child: Icon(Icons.add),
+       onPressed: () {
+         _addData();
+       },
+     ),*/
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
@@ -61,26 +61,23 @@ class _HomePageState extends State<HomePage> {
     Agent data;
 
     data = Agent(
-        id: "agentC",
-        address: "Jl. Kemasan No. 1",
-        costPerKM: 2000,
-        costPerKG: 1000,
-        isReceiveOrder: true,
-        name: "Kantorpos Yogyakarta Kotagede",
-        phone: "02743994632",
-        timeOpen: "09:00",
-        timeClose: "15:00",
-        latitude: -7.827481,
-        longitude: 110.400527,
-        userAdmin: User(
-          id: "userAgentC",
-          name: "Somad",
-          address: "Karanglo",
-          phone: "08917327493"
-        ),
-        adminId: "userAgentC",
-        city: "Yogyakarta"
-      );
+        id: "agentB",
+        address: "Jl. Sorogenen No. 1",
+        costPerKM: 1000,
+        costPerKG: 2000,
+        isReceiveOrder: false,
+        name: "Post Office Sorogenen",
+        phone: "02749171179",
+        timeOpen: "07:00",
+        timeClose: "21:00",
+        geoPoint: GeoPoint(-7.828114, 110.406007),
+        userAdmin: new User(
+            id: "userAgentB",
+            name: "Hamid",
+            address: "Sorogenen",
+            phone: "089619237368"
+        )
+    );
 
     Firestore.instance.collection('agents').add(data.toMap());
   }

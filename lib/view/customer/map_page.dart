@@ -71,8 +71,8 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
       Marker agentMarker = Marker(
         markerId: markerId,
         position: LatLng(
-          it.current.latitude,
-          it.current.longitude
+          it.current.geoPoint.latitude,
+          it.current.geoPoint.longitude
         ),
         infoWindow: InfoWindow(
           title: it.current.name,
@@ -115,7 +115,7 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
       _markers[markerId] = userMarker;
     });
 
-    _presenter.loadAgents();
+    _presenter.fetchAgentsNearby(latitude, longitude, 30);
   }
 
   void _onMarkerTapped(MarkerId markerId) {

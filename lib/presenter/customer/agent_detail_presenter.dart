@@ -33,16 +33,35 @@ class AgentDetailPresenter {
 
   bool isAgentOpen(Agent agent, DateTime now) {
     bool isOpen = true;
-    // String strFormatOpen = now.toYyyyMmDdString() + " " + agent.timeOpen + ":00";
-    // String strFormatClose = now.toYyyyMmDdString() + " " + agent.timeClose + ":00";
-    // DateTime dateOpen, dateClose;
-    // dateOpen = DateTime.parse(strFormatOpen);
-    // dateClose = DateTime.parse(strFormatClose);
-    // if(now.compareTo(dateOpen) >= 0 && now.compareTo(dateClose) <= 0) {
-    //   isOpen = true;
-    // } else {
-    //   isOpen = false;
-    // }
+    String strFormatOpen = dateToString(now) + " " + agent.timeOpen + ":00";
+    String strFormatClose = dateToString(now) + " " + agent.timeClose + ":00";
+    DateTime dateOpen, dateClose;
+    dateOpen = DateTime.parse(strFormatOpen);
+    dateClose = DateTime.parse(strFormatClose);
+    if(now.compareTo(dateOpen) >= 0 && now.compareTo(dateClose) <= 0) {
+      isOpen = true;
+    } else {
+      isOpen = false;
+    }
     return isOpen;
+  }
+
+  String dateToString(DateTime date) {
+    int year, month, day;
+    year = date.year;
+    month = date.month;
+    day = date.day;
+    String strMonth, strDay;
+    if (month < 10) {
+      strMonth = "0" + month.toString();
+    } else {
+      strMonth = month.toString();
+    }
+    if (day < 10) {
+      strDay = "0" + day.toString();
+    } else {
+      strDay = day.toString();
+    }
+    return year.toString() + "-" + strMonth + "-" + strDay;
   }
 }

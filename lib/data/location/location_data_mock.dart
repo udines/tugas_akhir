@@ -8,8 +8,8 @@ class MockLocationRepository implements LocationRepository {
   Future<LatLng> getCurrentLocation() {
     return new Future.value(
       new LatLng(
-        latitude: -7.821251, 
-        longitude: 110.417633
+        latitude: -7.819144,
+        longitude: 110.407533
       )
     );
   }
