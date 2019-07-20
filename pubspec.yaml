@@ -26,13 +26,14 @@ dependencies:
   geolocator: ^4.0.3
   permission_handler: ^3.0.2
   url_launcher: ^5.0.2
-  geoflutterfire: ^2.0.3+4
+  geoflutterfire: ^2.0.3+5
 
   #unstable
-  firebase_core: ^0.4.0+1
+  firebase_core: ^0.4.0+6
+  firebase_auth: ^0.11.1+10
   google_maps_flutter: ^0.5.13
   intl: ^0.15.8
-  cloud_firestore: ^0.11.0+2
+  cloud_firestore: ^0.12.7
   latlong: ^0.6.1
 
 dev_dependencies:
