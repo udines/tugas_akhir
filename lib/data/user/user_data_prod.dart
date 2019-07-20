@@ -32,13 +32,8 @@ class ProdUserRepository implements UserRepository {
   }
 
   @override
-  Future<User> registerUser(String email, String password, User user) async {
-    final fireUser = await _auth.createUserWithEmailAndPassword(
-      email: email,
-      password: password
-    );
-    user.id = fireUser.uid;
-    _userCollection.document(user.id).setData(user.toSnapshot());
-    return user;
+  Future<void> registerUser(String email, String password, User user) async {
+    final fireUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+    return _userCollection.document(fireUser.uid).setData(user.toSnapshot());
   }
 }
