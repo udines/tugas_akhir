@@ -14,7 +14,6 @@ main() {
     Agent agent = Agent(
       id: "agentId",
       address: "address",
-      city: "city",
       isReceiveOrder: true,
       name: "agent",
       phone: '0898989898',
