@@ -12,8 +12,8 @@ class ProdUserRepository implements UserRepository {
   @override
   Future<User> fetchCurrentUser() async {
     final fireUser = await _auth.currentUser();
-    final user = await _userCollection.document(fireUser.uid).get();
-    return User.fromSnapshot(user);
+    final snapshot = await _userCollection.document(fireUser.uid).get();
+    return User.fromSnapshot(snapshot);
   }
 
   @override
