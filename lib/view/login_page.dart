@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/presenter/login_presenter.dart';
 import 'package:tugas_akhir/view/agent/home_page.dart' as agent;
 import 'package:tugas_akhir/view/customer/home_page.dart' as customer;
+import 'package:tugas_akhir/view/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -12,25 +15,22 @@ class LoginPage extends StatefulWidget {
 class _LoginState extends State<LoginPage> implements LoginViewContract {
   TextStyle style = TextStyle(/*fontFamily: 'Montserrat', */fontSize: 14.0);
   LoginPresenter _presenter;
-  String _password;
-  String _email;
+  ProgressDialog _progressDialog;
+  String _password = '';
+  String _email = '';
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   _LoginState() {
     _presenter = LoginPresenter(this);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _password = "";
-    _email = "";
     _presenter.checkUserLoggedIn();
   }
 
   @override
   Widget build(BuildContext context) {
+    _progressDialog = ProgressDialog(context, ProgressDialogType.Normal);
+    _progressDialog.setMessage('Login...');
+
     final emailField = TextField(
       obscureText: false,
       style: style,
@@ -57,10 +57,8 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 15.0),
         onPressed: () {
-          setState(() {
-            _email = emailController.text;
-            _password = passwordController.text;
-          });
+          _email = emailController.text;
+          _password = passwordController.text;
           _presenter.loginUser(_email, _password);
         },
         child: Text("Login Agen",
@@ -77,10 +75,8 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 15.0),
         onPressed: () {
-          setState(() {
-            _email = emailController.text;
-            _password = passwordController.text;
-          });
+          _email = emailController.text;
+          _password = passwordController.text;
           _presenter.loginUser(_email, _password);
         },
         child: Text("Login Pelanggan",
@@ -88,6 +84,23 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
           style: style.copyWith(
             color: Colors.white)),
       ),
+    );
+
+    final registerButton = InkWell(
+      child: Text('Register pelanggan'),
+      onTap: () {
+        _email = emailController.text;
+        _password = passwordController.text;
+        if (_presenter.checkCredentials(_email, _password)) {
+          Navigator.push(context,
+            MaterialPageRoute(builder: (context) =>
+              RegisterPage(
+                email: _email,
+                password: _password,
+              ))
+          );
+        }
+      },
     );
 
     return Scaffold(
@@ -117,6 +130,8 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
                     )
                   ],
                 ),
+                SizedBox(height: 40,),
+                registerButton
               ],
             ),
           ),
@@ -133,7 +148,7 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
   }
 
   @override
-  void onUserLoggedIn(User user) {
+  void onLoginSuccess(User user) {
     if (user.isAdmin) {
       Navigator.push(
         context, 
@@ -148,21 +163,6 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
   }
 
   @override
-  void onLoginSuccess(User user) {
-    if (user.isAdmin) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => agent.HomePage())
-      );
-    } else {
-      Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => customer.HomePage())
-      );
-    }
-  }
-
-  @override
   void onCredentialInvalid(bool isEmailValid, bool isPasswordValid) {
     var message = '';
     if (!isEmailValid && !isPasswordValid) {
@@ -172,18 +172,38 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
     } else if (!isPasswordValid) {
       message = 'password tidak valid';
     }
-    Scaffold.of(context).showSnackBar(
-        SnackBar(content: Text(message))
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 1,
+        fontSize: 16.0
     );
   }
 
   @override
   void showLoading(bool isShowing) {
-    // TODO: implement showLoading
+    if (isShowing) {
+      _progressDialog.show();
+    } else {
+      _progressDialog.hide();
+    }
   }
 
   @override
-  void onUserCheckSuccess(bool isUserAvailable) {
-    // TODO: implement onUserCheckSuccess
+  void onUserCheckSuccess(User user) {
+    if (user != null) {
+      if (user.isAdmin) {
+        Navigator.push(
+          context, 
+          MaterialPageRoute(builder: (context) => agent.HomePage())
+        );
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => customer.HomePage())
+        );
+      }
+    }
   }
 }
