@@ -1,9 +1,16 @@
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/presenter/register_presenter.dart';
 
 class RegisterPage extends StatefulWidget {
+  final String email;
+  final String password;
+
+  RegisterPage({Key key, @required this.email, @required this.password})
+    : super(key: key);
+
   @override
   _RegisterState createState() => _RegisterState();
 }
@@ -24,12 +31,18 @@ class _RegisterState extends State<RegisterPage> implements RegisterViewContract
 
   void _initDialog(BuildContext context) {
     _progressDialog = ProgressDialog(context, ProgressDialogType.Normal);
-    _progressDialog.setMessage('Registering. Please wait...');
+    _progressDialog.setMessage('Registrasi...');
   }
 
   @override
   void onRegisterFailed() {
-    // TODO: implement onRegisterFailed
+    Fluttertoast.showToast(
+      msg: "Registrasi gagal",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIos: 1,
+      fontSize: 16.0
+    );
   }
 
   @override
