@@ -25,18 +25,18 @@ class ProdTransactionRepository implements TransactionRepository {
   }
 
   @override
-  Future<void> postTransaction(Transaction transaction) {
-    return _transactionCollection.document(transaction.id).setData(transaction.toSnapshot());
+  Future<void> postTransaction(Transaction transaction) async {
+    return await _transactionCollection.document(transaction.id).setData(transaction.toSnapshot());
   }
 
   @override
-  Future<void> postTransactions(List<Transaction> transactions) {
+  Future<void> postTransactions(List<Transaction> transactions) async {
     var batch = db.batch();
     for (var transaction in transactions) {
       var dataRef = _transactionCollection.document(transaction.id);
       batch.setData(dataRef, transaction.toSnapshot());
     }
-    return batch.commit();
+    return await batch.commit();
   }
   
 }
