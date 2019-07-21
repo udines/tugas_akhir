@@ -89,11 +89,6 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
   }
 
   @override
-  void onLoadAgentError() {
-
-  }
-
-  @override
   void onGetCurrentUserLocationComplete(double latitude, double longitude) {
     var id = "Lokasi Pengguna";
     MarkerId markerId = MarkerId(id);
@@ -115,7 +110,7 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
       _markers[markerId] = userMarker;
     });
 
-    _presenter.fetchAgentsNearby(latitude, longitude, 30);
+    _presenter.fetchAgents();
   }
 
   void _onMarkerTapped(MarkerId markerId) {

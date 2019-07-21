@@ -94,7 +94,6 @@ class _AgentDetailPageState extends State<AgentDetailPage> implements AgentDetai
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text("Tarif per KM", style: TextStyle(fontSize: 12, color: Colors.grey[500])),
-                      Text(widget.agent.costPerKM.toString(), style: TextStyle(fontSize: 16, color: Colors.black))
                     ],
                   ),
                   Padding(padding: EdgeInsets.only(left: 32),),
@@ -102,7 +101,6 @@ class _AgentDetailPageState extends State<AgentDetailPage> implements AgentDetai
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text("Tarif per KG", style: TextStyle(fontSize: 12, color: Colors.grey[500])),
-                      Text(widget.agent.costPerKG.toString(), style: TextStyle(fontSize: 16, color: Colors.black))
                     ],
                   ),
                 ],

@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:latlong/latlong.dart';
-import 'package:tugas_akhir/data/agent/agent_data.dart';
 import 'package:tugas_akhir/data/agent/agent_data_mock.dart';
 import 'package:tugas_akhir/data/agent/agent_data_prod.dart';
 
@@ -32,7 +31,7 @@ main () {
       double lat = -7.821251;
       double long = 110.417633;
 
-      List<Agent> agents = await mock.fetchAgentsNearby(lat, long, radius);
+//      List<Agent> agents = await mock.fetchAgentsNearby(lat, long, radius);
       var result = true;
       for (var agent in agents) {
         if (calculateDistance(lat, long, agent.geoPoint.latitude, agent.geoPoint.longitude) <= radius) {
@@ -45,11 +44,10 @@ main () {
     });
 
     test('mock fetch nearby agents sorted by distance', () async {
-      double radius = 30;
       double lat = -7.821251;
       double long = 110.417633;
 
-      List<Agent> agents = await mock.fetchAgentsNearby(lat, long, radius);
+//      List<Agent> agents = await mock.fetchAgentsNearby(lat, long, radius);
       var result = true;
       var distance = calculateDistance(lat, long, agents[0].geoPoint.latitude, agents[0].geoPoint.longitude);
       var nextDistance;

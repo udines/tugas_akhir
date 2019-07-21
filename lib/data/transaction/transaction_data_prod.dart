@@ -3,8 +3,8 @@ import 'package:tugas_akhir/data/transaction/transaction_data.dart';
 
 class ProdTransactionRepository implements TransactionRepository {
 
-  fs.CollectionReference _transactionCollection =
-  fs.Firestore.instance.collection('transactions');
+  static fs.Firestore db = fs.Firestore.instance;
+  final _transactionCollection = db.collection('transactions');
 
   @override
   Future<Transaction> fetchTransaction(transactionId) async {
@@ -22,6 +22,21 @@ class ProdTransactionRepository implements TransactionRepository {
         }
       });
     return list;
+  }
+
+  @override
+  Future<void> postTransaction(Transaction transaction) async {
+    return await _transactionCollection.document(transaction.id).setData(transaction.toSnapshot());
+  }
+
+  @override
+  Future<void> postTransactions(List<Transaction> transactions) async {
+    var batch = db.batch();
+    for (var transaction in transactions) {
+      var dataRef = _transactionCollection.document(transaction.id);
+      batch.setData(dataRef, transaction.toSnapshot());
+    }
+    return await batch.commit();
   }
   
 }

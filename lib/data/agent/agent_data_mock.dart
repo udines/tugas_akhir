@@ -20,8 +20,27 @@ class MockAgentRepository implements AgentRepository {
   }
 
   @override
-  Future<List<Agent>> fetchAgentsNearby(double latitude, double longitude, double radius) {
-    return Future.value(agents);
+  Future<List<DocumentSnapshot>> fetchAgentsNearby(double latitude, double longitude, double radius) {
+    Future<List<DocumentSnapshot>> stream;
+    return stream;
+  }
+
+  @override
+  Future<void> postAgent(Agent agent) {
+    // TODO: implement postAgent
+    return null;
+  }
+
+  @override
+  Future<void> postAgents(List<Agent> agents) {
+    // TODO: implement postAgents
+    return null;
+  }
+
+  @override
+  Future<List<DocumentSnapshot>> fetchAgents() {
+    // TODO: implement fetchAgents
+    return null;
   }
 }
 
@@ -35,6 +54,7 @@ var agents = <Agent>[
     timeOpen: "07:00",
     timeClose: "19:00",
     geoPoint: GeoPoint(-7.821813, 110.417288),
+    adminId: 'userA'
   ),
   Agent(
       id: "agentB",
@@ -45,6 +65,7 @@ var agents = <Agent>[
       timeOpen: "07:00",
       timeClose: "21:00",
       geoPoint: GeoPoint(-7.828114, 110.406007),
+      adminId: 'userB'
   ),
   Agent(
       id: "agentC",
@@ -55,5 +76,6 @@ var agents = <Agent>[
       timeOpen: "09:00",
       timeClose: "15:00",
       geoPoint: GeoPoint(-7.827481, 110.400527),
+      adminId: 'userC'
   )
 ];

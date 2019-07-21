@@ -5,7 +5,7 @@ abstract class LoginViewContract {
   void onLoginSuccess(User user);
   void onLoginError();
   void onCredentialInvalid(bool isEmailValid, bool isPasswordValid);
-  void onUserLoggedIn(User user);
+  void onUserCheckSuccess(User user);
   void showLoading(bool isShowing);
 }
 
@@ -18,19 +18,26 @@ class LoginPresenter {
   }
 
   void loginUser(String email, String password) {
-    if (validateEmail(email) && validatePassword(password)) {
+    if (checkCredentials(email, password)) {
       _view.showLoading(true);
       _userRepo.loginUser(email, password)
-          .then((user) => {
-            _view.onLoginSuccess(user),
-            _view.showLoading(false)
-          })
-          .catchError((onError) => {
-            _view.showLoading(false),
-            _view.onLoginError()
-          });
+        .then((user) => {
+          _view.showLoading(false),
+          _view.onLoginSuccess(user),
+        })
+        .catchError((onError) => {
+          _view.showLoading(false),
+          _view.onLoginError()
+        });
+    }
+  }
+
+  bool checkCredentials(String email, String password) {
+    if (validateEmail(email) && validatePassword(password)) {
+      return true;
     } else {
       _view.onCredentialInvalid(validateEmail(email), validatePassword(password));
+      return false;
     }
   }
 
@@ -44,6 +51,11 @@ class LoginPresenter {
 
   void checkUserLoggedIn() {
     _userRepo.fetchCurrentUser()
-        .then((user) => {if (user != null) _view.onUserLoggedIn(user)});
+      .then((user) => _view.onUserCheckSuccess(user))
+      .catchError((onError) => {});
+  }
+
+  void saveUserInformation(User user) {
+    _userRepo.saveUserInfo(user);
   }
 }

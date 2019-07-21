@@ -63,23 +63,15 @@ class _HomePageState extends State<HomePage> {
     data = Agent(
         id: "agentB",
         address: "Jl. Sorogenen No. 1",
-        costPerKM: 1000,
-        costPerKG: 2000,
         isReceiveOrder: false,
         name: "Post Office Sorogenen",
         phone: "02749171179",
         timeOpen: "07:00",
         timeClose: "21:00",
         geoPoint: GeoPoint(-7.828114, 110.406007),
-        userAdmin: new User(
-            id: "userAgentB",
-            name: "Hamid",
-            address: "Sorogenen",
-            phone: "089619237368"
-        )
     );
 
-    Firestore.instance.collection('agents').add(data.toMap());
+    Firestore.instance.collection('agents').add(data.toSnapshot());
   }
 
   void onTabTapped(int index) {

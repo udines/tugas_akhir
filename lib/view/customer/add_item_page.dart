@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tugas_akhir/data/agent/agent_data.dart';
-import 'package:tugas_akhir/data/item/item_data.dart';
 import 'package:tugas_akhir/data/transaction/transaction_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/presenter/customer/add_item_presenter.dart';
@@ -184,12 +183,6 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
 
   void _constructData() {
     //construct item object
-    Item item = Item(
-      id: _presenter.createItemId(),
-      name: inputName.text.isNotEmpty ? inputName.text : "Barang",
-      type: inputType.text,
-      weight: int.parse(inputWeight.text)
-    );
 
     //construct transaction object
     Transaction transaction = Transaction(
@@ -200,10 +193,6 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
       receiverName: inputReceiverName.text,
       receiverAddress: inputReceiverAddress.text,
       receiverPhone: inputReceiverPhone.text,
-      date: DateTime.now(),
-      item: item,
-      user: widget.user,
-      agent: widget.agent
     );
 
     Navigator.pop(context, transaction);

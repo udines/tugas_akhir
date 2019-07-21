@@ -2,13 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 abstract class AgentRepository {
   Future<Agent> fetchAgent(String agentId);
-  Future<List<Agent>> fetchAgentsNearby(double latitude, double longitude, double radius);
+  Future<List<DocumentSnapshot>> fetchAgents();
+  Future<List<DocumentSnapshot>> fetchAgentsNearby(double latitude, double longitude, double radius);
+  Future<void> postAgent(Agent agent);
+  Future<void> postAgents(List<Agent> agents);
 }
 
 class Agent {
   String id;
   String address;
-  String city;
   bool isReceiveOrder;
   String name;
   String phone;
@@ -20,7 +22,6 @@ class Agent {
   Agent({
     this.id = '',
     this.address = '',
-    this.city = '',
     this.isReceiveOrder = true,
     this.name = '',
     this.phone = '',
@@ -33,7 +34,6 @@ class Agent {
   Map<String, dynamic> toSnapshot() => {
     'id': id,
     'address': address,
-    'city': city,
     'isReceiveOrder': isReceiveOrder,
     'name': name,
     'phone': phone,
@@ -46,7 +46,6 @@ class Agent {
   Agent.fromSnapshot(DocumentSnapshot snapshot) {
     id = snapshot.documentID;
     address = snapshot['address'];
-    city = snapshot['city'];
     isReceiveOrder = snapshot['isReceiveOrder'];
     name = snapshot['name'];
     phone = snapshot['phone'];

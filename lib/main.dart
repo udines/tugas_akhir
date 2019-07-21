@@ -3,7 +3,7 @@ import 'package:tugas_akhir/dependency_injection.dart';
 import 'package:tugas_akhir/view/login_page.dart';
 
 void main() async {
-  Injector.configure(Flavor.MOCK);
+  Injector.configure(Flavor.PROD);
   runApp(new App());
 }
 

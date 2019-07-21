@@ -6,7 +6,8 @@ import 'package:tugas_akhir/data/agent/agent_data.dart';
 
 class ProdAgentRepository implements AgentRepository {
 
-  final _agentCollection = Firestore.instance.collection('agents');
+  static final db = Firestore.instance;
+  final _agentCollection = db.collection('agents');
 
   @override
   Future<Agent> fetchAgent(String agentId) async {
@@ -15,22 +16,36 @@ class ProdAgentRepository implements AgentRepository {
   }
 
   @override
-  Future<List<Agent>> fetchAgentsNearby(double latitude, double longitude, double rad) async {
-    List<Agent> agents = [];
+  Future<List<DocumentSnapshot>> fetchAgentsNearby(double latitude, double longitude, double rad) {
     Geoflutterfire geo = Geoflutterfire();
     GeoFirePoint center = geo.point(latitude: latitude, longitude: longitude);
 
     double radius = rad;
     String field = 'geoPoint';
 
-    Stream<List<DocumentSnapshot>> stream = geo.collection(collectionRef: _agentCollection)
-        .within(center: center, radius: radius, field: field);
+    return geo.collection(collectionRef: _agentCollection)
+    .within(center: center, radius: radius, field: field).first;
+  }
 
-    stream.listen((List<DocumentSnapshot> documentList) {
-      for (var document in documentList) {
-        agents.add(Agent.fromSnapshot(document));
-      }
-    });
-    return agents;
+  @override
+  Future<void> postAgent(Agent agent) async {
+    return await _agentCollection.document(agent.id).setData(agent.toSnapshot());
+  }
+
+  @override
+  Future<void> postAgents(List<Agent> agents) async {
+    final batch = db.batch();
+    for (var agent in agents) {
+      var dataRef = _agentCollection.document(agent.id);
+      batch.setData(dataRef, agent.toSnapshot());
+    }
+    return await batch.commit();
+  }
+
+  @override
+  Future<List<DocumentSnapshot>> fetchAgents() async {
+    final querySnapshot = await _agentCollection.getDocuments();
+    final documents = querySnapshot.documents;
+    return documents;
   }
 }

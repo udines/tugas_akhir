@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart' as fs;
 import 'package:tugas_akhir/data/agent/agent_data.dart';
-import 'package:tugas_akhir/data/item/item_data.dart';
 import 'package:tugas_akhir/data/transaction/transaction_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 
@@ -21,30 +20,13 @@ class MockPickupRepository implements PickupRepository {
   Future<Pickup> fetchPickup(String pickupId) {
     return Future.value(pickups[0]);
   }
-}
 
-var items = <Item>[
-  new Item(
-    name: "Kopi Robusta",
-    type: "Makanan",
-    weight: 1,
-  ),
-  new Item(
-    name: "Headphone",
-    type: "Elektronik",
-    weight: 2,
-  ),
-  new Item(
-    name: "Matras Yoga",
-    type: "Peralatan",
-    weight: 1,
-  ),
-  new Item(
-    name: "Nintendo Switch",
-    type: "Elektronik",
-    weight: 2,
-  ),
-];
+  @override
+  Future<void> postPickup(Pickup pickup) {
+    // TODO: implement postPickup
+    return null;
+  }
+}
 
 var users = <User>[
   new User(

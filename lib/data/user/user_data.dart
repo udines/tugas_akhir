@@ -1,5 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+abstract class UserRepository {
+  Future<User> fetchCurrentUser();
+  Future<User> loginUser(String email, String password);
+  Future<void> registerUser(String email, String password, User user);
+  Future<User> getUser(String uid);
+  void saveUserInfo(User user);
+}
+
 class User {
   String id;
   String name;
@@ -7,7 +15,13 @@ class User {
   String phone;
   bool isAdmin;
 
-  User({this.id, this.name, this.address, this.phone, this.isAdmin = false});
+  User({
+    this.id = '', 
+    this.name, 
+    this.address, 
+    this.phone, 
+    this.isAdmin = false
+  });
 
   Map<String, dynamic> toSnapshot() => {
     'id': id,
@@ -23,11 +37,4 @@ class User {
     address = snapshot['address'],
     phone = snapshot['phone'],
     isAdmin = snapshot['isAdmin'];
-}
-
-abstract class UserRepository {
-  Future<User> fetchCurrentUser();
-  Future<User> loginUser(String email, String password);
-  Future<User> registerUser(String email, String password, User user);
-  Future<User> getUser(String uid);
 }

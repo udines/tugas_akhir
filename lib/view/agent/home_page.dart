@@ -62,10 +62,6 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
         padding: EdgeInsets.all(16),
         child: Column(
           children: <Widget>[
-            Text(pickup.date.toString()),
-            Text(pickup.user.name),
-            Text(pickup.user.address),
-            Text(pickup.user.phone),
           ],
         ),
       ),

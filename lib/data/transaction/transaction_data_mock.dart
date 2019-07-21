@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart' as fs;
 import 'package:tugas_akhir/data/transaction/transaction_data.dart';
-import 'package:tugas_akhir/data/item/item_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/data/agent/agent_data.dart';
 
@@ -14,30 +13,17 @@ class MockTransactionRepository implements TransactionRepository {
   Future<Transaction> fetchTransaction(String transactionId) {
     return new Future.value(transactions[0]);
   }
-}
 
-var items = <Item>[
-  Item(
-    name: "Kopi Robusta",
-    type: "Makanan",
-    weight: 1,
-  ),
-  new Item(
-    name: "Headphone",
-    type: "Elektronik",
-    weight: 2,
-  ),
-  new Item(
-    name: "Matras Yoga",
-    type: "Peralatan",
-    weight: 1,
-  ),
-  new Item(
-    name: "Nintendo Switch",
-    type: "Elektronik",
-    weight: 2,
-  ),
-];
+  @override
+  Future<void> postTransaction(Transaction transaction) {
+    return Future.value(true);
+  }
+
+  @override
+  Future<void> postTransactions(List<Transaction> transactions) {
+    return Future.value(true);
+  }
+}
 
 var users = <User>[
   new User(
