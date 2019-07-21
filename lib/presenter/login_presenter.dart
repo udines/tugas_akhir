@@ -22,8 +22,8 @@ class LoginPresenter {
       _view.showLoading(true);
       _userRepo.loginUser(email, password)
         .then((user) => {
+          _view.showLoading(false),
           _view.onLoginSuccess(user),
-          _view.showLoading(false)
         })
         .catchError((onError) => {
           _view.showLoading(false),

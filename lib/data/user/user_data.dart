@@ -15,7 +15,13 @@ class User {
   String phone;
   bool isAdmin;
 
-  User({this.id, this.name, this.address, this.phone, this.isAdmin = false});
+  User({
+    this.id = '', 
+    this.name, 
+    this.address, 
+    this.phone, 
+    this.isAdmin = false
+  });
 
   Map<String, dynamic> toSnapshot() => {
     'id': id,
