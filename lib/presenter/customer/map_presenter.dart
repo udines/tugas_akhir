@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tugas_akhir/data/agent/agent_data.dart';
@@ -5,12 +6,10 @@ import 'package:tugas_akhir/data/location/location_data.dart';
 import 'package:tugas_akhir/dependency_injection.dart';
 
 abstract class MapViewContract {
-  void onLoadAgentComplete(List<Agent> agents);
   void onGetCurrentUserLocationComplete(double latitude, double longitude);
-  void onGetCurrentUserLocationError(String errorMessage);
-  void onLoadAgentError();
   void onLocationPermissionGranted();
   void onLocationPermissionDenied();
+  void onLoadAgentComplete(List<Agent> agents);
 }
 
 class MapPresenter {
@@ -19,22 +18,38 @@ class MapPresenter {
   LocationRepository _locationRepo;
 
   MapPresenter(this._view) {
-    _agentRepo = new Injector().agentRepository;
-    _locationRepo = new Injector().locationRepository;
+    _agentRepo = Injector().agentRepository;
+    _locationRepo = Injector().locationRepository;
   }
 
-  void fetchAgentsNearby(double latitude, double longitude, double radius) {
+  void fetchAgentsNearby(double latitude, double longitude, double radius) async {
+    List<Agent> list = [];
     _agentRepo.fetchAgentsNearby(latitude, longitude, radius)
-        .then((agents) => _view.onLoadAgentComplete(agents))
-        .catchError((onError) => _view.onLoadAgentError());
+      .then((documents) => {
+        documents.forEach((DocumentSnapshot snapshot) => {
+          list.add(Agent.fromSnapshot(snapshot))
+        }),
+        _view.onLoadAgentComplete(list)
+      });
+  }
+
+  void fetchAgents() {
+    List<Agent> list = [];
+    _agentRepo.fetchAgents()
+      .then((documents) => {
+        documents.forEach((DocumentSnapshot snapshot) => {
+          list.add(Agent.fromSnapshot(snapshot))
+        }),
+        _view.onLoadAgentComplete(list)
+      });
   }
 
   void getUserCurrentLocation() {
     _locationRepo.getCurrentLocation()
         .then((location) => _view.onGetCurrentUserLocationComplete(
           location.latitude, 
-          location.longitude))
-        .catchError((onError) => _view.onGetCurrentUserLocationError(onError.toString()));
+          location.longitude)
+        );
   }
 
   void checkLocationPermission() {

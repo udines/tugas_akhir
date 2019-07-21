@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tugas_akhir/data/agent/agent_data.dart';
@@ -7,11 +8,9 @@ import 'package:tugas_akhir/dependency_injection.dart';
 abstract class AgentListViewContract {
   void onLoadAgentComplete(List<Agent> agents);
   void onLoadAgentError();
-  void onGetCityComplete(String city);
   void onLocationPermissionGranted();
   void onLocationPermissionDenied();
   void onGetCurrentUserLocationComplete(double latitude, double longitude);
-  void onGetCurrentUserLocationError(String errorMessage);
 }
 
 class AgentListPresenter {
@@ -23,19 +22,27 @@ class AgentListPresenter {
     _repository = new Injector().agentRepository;
     _locationRepo = Injector().locationRepository;
   }
-  
-  void fetchAgentsNearby(double latitude, double longitude, double radius) {
-    _repository.fetchAgentsNearby(latitude, longitude, radius)
-        .then((agents) => _view.onLoadAgentComplete(agents))
-        .catchError((onError) => _view.onLoadAgentError());
+
+  Future<List<DocumentSnapshot>> fetchAgentsNearby(double latitude, double longitude, double radius) {
+    return _repository.fetchAgentsNearby(latitude, longitude, radius);
+  }
+
+  void fetchAgents() {
+    List<Agent> list = [];
+    _repository.fetchAgents().then((snapshots) => {
+      snapshots.forEach((DocumentSnapshot snapshot) => {
+        list.add(Agent.fromSnapshot(snapshot))
+      }),
+      _view.onLoadAgentComplete(list)
+    });
   }
 
   void getUserCurrentLocation() {
     _locationRepo.getCurrentLocation()
         .then((location) => _view.onGetCurrentUserLocationComplete(
-        location.latitude,
-        location.longitude))
-        .catchError((onError) => _view.onGetCurrentUserLocationError(onError.toString()));
+          location.latitude,
+          location.longitude)
+        );
   }
 
   void checkLocationPermission() {

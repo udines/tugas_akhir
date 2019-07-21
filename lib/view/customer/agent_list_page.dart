@@ -29,9 +29,9 @@ class _AgentListPageState extends State<AgentListPage> implements AgentListViewC
   Widget build(BuildContext context) {
     return new Container(
       child: _isLoading ?
-          new Center(
-            child: new CircularProgressIndicator(),
-          ) : _agentListContainer()
+      Center(
+        child: new CircularProgressIndicator(),
+      ) : _agentListContainer()
     );
   }
 
@@ -82,12 +82,12 @@ class _AgentListPageState extends State<AgentListPage> implements AgentListViewC
                         _makePhoneCall(agent.phone);
                       },
                       label: Text("Telepon"),
-                      icon: new Icon(Icons.phone),
+                      icon: Icon(Icons.phone),
                     ),
                     FlatButton.icon(
                       onPressed: () {},
                       label: Text("Arah"),
-                      icon: new Icon(Icons.directions),
+                      icon: Icon(Icons.directions),
                     )
                   ],
                 ),
@@ -110,12 +110,12 @@ class _AgentListPageState extends State<AgentListPage> implements AgentListViewC
 
   void _onItemTapped(Agent agent) {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => AgentDetailPage(
-              agent: agent
-            )
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgentDetailPage(
+          agent: agent
         )
+      )
     );
   }
 
@@ -133,18 +133,8 @@ class _AgentListPageState extends State<AgentListPage> implements AgentListViewC
   }
 
   @override
-  void onGetCityComplete(String city) {
-    
-  }
-
-  @override
   void onGetCurrentUserLocationComplete(double latitude, double longitude) {
-    _presenter.fetchAgentsNearby(latitude, longitude, 50);
-  }
-
-  @override
-  void onGetCurrentUserLocationError(String errorMessage) {
-    // TODO: implement onGetCurrentUserLocationError
+   _presenter.fetchAgents();
   }
 
   @override
