@@ -128,11 +128,6 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
   }
 
   @override
-  void onGetCurrentUserLocationError(String errorMessage) {
-
-  }
-
-  @override
   void onLocationPermissionDenied() {
     _presenter.requestLocationPermission();
   }
