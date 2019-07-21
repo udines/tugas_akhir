@@ -41,4 +41,15 @@ class ProdPickupRepository implements PickupRepository {
   Future<void> postPickup(Pickup pickup) {
     return _pickupCollection.document(pickup.id).setData(pickup.toSnapshot());
   }
+
+  @override
+  Future<void> postPickups(List<Pickup> pickups) async {
+    final batch = db.batch();
+    var docRef;
+    pickups.forEach((pickup) => {
+      docRef = _pickupCollection.document(pickup.id),
+      batch.setData(docRef, pickup.toSnapshot())
+    });
+    return await batch.commit();
+  }
 }
