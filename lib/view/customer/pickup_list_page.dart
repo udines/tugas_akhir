@@ -63,7 +63,7 @@ class _PickupListState extends State<PickupListPage> implements PickupViewContra
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Text(
-              DateFormat.yMMMMd().format(pickup.date) + " (" + pickup.status + ")",
+              '',
               style: TextStyle(fontSize: 18)
             ),
             SizedBox(height: 8,),
@@ -72,8 +72,6 @@ class _PickupListState extends State<PickupListPage> implements PickupViewContra
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(height: 4,),
-            Text(pickup.agent.name, style: TextStyle(fontSize: 16),),
-            Text(pickup.agent.address),
             SizedBox(height: 8,),
             Text(
               'Tarif',
@@ -88,8 +86,6 @@ class _PickupListState extends State<PickupListPage> implements PickupViewContra
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(height: 4,),
-            Text(pickup.user.name, style: TextStyle(fontSize: 16),),
-            Text(pickup.user.address),
             ButtonBar(
               children: <Widget>[
                 FlatButton(

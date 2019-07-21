@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:tugas_akhir/data/item/item_data.dart';
 import 'package:tugas_akhir/data/transaction/transaction_data.dart';
 import 'package:tugas_akhir/presenter/customer/item_list_presenter.dart';
 
@@ -22,7 +21,6 @@ class _ItemListState extends State<ItemListPage> implements ItemListViewContract
   void initState() {
     super.initState();
     _isLoading = true;
-    _presenter.fetchItems("pickupId");
   }
 
   @override
@@ -58,8 +56,6 @@ class _ItemListState extends State<ItemListPage> implements ItemListViewContract
   }
 
   Widget _itemCard(Transaction transaction, int position) {
-    String type = transaction.item.type;
-    String weight = transaction.item.weight.toString() + "kg";
     return Card(
       child: Padding(
         padding: EdgeInsets.all(16),
@@ -67,8 +63,6 @@ class _ItemListState extends State<ItemListPage> implements ItemListViewContract
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             ListTile(
-              title: Text(transaction.item.name),
-              subtitle: Text("$type $weight"),
               onTap: () {
                 //go to detail item
               },
@@ -89,20 +83,5 @@ class _ItemListState extends State<ItemListPage> implements ItemListViewContract
         ),
       ),
     );
-  }
-
-  @override
-  void onLoadItemsComplete(List<Item> items) {
-    setState(() {
-      _isLoading = false;
-    });
-  }
-
-  @override
-  void onLoadTransactionsComplete(List<Transaction> transactions, List<Item> items) {
-    setState(() {
-      _isLoading = false;
-      _transactions = transactions;
-    });
   }
 }

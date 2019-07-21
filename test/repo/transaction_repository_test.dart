@@ -14,7 +14,7 @@ main () {
       expect(result, isInstanceOf<List<Transaction>>());
     });
     test('mock fetch single transaction', () async {
-      var result = await mock.fetchTransaction("pickupId", "transactionId");
+      var result = await mock.fetchTransaction('transactionId');
       expect(result, isInstanceOf<Transaction>());
     });
   });
@@ -26,7 +26,7 @@ main () {
       expect(result, isInstanceOf<List<Transaction>>());
     });
     test('prod fetch single transaction', () async {
-      var result = await prod.fetchTransaction("pickupId", "transactionId");
+      var result = await prod.fetchTransaction('transactionId');
       expect(result, isInstanceOf<Transaction>());
     });
     test('prod fetch list of transaction failed', () async {
@@ -34,7 +34,7 @@ main () {
       expect(result, throwsException);
     });
     test('prod fetch single transaction failed', () async {
-      var result = await prod.fetchTransaction("pickupIdUnavailable", "transactionIdUnavailable");
+      var result = await prod.fetchTransaction('transactionUnavailableId');
       expect(result, throwsException);
     });
   });

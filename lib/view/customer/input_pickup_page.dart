@@ -155,8 +155,6 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
   }
 
   Widget _itemCard(Transaction transaction, int position) {
-    String type = transaction.item.type;
-    String weight = transaction.item.weight.toString() + "kg";
     return Card(
       child: Padding(
         padding: EdgeInsets.all(4),
@@ -164,8 +162,6 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             ListTile(
-              title: Text(transaction.item.name),
-              subtitle: Text("$type $weight"),
               onTap: () {
                 //go to detail item
               },
