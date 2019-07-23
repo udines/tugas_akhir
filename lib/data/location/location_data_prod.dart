@@ -25,7 +25,9 @@ class ProdLocationRepository implements LocationRepository {
     if (placemark.isEmpty) {
       return '';
     } else {
-      return placemark[0].subThoroughfare;
+      final place = placemark[0];
+      return place.subThoroughfare + " " + place.thoroughfare + " " + place.subLocality + " " +
+        place.locality + " " + place.subAdministrativeArea + " " + place.administrativeArea;
     }
   }
 
@@ -37,7 +39,27 @@ class ProdLocationRepository implements LocationRepository {
     if (placemark.isEmpty) {
       return '';
     } else {
-      return placemark[0].locality;
+      return placemark[0].subAdministrativeArea;
+    }
+  }
+
+  @override
+  Future<String> getCityByCoordinate(double latitude, double longitude) async {
+    List<Placemark> placemark = await Geolocator().placemarkFromCoordinates(latitude, longitude);
+    if (placemark.isEmpty) {
+      return '';
+    } else {
+      return placemark[0].subAdministrativeArea;
+    }
+  }
+
+  @override
+  Future<String> getPostalCode(double latitude, double longitude) async {
+    List<Placemark> placemark = await Geolocator().placemarkFromCoordinates(latitude, longitude);
+    if (placemark.isEmpty) {
+      return '';
+    } else {
+      return placemark[0].postalCode;
     }
   }
 }

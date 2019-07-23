@@ -17,4 +17,6 @@ abstract class LocationRepository {
   Future<Map<PermissionGroup, PermissionStatus>> requestLocationPermission();
   Future<String> getAddress(double latitude, double longitude);
   Future<String> getCity();
+  Future<String> getCityByCoordinate(double latitude, double longitude);
+  Future<String> getPostalCode(double latitude, double longitude);
 }
