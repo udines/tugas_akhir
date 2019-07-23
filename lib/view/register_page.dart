@@ -25,16 +25,19 @@ class _RegisterState extends State<RegisterPage> implements RegisterViewContract
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController postalCodeController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
 
   _RegisterState() {
     _presenter = RegisterPresenter(this);
+    _presenter.getInitialLocationInfo();
   }
 
   @override
   Widget build(BuildContext context) {
     _initDialog(context);
 
-    final nameField = TextField(
+    TextField nameField = TextField(
       obscureText: false,
       style: style,
       controller: nameController,
@@ -44,7 +47,7 @@ class _RegisterState extends State<RegisterPage> implements RegisterViewContract
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
 
-    final addressField = TextField(
+    TextField addressField = TextField(
       obscureText: false,
       style: style,
       controller: addressController,
@@ -54,7 +57,27 @@ class _RegisterState extends State<RegisterPage> implements RegisterViewContract
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
 
-    final phoneField = TextField(
+    TextField cityField = TextField(
+      obscureText: false,
+      style: style,
+      controller: cityController,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+        hintText: "Kota",
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+    );
+
+    TextField postalCodeField = TextField(
+      obscureText: false,
+      style: style,
+      controller: postalCodeController,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+        hintText: "Kode Pos",
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+    );
+
+    TextField phoneField = TextField(
       obscureText: false,
       style: style,
       controller: phoneController,
@@ -111,6 +134,10 @@ class _RegisterState extends State<RegisterPage> implements RegisterViewContract
                 SizedBox(height: 8,),
                 addressField,
                 SizedBox(height: 8,),
+                cityField,
+                SizedBox(height: 8,),
+                postalCodeField,
+                SizedBox(height: 8,),
                 phoneField,
                 SizedBox(height: 20,),
                 registerButton
@@ -154,5 +181,26 @@ class _RegisterState extends State<RegisterPage> implements RegisterViewContract
     } else {
       _progressDialog.hide();
     }
+  }
+
+  @override
+  void onGetAddressSuccess(String address) {
+    setState(() {
+      addressController.text = address;
+    });
+  }
+
+  @override
+  void onGetCitySuccess(String city) {
+    setState(() {
+      cityController.text = city;
+    });
+  }
+
+  @override
+  void onGetPostalCodeSuccess(String postalCode) {
+    setState(() {
+      postalCodeController.text = postalCode;
+    });
   }
 }
