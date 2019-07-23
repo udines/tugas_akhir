@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -114,7 +115,8 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
   }
 
   void _onMarkerTapped(MarkerId markerId) {
-    var agent = _agents.firstWhere((agent) => agent.id == markerId.toString());
+    var agent = _agents.firstWhere((agent) => agent.id == markerId.value);
+    debugPrint('size: ' + _agents.length.toString());
     if(agent != null) {
       Navigator.push(
         context,
