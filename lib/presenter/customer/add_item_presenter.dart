@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart' as fs;
-import 'package:tugas_akhir/data/transaction/transaction_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/dependency_injection.dart';
 
@@ -12,11 +11,9 @@ abstract class AddItemViewContract {
 
 class AddItemPresenter {
   AddItemViewContract _view;
-  TransactionRepository _transRepo;
   UserRepository _userRepo;
 
   AddItemPresenter(this._view) {
-    _transRepo = Injector().transactionRepository;
     _userRepo = Injector().userRepository;
   }
 
