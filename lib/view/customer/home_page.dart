@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_akhir/presenter/customer/home_presenter.dart';
 import 'package:tugas_akhir/view/customer/agent_list_page.dart';
 import 'package:tugas_akhir/view/customer/map_page.dart';
 import 'package:tugas_akhir/view/customer/pickup_list_page.dart';
+import 'package:tugas_akhir/view/login_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,9 +12,15 @@ class HomePage extends StatefulWidget {
   }
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> implements HomeViewContract {
   int _currentIndex = 0;
   String _appBarTitle = "Peta Agen Pos";
+  HomePresenter _presenter;
+
+  _HomePageState() {
+    _presenter = HomePresenter(this);
+  }
+
   final List<Widget> _children = [
     MapPage(),
     AgentListPage(),
@@ -24,13 +32,16 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_appBarTitle),
+        automaticallyImplyLeading: false,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () {
+              _presenter.logoutUser();
+            },
+          ),
+        ],
       ),
-     /*floatingActionButton: FloatingActionButton(
-       child: Icon(Icons.add),
-       onPressed: () {
-         _addData();
-       },
-     ),*/
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
@@ -72,5 +83,13 @@ class _HomePageState extends State<HomePage> {
           break;
       }
     });
+  }
+
+  @override
+  void onLogoutSuccess() {
+    _presenter.clearPreferences();
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (BuildContext context) => LoginPage())
+    );
   }
 }

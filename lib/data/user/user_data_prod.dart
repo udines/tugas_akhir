@@ -47,4 +47,9 @@ class ProdUserRepository implements UserRepository {
     SharedPref().saveString(SharedPref.KEY_USER_PHONE, user.phone);
     SharedPref().saveBool(SharedPref.KEY_USER_ADMIN, user.isAdmin);
   }
+
+  @override
+  Future<void> logoutUser() {
+    return _auth.signOut();
+  }
 }
