@@ -151,12 +151,12 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
   void onLoginSuccess(User user) {
     _presenter.saveUserInformation(user);
     if (user.isAdmin) {
-      Navigator.push(
+      Navigator.pushReplacement(
         context, 
         MaterialPageRoute(builder: (context) => agent.HomePage())
       );
     } else {
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => customer.HomePage())
       );
@@ -194,12 +194,12 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
   @override
   void onUserCheckSuccess(User user) {
     if (user.isAdmin) {
-      Navigator.push(
+      Navigator.pushReplacement(
         context, 
         MaterialPageRoute(builder: (context) => agent.HomePage())
       );
     } else {
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => customer.HomePage())
       );

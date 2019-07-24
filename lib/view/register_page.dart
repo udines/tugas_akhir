@@ -35,7 +35,8 @@ class _RegisterState extends State<RegisterPage> implements RegisterViewContract
 
   @override
   Widget build(BuildContext context) {
-    _initDialog(context);
+    _progressDialog = ProgressDialog(context, ProgressDialogType.Normal);
+    _progressDialog.setMessage('Registrasi...');
 
     TextField nameField = TextField(
       obscureText: false,
@@ -100,7 +101,10 @@ class _RegisterState extends State<RegisterPage> implements RegisterViewContract
             User newUser = User(
               name: nameController.text,
               address: addressController.text,
-              phone: phoneController.text
+              phone: phoneController.text,
+              city: cityController.text,
+              postalCode: postalCodeController.text,
+              email: widget.email
             );
             _presenter.registerUser(widget.email, widget.password, newUser);
           } else {
@@ -149,11 +153,6 @@ class _RegisterState extends State<RegisterPage> implements RegisterViewContract
     );
   }
 
-  void _initDialog(BuildContext context) {
-    _progressDialog = ProgressDialog(context, ProgressDialogType.Normal);
-    _progressDialog.setMessage('Registrasi...');
-  }
-
   @override
   void onRegisterFailed() {
     Fluttertoast.showToast(
@@ -167,19 +166,23 @@ class _RegisterState extends State<RegisterPage> implements RegisterViewContract
 
   @override
   void onRegisterSuccess(User user) {
-    _presenter.saveUserInformation(user);
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => HomePage())
     );
+    _presenter.saveUserInformation(user);
   }
 
   @override
   void showLoading(bool isLoading) {
     if (isLoading) {
-      _progressDialog.show();
+      setState(() {
+        _progressDialog.show();
+      });
     } else {
-      _progressDialog.hide();
+      setState(() {
+        _progressDialog.hide();
+      });
     }
   }
 
