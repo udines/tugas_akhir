@@ -31,6 +31,12 @@ class MockUserRepository implements UserRepository{
     // TODO: implement saveUserInfo
     return null;
   }
+
+  @override
+  Future<void> logoutUser() {
+    // TODO: implement logoutUser
+    return null;
+  }
 }
 
 var users = <User>[
