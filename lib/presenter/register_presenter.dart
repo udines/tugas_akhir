@@ -26,13 +26,13 @@ class RegisterPresenter {
   void registerUser(String email, String password, User user) {
     _view.showLoading(true);
     _repo.registerUser(email, password, user)
-      .then((onValue) => {
-        _view.onRegisterSuccess(user), 
-        _view.showLoading(false)
+      .then((onValue) {
+        _view.showLoading(false);
+        _view.onRegisterSuccess(user);
       })
-      .catchError((onError) => {
-        _view.onRegisterFailed(),
-        _view.showLoading(false)
+      .catchError((onError) {
+        _view.showLoading(false);
+        _view.onRegisterFailed();
       });
   }
 
