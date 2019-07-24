@@ -26,6 +26,12 @@ class MockPickupRepository implements PickupRepository {
     // TODO: implement postPickup
     return null;
   }
+
+  @override
+  Future<void> postPickups(List<Pickup> pickups) {
+    // TODO: implement postPickups
+    return null;
+  }
 }
 
 var users = <User>[
@@ -119,10 +125,28 @@ var transactions = <Transaction>[
 ];
 
 var pickups = <Pickup>[
-  new Pickup(
+  Pickup(
     id: "pickupA",
     agentId: agents[0].id,
     userId: users[0].id,
-    status: "Sukses"
+    status: "Sukses",
+    geoPoint: fs.GeoPoint(-7.828114, 110.406007),
+    timestamp: fs.Timestamp.now()
+  ),
+  Pickup(
+    id: "pickupB",
+    agentId: agents[0].id,
+    userId: users[0].id,
+    status: "Sukses",
+    geoPoint: fs.GeoPoint(-7.828114, 110.406007),
+    timestamp: fs.Timestamp.now()
+  ),
+  Pickup(
+    id: "pickupC",
+    agentId: agents[0].id,
+    userId: users[0].id,
+    status: "Sukses",
+    geoPoint: fs.GeoPoint(-7.828114, 110.406007),
+    timestamp: fs.Timestamp.now()
   )
 ];

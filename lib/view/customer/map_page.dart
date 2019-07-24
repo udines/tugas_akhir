@@ -24,7 +24,7 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
   _MapPageState() {
     _presenter = MapPresenter(this);
   }
-
+  
   @override
   void initState() {
     super.initState();
@@ -114,7 +114,8 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
   }
 
   void _onMarkerTapped(MarkerId markerId) {
-    var agent = _agents.firstWhere((agent) => agent.id == markerId.toString());
+    var agent = _agents.firstWhere((agent) => agent.id == markerId.value);
+    debugPrint('size: ' + _agents.length.toString());
     if(agent != null) {
       Navigator.push(
         context,
@@ -125,11 +126,6 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
         )
       );
     }
-  }
-
-  @override
-  void onGetCurrentUserLocationError(String errorMessage) {
-
   }
 
   @override

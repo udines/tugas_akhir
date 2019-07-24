@@ -7,12 +7,10 @@ class LocationProd extends ProdLocationRepository {}
 
 main () {
   group('mock location test', () {
-    var mock = LocationMock();
 
   });
 
   group('production location test', () {
-    var prod = LocationProd();
 
   });
 }

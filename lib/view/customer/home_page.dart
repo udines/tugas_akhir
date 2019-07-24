@@ -1,7 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:tugas_akhir/data/agent/agent_data.dart';
-import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/view/customer/agent_list_page.dart';
 import 'package:tugas_akhir/view/customer/map_page.dart';
 import 'package:tugas_akhir/view/customer/pickup_list_page.dart';
@@ -55,23 +52,6 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
-  }
-
-  void _addData() {
-    Agent data;
-
-    data = Agent(
-        id: "agentB",
-        address: "Jl. Sorogenen No. 1",
-        isReceiveOrder: false,
-        name: "Post Office Sorogenen",
-        phone: "02749171179",
-        timeOpen: "07:00",
-        timeClose: "21:00",
-        geoPoint: GeoPoint(-7.828114, 110.406007),
-    );
-
-    Firestore.instance.collection('agents').add(data.toSnapshot());
   }
 
   void onTabTapped(int index) {

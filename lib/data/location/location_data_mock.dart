@@ -40,5 +40,17 @@ class MockLocationRepository implements LocationRepository {
   Future<String> getCity() {
     return Future.value('Yogyakarta');
   }
+
+  @override
+  Future<String> getCityByCoordinate(double latitude, double longitude) {
+    // TODO: implement getCityByCoordinate
+    return null;
+  }
+
+  @override
+  Future<String> getPostalCode(double latitude, double longitude) {
+    // TODO: implement getPostalCode
+    return null;
+  }
 }
 

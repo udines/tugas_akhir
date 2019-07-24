@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:tugas_akhir/data/transaction/transaction_data.dart';
 import 'package:tugas_akhir/presenter/customer/item_list_presenter.dart';
 
@@ -9,13 +8,8 @@ class ItemListPage extends StatefulWidget{
 }
 
 class _ItemListState extends State<ItemListPage> implements ItemListViewContract {
-  ItemListPresenter _presenter;
   List<Transaction> _transactions;
   bool _isLoading;
-
-  _ItemListState() {
-    _presenter = ItemListPresenter(this);
-  }
 
   @override
   void initState() {

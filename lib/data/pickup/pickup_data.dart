@@ -5,6 +5,7 @@ abstract class PickupRepository {
   Future<List<Pickup>> fetchPickupsByAgent(String agentId);
   Future<Pickup> fetchPickup(String pickupId);
   Future<void> postPickup(Pickup pickup);
+  Future<void> postPickups(List<Pickup> pickups);
 }
 
 class Pickup {
