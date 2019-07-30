@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tugas_akhir/data/agent/agent_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/view/customer/input_pickup_page.dart';
@@ -16,6 +19,8 @@ class AgentDetailPage extends StatefulWidget {
 class _AgentDetailPageState extends State<AgentDetailPage> implements AgentDetailViewContract {
   BuildContext context;
   AgentDetailPresenter _presenter;
+  Completer<GoogleMapController> _controller = Completer();
+  Map<MarkerId, Marker> _markers = <MarkerId, Marker>{};
   User _currentUser;
 
   _AgentDetailPageState() {
@@ -26,6 +31,18 @@ class _AgentDetailPageState extends State<AgentDetailPage> implements AgentDetai
   void initState() {
     super.initState();
     _presenter.getCurrentUser();
+    _markers[MarkerId(widget.agent.id)] = Marker(
+      markerId: MarkerId(widget.agent.id),
+      position: LatLng(
+        widget.agent.geoPoint.latitude,
+        widget.agent.geoPoint.longitude
+      ),
+      infoWindow: InfoWindow(
+        title: widget.agent.name,
+        onTap: () {}
+      ),
+      icon: BitmapDescriptor.defaultMarker
+    );
   }
 
   @override
@@ -41,10 +58,34 @@ class _AgentDetailPageState extends State<AgentDetailPage> implements AgentDetai
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              //nama agen
+              Text("Nama agen", style: TextStyle(fontSize: 12, color: Colors.grey[500])),
+              Text(widget.agent.name, style: TextStyle(fontSize: 16, color: Colors.black)),
+              SizedBox(height: 16,),
               //alamat dan jam buka/tutup
               Text("Alamat", style: TextStyle(fontSize: 12, color: Colors.grey[500])),
               Text(widget.agent.address, style: TextStyle(fontSize: 16, color: Colors.black)),
-              Padding(padding: EdgeInsets.only(top: 16),),
+              SizedBox(height: 16,),
+              Text("Lokasi agen", style: TextStyle(fontSize: 12, color: Colors.grey[500])),
+              SizedBox(
+                width: double.infinity,
+                height: 200,
+                child: GoogleMap(
+                  mapType: MapType.normal,
+                  initialCameraPosition: CameraPosition(
+                      target: LatLng(
+                          widget.agent.geoPoint.latitude,
+                          widget.agent.geoPoint.longitude),
+                      zoom: 14.4746
+                  ),
+                  markers: Set<Marker>.of(_markers.values),
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller.complete(controller);
+                  },
+                )
+                ,
+              ),
+              SizedBox(height: 16,),
               Row(
                 children: <Widget>[
                   Column(
@@ -62,6 +103,14 @@ class _AgentDetailPageState extends State<AgentDetailPage> implements AgentDetai
                       Text(widget.agent.timeClose, style: TextStyle(fontSize: 16, color: Colors.black))
                     ],
                   ),
+                  SizedBox(width: 32,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("Menerima penjemputan", style: TextStyle(fontSize: 12, color: Colors.grey[500])),
+                      _receiveOrder(widget.agent.isReceiveOrder),
+                    ],
+                  )
                 ],
               ),
               //peta kecil dengan rute dari lokasi pengguna ke lokasi agen
@@ -80,30 +129,6 @@ class _AgentDetailPageState extends State<AgentDetailPage> implements AgentDetai
                     ),
                   ],
                 ),
-              ),
-
-              //fitur menerima pesanan jemput dan tarif
-              Padding(padding: EdgeInsets.only(top: 16),),
-              Text("Menerima penjemputan", style: TextStyle(fontSize: 12, color: Colors.grey[500])),
-              _receiveOrder(widget.agent.isReceiveOrder),
-
-              Padding(padding: EdgeInsets.only(top: 16),),
-              Row(
-                children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text("Tarif per KM", style: TextStyle(fontSize: 12, color: Colors.grey[500])),
-                    ],
-                  ),
-                  Padding(padding: EdgeInsets.only(left: 32),),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text("Tarif per KG", style: TextStyle(fontSize: 12, color: Colors.grey[500])),
-                    ],
-                  ),
-                ],
               ),
 
               Padding(padding: EdgeInsets.only(top: 16),),
