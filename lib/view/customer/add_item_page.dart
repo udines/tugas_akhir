@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tugas_akhir/data/agent/agent_data.dart';
 import 'package:tugas_akhir/data/transaction/transaction_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
@@ -176,6 +177,14 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
                   _validateData();
                   if (_validate) {
                     _constructData();
+                  } else {
+                    Fluttertoast.showToast(
+                      msg: 'Harap lengkapi data',
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIos: 1,
+                      fontSize: 16.0
+                    );
                   }
                 },
               ),
