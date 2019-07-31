@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart' as fs;
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tugas_akhir/data/agent/agent_data.dart';
+import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 import 'package:tugas_akhir/data/transaction/transaction_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/presenter/customer/input_pickup_presenter.dart';
@@ -25,6 +28,7 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
   CameraPosition _cameraPosition;
   bool _isLoading;
   InputPickupPresenter _presenter;
+  LatLng _location;
   double zoom = 14.4746;
   String _address;
   List<Transaction> _transactions = [];
@@ -102,18 +106,31 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
               delegate: SliverChildListDelegate(
                 [
                   ButtonTheme.bar(
-                    child: RaisedButton(
+                    child: FlatButton(
                       child: Text(
-                        "Tambahkan Barang", 
+                        "+ Tambahkan Barang", 
                         style: TextStyle(
-                          color: Colors.white
+                          color: Colors.blue
                         ),
                       ),
                       onPressed: () {
                         _navigateToAddItemPage(context);
                       },
                     ),
-                  )
+                  ),
+                  ButtonTheme.bar(
+                    child: RaisedButton(
+                      child: Text(
+                        "PESAN SEKARANG", 
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
+                      ),
+                      onPressed: () {
+                        _sendData();
+                      },
+                    ),
+                  ),
                 ]
               ),
             ),
@@ -121,6 +138,27 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
         )
       ),
     );
+  }
+
+  _sendData() {
+    if (_transactions.length > 0) {
+      Pickup pickup = Pickup(
+        timestamp: fs.Timestamp.now(),
+        geoPoint: fs.GeoPoint(_location.latitude, _location.longitude),
+        status: Pickup.STATUS_WAITING,
+        agentId: widget.agent.id,
+        userId: widget.user.id
+      );
+      _presenter.postPickup(pickup);
+    } else {
+      Fluttertoast.showToast(
+        msg: 'Tambahkan barang terlebih dahulu',
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 1,
+        fontSize: 16.0
+      );
+    }
   }
 
   _navigateToAddItemPage(BuildContext context) async {
@@ -189,6 +227,7 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
 
   @override
   void onGetCurrentUserLocationComplete(double latitude, double longitude) {
+    _location = LatLng(latitude, longitude);
     var id = "Lokasi Pengguna";
     MarkerId markerId = MarkerId(id);
     Marker userMarker = Marker(
@@ -213,11 +252,6 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
   }
 
   @override
-  void onGetCurrentUserLocationError(String errorMessage) {
-    // TODO: implement onGetCurrentUserLocationError
-  }
-
-  @override
   void onGetAddressComplete(String address) {
     setState(() {
       _address = address;
@@ -225,7 +259,21 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
   }
 
   @override
-  void onGetAddressError(String errorMessage) {
-    // TODO: implement onGetAddressError
+  void onPostPickupSuccess(String pickupId) {
+    for (int i = 0; i < _transactions.length; i++) {
+      _transactions[i].pickupId = pickupId;
+    }
+    _presenter.postTransactions(_transactions);
+  }
+
+  @override
+  void onPostTransactionsSuccess() {
+    Fluttertoast.showToast(
+      msg: 'Harap tunggu agen menerima pesanan Anda',
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIos: 1,
+      fontSize: 16.0
+    );
   }
 }
