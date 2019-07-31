@@ -52,5 +52,17 @@ class MockLocationRepository implements LocationRepository {
     // TODO: implement getPostalCode
     return null;
   }
+
+  @override
+  Future<String> getProvince() {
+    // TODO: implement getProvince
+    return null;
+  }
+
+  @override
+  Future<String> getCurrentAddress() {
+    // TODO: implement getCurrentAddress
+    return null;
+  }
 }
 

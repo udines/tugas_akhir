@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tugas_akhir/data/agent/agent_data.dart';
 import 'package:tugas_akhir/data/transaction/transaction_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
@@ -23,9 +24,11 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
   final inputWeight = TextEditingController();
   final inputSenderName = TextEditingController();
   final inputSenderAddress = TextEditingController();
+  final inputSenderProvince = TextEditingController();
   final inputSenderPhone = TextEditingController();
   final inputReceiverName = TextEditingController();
   final inputReceiverAddress = TextEditingController();
+  final inputReceiverProvince = TextEditingController();
   final inputReceiverPhone = TextEditingController();
   AddItemPresenter _presenter;
   bool _validate = false;
@@ -35,15 +38,26 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
   }
 
   @override
+  void initState() {
+    inputSenderName.text = widget.user.name;
+    inputSenderPhone.text = widget.user.phone;
+    _presenter.getSenderAddress();
+    _presenter.getSenderProvince();
+    super.initState();
+  }
+
+  @override
   void dispose() {
     inputName.dispose();
     inputType.dispose();
     inputWeight.dispose();
     inputSenderName.dispose();
     inputSenderAddress.dispose();
+    inputSenderProvince.dispose();
     inputSenderPhone.dispose();
     inputReceiverName.dispose();
     inputReceiverAddress.dispose();
+    inputReceiverProvince.dispose();
     inputReceiverPhone.dispose();
     super.dispose();
   }
@@ -111,6 +125,13 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
                 textCapitalization: TextCapitalization.sentences,
                 controller: inputSenderAddress,
               ),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: 'Provinsi pengirim',
+                ),
+                textCapitalization: TextCapitalization.sentences,
+                controller: inputSenderProvince,
+              ),
               SizedBox(height: 8,),
               TextField(
                 decoration: InputDecoration(
@@ -143,6 +164,13 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
                 textCapitalization: TextCapitalization.sentences,
                 controller: inputReceiverAddress,
               ),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: 'Provinsi penerima',
+                ),
+                textCapitalization: TextCapitalization.sentences,
+                controller: inputReceiverProvince,
+              ),
               SizedBox(height: 8,),
               TextField(
                 decoration: InputDecoration(
@@ -158,6 +186,14 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
                   _validateData();
                   if (_validate) {
                     _constructData();
+                  } else {
+                    Fluttertoast.showToast(
+                      msg: 'Harap lengkapi data',
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIos: 1,
+                      fontSize: 16.0
+                    );
                   }
                 },
               ),
@@ -174,24 +210,32 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
       inputWeight.text.isNotEmpty ? _validate = true : _validate = false;
       inputSenderName.text.isNotEmpty ? _validate = true : _validate = false;
       inputSenderAddress.text.isNotEmpty ? _validate = true : _validate = false;
+      inputSenderProvince.text.isNotEmpty ? _validate = true : _validate = false;
       inputSenderPhone.text.isNotEmpty ? _validate = true : _validate = false;
       inputReceiverName.text.isNotEmpty ? _validate = true : _validate = false;
       inputReceiverAddress.text.isNotEmpty ? _validate = true : _validate = false;
+      inputReceiverProvince.text.isNotEmpty ? _validate = true : _validate = false;
       inputReceiverPhone.text.isNotEmpty ? _validate = true : _validate = false;
     });
   }
 
   void _constructData() {
-    //construct item object
-
     //construct transaction object
     Transaction transaction = Transaction(
       id: _presenter.createTransactionId(),
+      pickupId: '',
+      agentId: widget.agent.id,
+      userId: widget.user.id,
+      itemName: inputName.text,
+      itemWeight: int.parse(inputWeight.text),
+      itemType: inputType.text,
       senderName: inputSenderName.text,
       senderAddress: inputSenderAddress.text,
+      senderProvince: inputSenderProvince.text,
       senderPhone: inputSenderPhone.text,
       receiverName: inputReceiverName.text,
       receiverAddress: inputReceiverAddress.text,
+      receiverProvince: inputReceiverProvince.text,
       receiverPhone: inputReceiverPhone.text,
     );
 
@@ -199,22 +243,16 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
   }
 
   @override
-  onGetIdError() {
-    // TODO: implement onGetIdError
+  void onGetSenderAddressSuccess(String address) {
+    setState(() {
+      inputSenderAddress.text = address;
+    });
   }
 
   @override
-  onGetIdSuccess(String id) {
-    
-  }
-
-  @override
-  void onGetCurrentUserError() {
-    // TODO: implement onGetCurrentUserError
-  }
-
-  @override
-  void onGetCurrentUserSuccess(User user) {
-    
+  void onGetSenderProvinceSuccess(String province) {
+    setState(() {
+      inputSenderProvince.text = province;
+    });
   }
 }

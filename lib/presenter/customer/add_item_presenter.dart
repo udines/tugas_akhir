@@ -1,36 +1,29 @@
 import 'package:cloud_firestore/cloud_firestore.dart' as fs;
-import 'package:tugas_akhir/data/user/user_data.dart';
+import 'package:tugas_akhir/data/location/location_data.dart';
 import 'package:tugas_akhir/dependency_injection.dart';
 
 abstract class AddItemViewContract {
-  void onGetIdSuccess(String id);
-  void onGetIdError();
-  void onGetCurrentUserSuccess(User user);
-  void onGetCurrentUserError();
+  void onGetSenderAddressSuccess(String address);
+  void onGetSenderProvinceSuccess(String province);
 }
 
 class AddItemPresenter {
   AddItemViewContract _view;
-  UserRepository _userRepo;
+  LocationRepository _locationRepo;
 
   AddItemPresenter(this._view) {
-    _userRepo = Injector().userRepository;
-  }
-
-  String createItemId() {
-    return fs.Firestore.instance.collection('pickups').document()
-    .collection('transactions').document().collection('item')
-    .document().documentID;
+    _locationRepo = Injector().locationRepository;
   }
 
   String createTransactionId() {
-    return fs.Firestore.instance.collection('pickups').document()
-    .collection('transactions').document().documentID;
+    return fs.Firestore.instance.collection('pickups').id;
   }
 
-  void getCurrentUser() {
-    _userRepo.fetchCurrentUser()
-        .then((user) => _view.onGetCurrentUserSuccess(user))
-        .catchError((onError) => _view.onGetCurrentUserError());
+  void getSenderAddress() {
+    
+  }
+
+  void getSenderProvince() {
+
   }
 }
