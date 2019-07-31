@@ -9,6 +9,12 @@ abstract class PickupRepository {
 }
 
 class Pickup {
+
+  static const STATUS_PROCESS = 'proses';
+  static const STATUS_CANCEL = 'batal';
+  static const STATUS_COMPLETED = 'selesai';
+  static const STATUS_WAITING = 'menunggu';
+
   String id;
   Timestamp timestamp;
   GeoPoint geoPoint;
@@ -18,7 +24,7 @@ class Pickup {
   String userId;
 
   Pickup({
-    this.id,
+    this.id = '',
     this.timestamp,
     this.geoPoint,
     this.status,

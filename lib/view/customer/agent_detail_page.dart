@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tugas_akhir/data/agent/agent_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
@@ -161,14 +162,22 @@ class _AgentDetailPageState extends State<AgentDetailPage> implements AgentDetai
         );
       } else {
         //Agen sedang tutup
-        Scaffold.of(context).showSnackBar(SnackBar(content: Text('Agen tutup')));
+        Fluttertoast.showToast(
+          msg: 'Agen tutup',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIos: 1,
+          fontSize: 16.0
+        );
       }
     } else {
       //data agen atau pengguna tidak ada
-      Scaffold.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Tidak ditemukan data agen atau data pengguna')
-        )
+      Fluttertoast.showToast(
+        msg: 'Tidak ditemukan data agen atau data pengguna',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 1,
+        fontSize: 16.0
       );
     }
   }
