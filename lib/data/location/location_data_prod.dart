@@ -62,4 +62,30 @@ class ProdLocationRepository implements LocationRepository {
       return placemark[0].postalCode;
     }
   }
+
+  @override
+  Future<String> getProvince() async {
+    final position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    List<Placemark> placemark = await Geolocator()
+    .placemarkFromCoordinates(position.latitude, position.longitude);
+    if (placemark.isEmpty) {
+      return '';
+    } else {
+      return placemark[0].administrativeArea;
+    }
+  }
+
+  @override
+  Future<String> getCurrentAddress() async {
+    final position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    List<Placemark> placemark = await Geolocator()
+    .placemarkFromCoordinates(position.latitude, position.longitude);
+    if (placemark.isEmpty) {
+      return '';
+    } else {
+      final place = placemark[0];
+      return place.subThoroughfare + " " + place.thoroughfare + " " + place.subLocality + " " +
+        place.locality + " " + place.subAdministrativeArea + " " + place.administrativeArea;
+    }
+  }
 }

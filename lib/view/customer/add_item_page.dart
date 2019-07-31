@@ -38,6 +38,15 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
   }
 
   @override
+  void initState() {
+    inputSenderName.text = widget.user.name;
+    inputSenderPhone.text = widget.user.phone;
+    _presenter.getSenderAddress();
+    _presenter.getSenderProvince();
+    super.initState();
+  }
+
+  @override
   void dispose() {
     inputName.dispose();
     inputType.dispose();
@@ -234,22 +243,16 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
   }
 
   @override
-  onGetIdError() {
-    // TODO: implement onGetIdError
+  void onGetSenderAddressSuccess(String address) {
+    setState(() {
+      inputSenderAddress.text = address;
+    });
   }
 
   @override
-  onGetIdSuccess(String id) {
-    
-  }
-
-  @override
-  void onGetCurrentUserError() {
-    // TODO: implement onGetCurrentUserError
-  }
-
-  @override
-  void onGetCurrentUserSuccess(User user) {
-    
+  void onGetSenderProvinceSuccess(String province) {
+    setState(() {
+      inputSenderProvince.text = province;
+    });
   }
 }
