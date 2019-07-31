@@ -10,6 +10,7 @@ import 'package:tugas_akhir/data/transaction/transaction_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/presenter/customer/input_pickup_presenter.dart';
 import 'package:tugas_akhir/view/customer/add_item_page.dart';
+import 'package:tugas_akhir/view/customer/home_page.dart';
 
 class InputPickupPage extends StatefulWidget {
   final Agent agent;
@@ -274,6 +275,10 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
       gravity: ToastGravity.BOTTOM,
       timeInSecForIos: 1,
       fontSize: 16.0
+    );
+    Navigator.pushReplacement(
+      context, 
+      MaterialPageRoute(builder: (context) => HomePage())
     );
   }
 }
