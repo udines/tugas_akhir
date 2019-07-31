@@ -27,14 +27,13 @@ class InputPickupPresenter {
     _locationRepo.getCurrentLocation()
         .then((location) => _view.onGetCurrentUserLocationComplete(
           location.latitude, 
-          location.longitude))
-        .catchError((onError) => _view.onGetCurrentUserLocationError(onError.toString()));
+          location.longitude)
+        );
   }
 
   void getAddress(double latitude, double longitude) {
     _locationRepo.getAddress(latitude, longitude)
-        .then((address) => _view.onGetAddressComplete(address))
-        .catchError((onError) => _view.onGetAddressError(onError.toString()));
+        .then((address) => _view.onGetAddressComplete(address));
   }
 
   void postPickup(Pickup pickup) {
