@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 import 'package:tugas_akhir/presenter/customer/pickup_list_presenter.dart';
 import 'package:tugas_akhir/view/customer/item_list_page.dart';
@@ -14,14 +15,14 @@ class _PickupListState extends State<PickupListPage> implements PickupViewContra
   bool _isLoading;
 
   _PickupListState() {
-    _presenter = new PickupPresenter(this);
+    _presenter = PickupPresenter(this);
   }
 
   @override
   void initState() {
     super.initState();
     _isLoading = true;
-    _presenter.loadPickupsByUser("userId");
+    _presenter.loadPickupsByUser();
   }
 
   @override
@@ -117,6 +118,12 @@ class _PickupListState extends State<PickupListPage> implements PickupViewContra
 
   @override
   void onLoadPickupTransactionError() {
-
+    Fluttertoast.showToast(
+        msg: 'Gagal memuat transaksi',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 1,
+        fontSize: 16.0
+    );
   }
 }
