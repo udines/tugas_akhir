@@ -142,8 +142,12 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
 
   @override
   void onLoginError() {
-    Scaffold.of(context).showSnackBar(
-        SnackBar(content: Text('Gagal login'))
+    Fluttertoast.showToast(
+        msg: 'Gagal login',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 1,
+        fontSize: 16.0
     );
   }
 
