@@ -12,17 +12,8 @@ main() {
     AddItemMock mock = AddItemMock();
     test('mock create item id', () {
       var result = true;
-      var id1 = mock.presenter.createItemId();
-      var id2 = mock.presenter.createItemId();
       for (int i = 0; i < 1000; i++) {
-        if (id1 != id2) {
-          result = result && true;
-        } else {
-          result = result && false;
-          break;
-        }
-        id1 = mock.presenter.createItemId();
-        id2 = mock.presenter.createItemId();
+        
       }
       expect(result, true);
     });
