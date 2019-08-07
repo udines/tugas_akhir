@@ -9,6 +9,8 @@ abstract class InputPickupViewContract {
   void onGetAddressComplete(String address);
   void onPostPickupSuccess(String pickupId);
   void onPostTransactionsSuccess();
+  void showLoading(bool isLoading);
+  void onTransactionFailed();
 }
 
 class InputPickupPresenter {
@@ -37,14 +39,26 @@ class InputPickupPresenter {
   }
 
   void postPickup(Pickup pickup) {
-    var pickupId = fs.Firestore.instance.collection('pickups').id;
+    _view.showLoading(true);
+    var pickupId = fs.Firestore.instance.collection('pickups').document().documentID;
     pickup.id = pickupId;
     _pickupRepo.postPickup(pickup)
-      .then((onComplete) => _view.onPostPickupSuccess(pickupId));
+      .then((onComplete) => _view.onPostPickupSuccess(pickupId))
+      .catchError((onError) {
+        _view.onTransactionFailed();
+        _view.showLoading(false);
+      });
   }
 
   void postTransactions(List<Transaction> transactions) {
     _transactionRepo.postTransactions(transactions)
-      .then((onComplete) => _view.onPostTransactionsSuccess());
+      .then((onComplete) {
+        _view.onPostTransactionsSuccess();
+        _view.showLoading(false);
+      })
+      .catchError((onError) {
+        _view.onTransactionFailed();
+        _view.showLoading(false);
+      });
   }
 }
