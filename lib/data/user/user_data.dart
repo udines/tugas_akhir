@@ -51,4 +51,14 @@ class User {
     postalCode = snapshot['postalCode'],
     phone = snapshot['phone'],
     isAdmin = snapshot['isAdmin'];
+
+  User.fromMap(Map<dynamic, dynamic> data) :
+    id = data['id'],
+    email = data['email'],
+    name = data['name'],
+    address = data['address'],
+    city = data['city'],
+    postalCode = data['postalCode'],
+    phone = data['phone'],
+    isAdmin = data['isAdmin'];
 }
