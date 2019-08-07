@@ -16,13 +16,13 @@ class _PickupListState extends State<PickupListPage> implements PickupViewContra
 
   _PickupListState() {
     _presenter = PickupPresenter(this);
+    _presenter.loadPickupsByUser();
   }
 
   @override
   void initState() {
     super.initState();
     _isLoading = true;
-    _presenter.loadPickupsByUser();
   }
 
   @override
@@ -55,6 +55,8 @@ class _PickupListState extends State<PickupListPage> implements PickupViewContra
   }
 
   Widget _itemPickupTransaction(Pickup pickup) {
+    String _address = pickup.agent.address;
+    String _phone = pickup.agent.phone;
     return Card(
       margin: EdgeInsets.only(top: 4, bottom: 4, left: 8, right: 8),
       child: Padding(
@@ -62,30 +64,15 @@ class _PickupListState extends State<PickupListPage> implements PickupViewContra
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text(
-              '',
-              style: TextStyle(fontSize: 18)
-            ),
+            Text('Tanggal penjemputan', style: TextStyle(color: Colors.grey),),
+            Text(pickup.getStringDate(), style: TextStyle(fontSize: 16, color: Colors.black),),
             SizedBox(height: 8,),
-            Text(
-              'Agen',
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(height: 4,),
+            Text('Status', style: TextStyle(color: Colors.grey),),
+            Text(pickup.status, style: TextStyle(fontSize: 16, color: Colors.black),),
             SizedBox(height: 8,),
-            Text(
-              'Tarif',
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(height: 4,),
-            Text("3km 10kg"),
-            Text("Rp.100.000"),
-            SizedBox(height: 8,),
-            Text(
-              'Pengguna',
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(height: 4,),
+            Text('Agen', style: TextStyle(color: Colors.grey),),
+            Text(pickup.agent.name, style: TextStyle(fontSize: 16, color: Colors.black),),
+            Text("$_address ($_phone)", style: TextStyle(fontSize: 16, color: Colors.black),),
             ButtonBar(
               children: <Widget>[
                 FlatButton(
