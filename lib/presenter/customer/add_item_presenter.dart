@@ -16,14 +16,16 @@ class AddItemPresenter {
   }
 
   String createTransactionId() {
-    return fs.Firestore.instance.collection('pickups').id;
+    return fs.Firestore.instance.collection('transactions').document().documentID;
   }
 
   void getSenderAddress() {
-    
+    _locationRepo.getCurrentAddress()
+        .then((address) => _view.onGetSenderAddressSuccess(address));
   }
 
   void getSenderProvince() {
-
+    _locationRepo.getProvince()
+        .then((province) => _view.onGetSenderProvinceSuccess(province));
   }
 }
