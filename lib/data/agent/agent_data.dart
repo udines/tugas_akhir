@@ -54,4 +54,16 @@ class Agent {
     geoPoint = snapshot['geoPoint'];
     adminId = snapshot['adminId'];
   }
+
+  Agent.fromMap(Map<dynamic, dynamic> data) {
+    id = data['id'];
+    address = data['address'];
+    isReceiveOrder = data['isReceiveOrder'];
+    name = data['name'];
+    phone = data['phone'];
+    timeOpen = data['timeOpen'];
+    timeClose = data['timeClose'];
+    geoPoint = data['geoPoint'];
+    adminId = data['adminId'];
+  }
 }
