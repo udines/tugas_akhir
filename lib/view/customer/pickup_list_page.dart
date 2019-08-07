@@ -27,10 +27,10 @@ class _PickupListState extends State<PickupListPage> implements PickupViewContra
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return Container(
         child: _isLoading ?
-        new Center(
-          child: new CircularProgressIndicator(),
+        Center(
+          child: CircularProgressIndicator(),
         ) : _pickupListContainer()
     );
   }
