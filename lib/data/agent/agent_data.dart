@@ -44,7 +44,7 @@ class Agent {
   };
 
   Agent.fromSnapshot(DocumentSnapshot snapshot) {
-    id = snapshot.documentID;
+    id = snapshot['id'];
     address = snapshot['address'];
     isReceiveOrder = snapshot['isReceiveOrder'];
     name = snapshot['name'];
