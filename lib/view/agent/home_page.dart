@@ -58,32 +58,24 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
   }
 
   Widget _cardPickup(Pickup pickup) {
+    String _address = pickup.user.address;
+    String _phone = pickup.user.phone;
     return Card(
+      margin: EdgeInsets.only(top: 4, bottom: 4, left: 8, right: 8),
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.only(top: 16, left: 16, right: 16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text(
-                '',
-                style: TextStyle(fontSize: 18)
-            ),
+            Text('Tanggal penjemputan', style: TextStyle(color: Colors.grey),),
+            Text(pickup.getStringDate(), style: TextStyle(fontSize: 16, color: Colors.black),),
             SizedBox(height: 8,),
-            Text(
-              'Agen',
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(height: 4,),
+            Text('Status', style: TextStyle(color: Colors.grey),),
+            Text(pickup.status, style: TextStyle(fontSize: 16, color: Colors.black),),
             SizedBox(height: 8,),
-            Text(
-              'Tarif',
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(height: 8,),
-            Text(
-              'Pengguna',
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(height: 4,),
+            Text('Pengguna', style: TextStyle(color: Colors.grey),),
+            Text(pickup.user.name, style: TextStyle(fontSize: 16, color: Colors.black),),
+            Text("$_address ($_phone)", style: TextStyle(fontSize: 16, color: Colors.black),),
             ButtonBar(
               children: <Widget>[
                 FlatButton(
@@ -111,7 +103,7 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
     setState(() {
       _user = user;
     });
-    _presenter.loadPickupTransactions(_user.id);
+    _presenter.loadPickupTransactions(_user.agentId);
   }
 
   @override
