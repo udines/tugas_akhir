@@ -32,11 +32,16 @@ class _TransactionListState extends State<TransactionListPage>
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Daftar transaksi'),
+      ),
+      body: Container(
         child: _isLoading ?
-        new Center(
+        Center(
           child: new CircularProgressIndicator(),
         ) : _transactionListContainer()
+      ),
     );
   }
 
