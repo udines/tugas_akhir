@@ -153,7 +153,6 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
 
   @override
   void onLoginSuccess(User user) {
-    _presenter.saveUserInformation(user);
     if (user.isAdmin) {
       Navigator.pushReplacement(
         context, 
