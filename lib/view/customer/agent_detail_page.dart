@@ -206,16 +206,12 @@ class _AgentDetailPageState extends State<AgentDetailPage> implements AgentDetai
 
   @override
   void onGetCurrentUserError() {
-    // TODO: implement onGetCurrentUserError
-  }
-
-  @override
-  void onLoadAgentComplete(Agent agent) {
-    // TODO: implement onLoadAgentComplete
-  }
-
-  @override
-  void onLoadAgentError() {
-    // TODO: implement onLoadAgentError
+    Fluttertoast.showToast(
+        msg: 'Gagal memuat data pengguna',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 1,
+        fontSize: 16.0
+    );
   }
 }
