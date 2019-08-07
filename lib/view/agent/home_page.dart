@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/presenter/agent/home_presenter.dart';
@@ -62,6 +63,43 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
         padding: EdgeInsets.all(16),
         child: Column(
           children: <Widget>[
+            Text(
+                '',
+                style: TextStyle(fontSize: 18)
+            ),
+            SizedBox(height: 8,),
+            Text(
+              'Agen',
+              style: TextStyle(fontSize: 20),
+            ),
+            SizedBox(height: 4,),
+            SizedBox(height: 8,),
+            Text(
+              'Tarif',
+              style: TextStyle(fontSize: 20),
+            ),
+            SizedBox(height: 8,),
+            Text(
+              'Pengguna',
+              style: TextStyle(fontSize: 20),
+            ),
+            SizedBox(height: 4,),
+            ButtonBar(
+              children: <Widget>[
+                FlatButton(
+                  child: Text("Lihat barang"),
+                  textColor: Colors.blueAccent,
+                  onPressed: () {
+                    /*Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TransactionListPage(pickupId: pickup.id,)
+                        )
+                    );*/
+                  },
+                )
+              ],
+            )
           ],
         ),
       ),
@@ -78,7 +116,13 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
 
   @override
   void onGetCurrentUserError() {
-    // TODO: implement onGetCurrentUserError
+    Fluttertoast.showToast(
+        msg: 'Gagal memuat data pengguna',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 1,
+        fontSize: 16.0
+    );
   }
 
   @override
@@ -90,6 +134,12 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
 
   @override
   void onLoadPickupTransactionError() {
-    // TODO: implement onLoadPickupTransactionError
+    Fluttertoast.showToast(
+        msg: 'Gagal memuat transaksi',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 1,
+        fontSize: 16.0
+    );
   }
 }

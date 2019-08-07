@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart' as fs;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:tugas_akhir/data/agent/agent_data.dart';
 import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 import 'package:tugas_akhir/data/transaction/transaction_data.dart';
@@ -33,6 +34,7 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
   double zoom = 14.4746;
   String _address;
   List<Transaction> _transactions = [];
+  ProgressDialog _progressDialog;
 
   _InputPickupPageState() {
     _presenter = InputPickupPresenter(this);
@@ -48,6 +50,8 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
 
   @override
   Widget build(BuildContext context) {
+    _progressDialog = ProgressDialog(context, ProgressDialogType.Normal);
+    _progressDialog.setMessage('Melakukan transaksi...');
     return Scaffold(
       appBar: AppBar(
         title: Text("Pesan Penjemputan"),
@@ -196,11 +200,15 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
   Widget _itemCard(Transaction transaction, int position) {
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(4),
+        padding: EdgeInsets.all(0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             ListTile(
+              title: Text(transaction.itemName),
+              isThreeLine: true,
+              subtitle: Text('Penerima: ' + transaction.receiverName + "\n"
+              + 'Alamat: ' + transaction.receiverAddress),
               onTap: () {
                 //go to detail item
               },
@@ -280,5 +288,25 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
       context, 
       MaterialPageRoute(builder: (context) => HomePage())
     );
+  }
+
+  @override
+  void onTransactionFailed() {
+    Fluttertoast.showToast(
+        msg: 'Transaksi gagal. Coba lagi',
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 1,
+        fontSize: 16.0
+    );
+  }
+
+  @override
+  void showLoading(bool isLoading) {
+    if (isLoading) {
+      _progressDialog.show();
+    } else {
+      _progressDialog.hide();
+    }
   }
 }

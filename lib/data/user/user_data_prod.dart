@@ -52,4 +52,10 @@ class ProdUserRepository implements UserRepository {
   Future<void> logoutUser() {
     return _auth.signOut();
   }
+
+  @override
+  Future<String> getUserId() async {
+    final fireUser = await _auth.currentUser();
+    return fireUser.uid;
+  }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 import 'package:tugas_akhir/presenter/customer/pickup_list_presenter.dart';
-import 'package:tugas_akhir/view/customer/item_list_page.dart';
+import 'package:tugas_akhir/view/customer/transaction_list_page.dart';
 
 class PickupListPage extends StatefulWidget{
   @override
@@ -14,22 +15,22 @@ class _PickupListState extends State<PickupListPage> implements PickupViewContra
   bool _isLoading;
 
   _PickupListState() {
-    _presenter = new PickupPresenter(this);
+    _presenter = PickupPresenter(this);
+    _presenter.loadPickupsByUser();
   }
 
   @override
   void initState() {
     super.initState();
     _isLoading = true;
-    _presenter.loadPickupsByUser("userId");
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return Container(
         child: _isLoading ?
-        new Center(
-          child: new CircularProgressIndicator(),
+        Center(
+          child: CircularProgressIndicator(),
         ) : _pickupListContainer()
     );
   }
@@ -54,6 +55,8 @@ class _PickupListState extends State<PickupListPage> implements PickupViewContra
   }
 
   Widget _itemPickupTransaction(Pickup pickup) {
+    String _address = pickup.agent.address;
+    String _phone = pickup.agent.phone;
     return Card(
       margin: EdgeInsets.only(top: 4, bottom: 4, left: 8, right: 8),
       child: Padding(
@@ -61,30 +64,15 @@ class _PickupListState extends State<PickupListPage> implements PickupViewContra
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text(
-              '',
-              style: TextStyle(fontSize: 18)
-            ),
+            Text('Tanggal penjemputan', style: TextStyle(color: Colors.grey),),
+            Text(pickup.getStringDate(), style: TextStyle(fontSize: 16, color: Colors.black),),
             SizedBox(height: 8,),
-            Text(
-              'Agen',
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(height: 4,),
+            Text('Status', style: TextStyle(color: Colors.grey),),
+            Text(pickup.status, style: TextStyle(fontSize: 16, color: Colors.black),),
             SizedBox(height: 8,),
-            Text(
-              'Tarif',
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(height: 4,),
-            Text("3km 10kg"),
-            Text("Rp.100.000"),
-            SizedBox(height: 8,),
-            Text(
-              'Pengguna',
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(height: 4,),
+            Text('Agen', style: TextStyle(color: Colors.grey),),
+            Text(pickup.agent.name, style: TextStyle(fontSize: 16, color: Colors.black),),
+            Text("$_address ($_phone)", style: TextStyle(fontSize: 16, color: Colors.black),),
             ButtonBar(
               children: <Widget>[
                 FlatButton(
@@ -94,7 +82,7 @@ class _PickupListState extends State<PickupListPage> implements PickupViewContra
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ItemListPage()
+                        builder: (context) => TransactionListPage(pickupId: pickup.id,)
                       )
                     );
                   },
@@ -117,6 +105,12 @@ class _PickupListState extends State<PickupListPage> implements PickupViewContra
 
   @override
   void onLoadPickupTransactionError() {
-
+    Fluttertoast.showToast(
+        msg: 'Gagal memuat transaksi',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 1,
+        fontSize: 16.0
+    );
   }
 }

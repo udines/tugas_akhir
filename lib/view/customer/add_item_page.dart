@@ -35,14 +35,14 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
 
   _AddItemState() {
     _presenter = AddItemPresenter(this);
+    _presenter.getSenderAddress();
+    _presenter.getSenderProvince();
   }
 
   @override
   void initState() {
     inputSenderName.text = widget.user.name;
     inputSenderPhone.text = widget.user.phone;
-    _presenter.getSenderAddress();
-    _presenter.getSenderProvince();
     super.initState();
   }
 

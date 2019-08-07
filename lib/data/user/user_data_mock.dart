@@ -37,6 +37,12 @@ class MockUserRepository implements UserRepository{
     // TODO: implement logoutUser
     return null;
   }
+
+  @override
+  Future<String> getUserId() {
+    // TODO: implement getUserId
+    return null;
+  }
 }
 
 var users = <User>[
