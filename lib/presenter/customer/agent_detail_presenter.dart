@@ -3,26 +3,16 @@ import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/dependency_injection.dart';
 
 abstract class AgentDetailViewContract {
-  void onLoadAgentComplete(Agent agent);
-  void onLoadAgentError();
   void onGetCurrentUserComplete(User user);
   void onGetCurrentUserError();
 }
 
 class AgentDetailPresenter {
   AgentDetailViewContract _view;
-  AgentRepository _repository;
   UserRepository _userRepo;
 
   AgentDetailPresenter(this._view) {
-    _repository = new Injector().agentRepository;
     _userRepo = new Injector().userRepository;
-  }
-
-  void loadAgent(String agentId) {
-    _repository.fetchAgent(agentId)
-        .then((agent) => _view.onLoadAgentComplete(agent))
-        .catchError((onError) => _view.onLoadAgentError());
   }
 
   void getCurrentUser() {
