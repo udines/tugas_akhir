@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/presenter/agent/home_presenter.dart';
+import 'package:tugas_akhir/view/login_page.dart';
 
 class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
@@ -10,7 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> implements HomeViewContract {
   bool _isLoading;
-  List<Pickup> _pickups;
+  List<Pickup> _pickups = [];
   HomePresenter _presenter;
   User _user;
 
@@ -28,7 +29,18 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Agen Pos'),),
+      appBar: AppBar(
+        title: Text('Agen Pos'),
+        automaticallyImplyLeading: false,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () {
+              _presenter.logoutUser();
+            },
+          ),
+        ],
+      ),
       body: Container(
         child: _isLoading ?
         new Center(
@@ -120,6 +132,7 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
   @override
   void onLoadPickupTransactionComplete(List<Pickup> pickups) {
     setState(() {
+      _isLoading = false;
       _pickups = pickups;
     });
   }
@@ -132,6 +145,17 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
         gravity: ToastGravity.BOTTOM,
         timeInSecForIos: 1,
         fontSize: 16.0
+    );
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  @override
+  void onLogoutSuccess() {
+    _presenter.clearPreferences();
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (BuildContext context) => LoginPage())
     );
   }
 }
