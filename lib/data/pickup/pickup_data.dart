@@ -62,4 +62,12 @@ class Pickup {
   String getStringDate() {
     return DateFormat.yMMMMd("en_US").format(timestamp.toDate());
   }
+
+  static List<Pickup> listFromSnapshots(List<DocumentSnapshot> snapshots) {
+    List<Pickup> list = [];
+    for (var snapshot in snapshots) {
+      list.add(Pickup.fromSnapshot(snapshot));
+    }
+    return list;
+  }
 }
