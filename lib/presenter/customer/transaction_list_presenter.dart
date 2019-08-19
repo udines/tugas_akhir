@@ -16,7 +16,7 @@ class TransactionListPresenter {
 
   void loadTransactions(String pickupId) {
     _repository.fetchTransactions(pickupId)
-        .then((transactions) => _view.onLoadTransactionComplete(transactions))
-        .catchError((onError) => _view.onLoadTransactionError());
+      .then((transactions) => _view.onLoadTransactionComplete(transactions))
+      .catchError((onError) => _view.onLoadTransactionError());
   }
 }
