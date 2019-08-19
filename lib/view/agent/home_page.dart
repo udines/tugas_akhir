@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/presenter/agent/home_presenter.dart';
+import 'package:tugas_akhir/view/agent/transaction_list_page.dart';
 import 'package:tugas_akhir/view/login_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -94,12 +95,12 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
                   child: Text("Lihat barang"),
                   textColor: Colors.blueAccent,
                   onPressed: () {
-                    /*Navigator.push(
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => TransactionListPage(pickupId: pickup.id,)
                         )
-                    );*/
+                    );
                   },
                 )
               ],
