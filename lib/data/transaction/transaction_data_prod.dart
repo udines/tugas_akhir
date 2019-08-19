@@ -14,14 +14,9 @@ class ProdTransactionRepository implements TransactionRepository {
 
   @override
   Future<List<Transaction>> fetchTransactions(String pickupId) async {
-    List<Transaction> list = [];
-    _transactionCollection.where('pickupId', isEqualTo: pickupId)
-      .snapshots().listen((snapshots) => {
-        for (var snapshot in snapshots.documents) {
-          list.add(Transaction.fromSnapshot(snapshot))
-        }
-      });
-    return list;
+    final snapshots = await _transactionCollection.where('pickupId', isEqualTo: pickupId)
+      .snapshots().first;
+    return Transaction.listFromSnapshot(snapshots.documents);
   }
 
   @override

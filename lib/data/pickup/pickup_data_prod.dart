@@ -9,14 +9,8 @@ class ProdPickupRepository implements PickupRepository {
 
   @override
   Future<List<Pickup>> fetchPickupsByUser(String userId) async {
-    List<Pickup> list = [];
-    _pickupCollection.where('userId', isEqualTo: userId)
-      .snapshots().listen((snapshots) => {
-        for (var snapshot in snapshots.documents) {
-          list.add(Pickup.fromSnapshot(snapshot))
-        }
-      });
-    return list;
+    final snapshots = await _pickupCollection.where('userId', isEqualTo: userId).snapshots().first;
+    return Pickup.listFromSnapshots(snapshots.documents);
   }
 
   @override
