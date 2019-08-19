@@ -14,9 +14,12 @@ class TransactionListPresenter {
     _repository = new Injector().transactionRepository;
   }
 
-  void loadTransactions(String pickupId) {
-    _repository.fetchTransactions(pickupId)
-      .then((transactions) => _view.onLoadTransactionComplete(transactions))
-      .catchError((onError) => _view.onLoadTransactionError());
+  void loadTransactions(String pickupId) async {
+    try {
+      final transactions = await _repository.fetchTransactions(pickupId);
+      _view.onLoadTransactionComplete(transactions);
+    } catch(e) {
+      _view.onLoadTransactionError();
+    }
   }
 }

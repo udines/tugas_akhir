@@ -12,7 +12,7 @@ class AgentDetailPresenter {
   UserRepository _userRepo;
 
   AgentDetailPresenter(this._view) {
-    _userRepo = new Injector().userRepository;
+    _userRepo = Injector().userRepository;
   }
 
   void getCurrentUser() {
