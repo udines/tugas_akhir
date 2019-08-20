@@ -59,7 +59,7 @@ class MapPresenter {
 
   void requestLocationPermission() {
     _locationRepo.requestLocationPermission()
-        .then((response) => _processRequest(response));
+      .then((response) => _processRequest(response));
   }
 
   void _processPermission(GeolocationStatus status) {

@@ -19,7 +19,7 @@ class AgentListPresenter {
   LocationRepository _locationRepo;
 
   AgentListPresenter(this._view) {
-    _repository = new Injector().agentRepository;
+    _repository = Injector().agentRepository;
     _locationRepo = Injector().locationRepository;
   }
 
@@ -39,20 +39,20 @@ class AgentListPresenter {
 
   void getUserCurrentLocation() {
     _locationRepo.getCurrentLocation()
-        .then((location) => _view.onGetCurrentUserLocationComplete(
-          location.latitude,
-          location.longitude)
-        );
+      .then((location) => _view.onGetCurrentUserLocationComplete(
+        location.latitude,
+        location.longitude)
+      );
   }
 
   void checkLocationPermission() {
     _locationRepo.getLocationPermission()
-        .then((status) => _processPermission(status));
+      .then((status) => _processPermission(status));
   }
 
   void requestLocationPermission() {
     _locationRepo.requestLocationPermission()
-        .then((response) => _processRequest(response));
+      .then((response) => _processRequest(response));
   }
 
   void _processPermission(GeolocationStatus status) {

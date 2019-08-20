@@ -81,4 +81,12 @@ class Transaction {
     agentId = snapshot['agentId'];
     pickupId = snapshot['pickupId'];
   }
+
+  static List<Transaction> listFromSnapshot(List<DocumentSnapshot> snapshots) {
+    List<Transaction> list = [];
+    for (var document in snapshots) {
+      list.add(Transaction.fromSnapshot(document));
+    }
+    return list;
+  }
 }

@@ -32,6 +32,12 @@ class MockPickupRepository implements PickupRepository {
     // TODO: implement postPickups
     return null;
   }
+
+  @override
+  Future<void> updateStatus(String status, String pickupId) {
+    // TODO: implement updateStatus
+    return null;
+  }
 }
 
 var users = <User>[

@@ -1,4 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
+import 'package:tugas_akhir/data/agent/agent_data.dart';
+import 'package:tugas_akhir/data/user/user_data.dart';
 
 abstract class PickupRepository {
   Future<List<Pickup>> fetchPickupsByUser(String userId);
@@ -6,6 +9,7 @@ abstract class PickupRepository {
   Future<Pickup> fetchPickup(String pickupId);
   Future<void> postPickup(Pickup pickup);
   Future<void> postPickups(List<Pickup> pickups);
+  Future<void> updateStatus(String status, String pickupId);
 }
 
 class Pickup {
@@ -22,6 +26,8 @@ class Pickup {
   //Relations
   String agentId;
   String userId;
+  Agent agent;
+  User user;
 
   Pickup({
     this.id = '',
@@ -50,5 +56,19 @@ class Pickup {
     status = snapshot['status'];
     agentId = snapshot['agentId'];
     userId = snapshot['userId'];
+    agent = Agent.fromMap(snapshot['agent']);
+    user = User.fromMap(snapshot['user']);
+  }
+
+  String getStringDate() {
+    return DateFormat.yMMMMd("en_US").format(timestamp.toDate());
+  }
+
+  static List<Pickup> listFromSnapshots(List<DocumentSnapshot> snapshots) {
+    List<Pickup> list = [];
+    for (var snapshot in snapshots) {
+      list.add(Pickup.fromSnapshot(snapshot));
+    }
+    return list;
   }
 }

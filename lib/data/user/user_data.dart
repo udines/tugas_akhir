@@ -19,6 +19,7 @@ class User {
   String postalCode;
   String phone;
   bool isAdmin;
+  String agentId = '';
 
   User({
     this.id = '',
@@ -50,5 +51,17 @@ class User {
     city = snapshot['city'],
     postalCode = snapshot['postalCode'],
     phone = snapshot['phone'],
-    isAdmin = snapshot['isAdmin'];
+    isAdmin = snapshot['isAdmin'],
+    agentId = snapshot['agentId'];
+
+  User.fromMap(Map<dynamic, dynamic> data) :
+    id = data['id'],
+    email = data['email'],
+    name = data['name'],
+    address = data['address'],
+    city = data['city'],
+    postalCode = data['postalCode'],
+    phone = data['phone'],
+    isAdmin = data['isAdmin'],
+    agentId = data['agentId'];
 }

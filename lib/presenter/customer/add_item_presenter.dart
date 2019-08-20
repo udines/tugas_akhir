@@ -21,11 +21,11 @@ class AddItemPresenter {
 
   void getSenderAddress() {
     _locationRepo.getCurrentAddress()
-        .then((address) => _view.onGetSenderAddressSuccess(address));
+      .then((address) => _view.onGetSenderAddressSuccess(address));
   }
 
   void getSenderProvince() {
     _locationRepo.getProvince()
-        .then((province) => _view.onGetSenderProvinceSuccess(province));
+      .then((province) => _view.onGetSenderProvinceSuccess(province));
   }
 }

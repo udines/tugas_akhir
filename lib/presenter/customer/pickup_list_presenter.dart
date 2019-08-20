@@ -18,9 +18,12 @@ class PickupPresenter {
   }
 
   void loadPickupsByUser() async {
-    final userId = await _userRepo.getUserId();
-    _repository.fetchPickupsByUser(userId)
-        .then((pickups) => _view.onLoadPickupTransactionComplete(pickups))
-        .catchError((onError) => _view.onLoadPickupTransactionError());
+    try {
+      final userId = await _userRepo.getUserId();
+      final pickups = await _repository.fetchPickupsByUser(userId);
+      _view.onLoadPickupTransactionComplete(pickups);
+    } catch(e) {
+      _view.onLoadPickupTransactionError();
+    }
   }
 }

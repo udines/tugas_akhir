@@ -17,18 +17,14 @@ class LoginPresenter {
     _userRepo = Injector().userRepository;
   }
 
-  void loginUser(String email, String password) {
+  void loginUser(String email, String password) async {
     if (checkCredentials(email, password)) {
-      _view.showLoading(true);
-      _userRepo.loginUser(email, password)
-        .then((user) => {
-          _view.showLoading(false),
-          _view.onLoginSuccess(user),
-        })
-        .catchError((onError) => {
-          _view.showLoading(false),
-          _view.onLoginError()
-        });
+      try {
+        final user = await _userRepo.loginUser(email, password);
+        _view.onLoginSuccess(user);
+      } catch(e) {
+        _view.onLoginError();
+      }
     }
   }
 
@@ -49,10 +45,13 @@ class LoginPresenter {
     return password.length >= 6;
   }
 
-  void checkUserLoggedIn() {
-    _userRepo.fetchCurrentUser()
-      .then((user) => _view.onUserCheckSuccess(user))
-      .catchError((onError) => {});
+  void checkUserLoggedIn() async {
+    try {
+      final user = await _userRepo.fetchCurrentUser();
+      _view.onUserCheckSuccess(user);
+    } catch(e) {
+
+    }
   }
 
   void saveUserInformation(User user) {
