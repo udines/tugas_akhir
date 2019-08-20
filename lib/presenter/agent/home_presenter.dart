@@ -9,6 +9,7 @@ abstract class HomeViewContract {
   void onGetCurrentUserComplete(User user);
   void onGetCurrentUserError();
   void onLogoutSuccess();
+  void onUpdateStatusSuccess();
 }
 
 class HomePresenter {
@@ -47,5 +48,10 @@ class HomePresenter {
     } catch(e) {
       _view.onGetCurrentUserError();
     }
+  }
+
+  void updateStatus(String status, String pickupId) {
+    _repository.updateStatus(status, pickupId)
+      .then((status) => _view.onUpdateStatusSuccess());
   }
 }

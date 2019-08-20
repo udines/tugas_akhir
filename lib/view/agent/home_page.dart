@@ -15,6 +15,7 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
   List<Pickup> _pickups = [];
   HomePresenter _presenter;
   User _user;
+  String _agentId;
 
   _HomePageState() {
     _presenter = HomePresenter(this);
@@ -92,6 +93,13 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
             ButtonBar(
               children: <Widget>[
                 FlatButton(
+                  child: Text("Status"),
+                  textColor: Colors.blueAccent,
+                  onPressed: () {
+                    _showStatusDialog(pickup.id);
+                  },
+                ),
+                FlatButton(
                   child: Text("Lihat barang"),
                   textColor: Colors.blueAccent,
                   onPressed: () {
@@ -111,11 +119,59 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
     );
   }
 
+  _showStatusDialog(String pickupId) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Ubah Status'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                  _presenter.updateStatus(Pickup.STATUS_PROCESS, pickupId);
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Text(Pickup.STATUS_PROCESS),
+                )
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                  _presenter.updateStatus(Pickup.STATUS_COMPLETED, pickupId);
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Text(Pickup.STATUS_COMPLETED),
+                )
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                  _presenter.updateStatus(Pickup.STATUS_CANCEL, pickupId);
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Text(Pickup.STATUS_CANCEL),
+                )
+              ),
+            ],
+          ),
+        );
+      }
+    );
+  }
+
   @override
   void onGetCurrentUserComplete(User user) {
     setState(() {
       _user = user;
     });
+    _agentId = user.agentId;
     _presenter.loadPickupTransactions(_user.agentId);
   }
 
@@ -158,5 +214,10 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (BuildContext context) => LoginPage())
     );
+  }
+
+  @override
+  void onUpdateStatusSuccess() {
+    _presenter.loadPickupTransactions(_agentId);
   }
 }

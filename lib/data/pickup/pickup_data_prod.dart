@@ -40,4 +40,9 @@ class ProdPickupRepository implements PickupRepository {
     });
     return await batch.commit();
   }
+
+  @override
+  Future<void> updateStatus(String status, String pickupId) {
+    return _pickupCollection.document(pickupId).updateData({'status': status});
+  }
 }

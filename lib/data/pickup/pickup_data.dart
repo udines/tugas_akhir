@@ -9,6 +9,7 @@ abstract class PickupRepository {
   Future<Pickup> fetchPickup(String pickupId);
   Future<void> postPickup(Pickup pickup);
   Future<void> postPickups(List<Pickup> pickups);
+  Future<void> updateStatus(String status, String pickupId);
 }
 
 class Pickup {
