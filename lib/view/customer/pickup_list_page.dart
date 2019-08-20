@@ -64,7 +64,7 @@ class _PickupListState extends State<PickupListPage> implements PickupViewContra
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text('Tanggal penjemputan', style: TextStyle(color: Colors.grey),),
+            Text('Tanggal pemesanan', style: TextStyle(color: Colors.grey),),
             Text(pickup.getStringDate(), style: TextStyle(fontSize: 16, color: Colors.black),),
             SizedBox(height: 8,),
             Text('Status', style: TextStyle(color: Colors.grey),),

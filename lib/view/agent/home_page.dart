@@ -81,13 +81,13 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text('Tanggal penjemputan', style: TextStyle(color: Colors.grey),),
+            Text('Tanggal pemesanan', style: TextStyle(color: Colors.grey),),
             Text(pickup.getStringDate(), style: TextStyle(fontSize: 16, color: Colors.black),),
             SizedBox(height: 8,),
             Text('Status', style: TextStyle(color: Colors.grey),),
             Text(pickup.status, style: TextStyle(fontSize: 16, color: Colors.black),),
             SizedBox(height: 8,),
-            Text('Pengguna', style: TextStyle(color: Colors.grey),),
+            Text('Pelanggan', style: TextStyle(color: Colors.grey),),
             Text(pickup.user.name, style: TextStyle(fontSize: 16, color: Colors.black),),
             Text("$_address ($_phone)", style: TextStyle(fontSize: 16, color: Colors.black),),
             ButtonBar(
