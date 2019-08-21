@@ -133,14 +133,21 @@ class _AgentDetailPageState extends State<AgentDetailPage> implements AgentDetai
               ),
 
               Padding(padding: EdgeInsets.only(top: 16),),
-              ButtonTheme.bar(
-                child: RaisedButton(
-                  onPressed: () {
-                    _goToOrderInputPage(widget.agent);
-                  },
-                  child: Text("Pesan Penjemputan", style: TextStyle(color: Colors.white),),
+              SizedBox(
+                width: double.infinity,
+                child: ButtonTheme.bar(
+                  child: RaisedButton(
+                    onPressed: () {
+                      _goToOrderInputPage(widget.agent);
+                    },
+                    child: Text("PESAN PENJEMPUTAN", style: TextStyle(
+                      color: Colors.white, 
+                      fontWeight: FontWeight.bold
+                    ),),
+                  ),
                 ),
-              )
+              ),
+              
             ],
           ),
         ),

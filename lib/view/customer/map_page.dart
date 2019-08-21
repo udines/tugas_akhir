@@ -110,7 +110,7 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
       _markers[markerId] = userMarker;
     });
 
-    _presenter.fetchAgents();
+    _presenter.fetchAgentsNearby(latitude, longitude, 100);
   }
 
   void _onMarkerTapped(MarkerId markerId) {

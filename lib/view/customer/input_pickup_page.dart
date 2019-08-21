@@ -32,9 +32,9 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
   InputPickupPresenter _presenter;
   LatLng _location;
   double zoom = 14.4746;
-  String _address;
   List<Transaction> _transactions = [];
   ProgressDialog _progressDialog;
+  final addressController = TextEditingController();
 
   _InputPickupPageState() {
     _presenter = InputPickupPresenter(this);
@@ -45,7 +45,7 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
     super.initState();
     _isLoading = true;
     _presenter.getUserCurrentLocation();
-    _address = widget.user.address;
+    addressController.text = widget.user.address;
   }
 
   @override
@@ -76,7 +76,7 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
                   ),
                   SizedBox(height: 8,),
                   Text("Alamat penjemputan"),
-                  TextFormField(initialValue: _address),
+                  TextFormField(controller: addressController,),
                   SizedBox(height: 16,),
                   Text(widget.agent.name, 
                     style: TextStyle(
@@ -263,7 +263,7 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
   @override
   void onGetAddressComplete(String address) {
     setState(() {
-      _address = address;
+      addressController.text = address;
     });
   }
 
