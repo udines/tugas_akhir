@@ -13,6 +13,8 @@ class _AgentListPageState extends State<AgentListPage> implements AgentListViewC
   AgentListPresenter _presenter;
   List<Agent> _agents;
   bool _isLoading;
+  double _latitude;
+  double _longitude;
 
   _AgentListPageState() {
     _presenter = new AgentListPresenter(this);
@@ -85,7 +87,9 @@ class _AgentListPageState extends State<AgentListPage> implements AgentListViewC
                       icon: Icon(Icons.phone),
                     ),
                     FlatButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        _openMapNavigation(agent.geoPoint.latitude, agent.geoPoint.longitude);
+                      },
                       label: Text("Arah"),
                       icon: Icon(Icons.directions),
                     )
@@ -101,6 +105,15 @@ class _AgentListPageState extends State<AgentListPage> implements AgentListViewC
 
   void _makePhoneCall(String phone) async {
     var url = "tel:" + phone;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  void _openMapNavigation(double desLat, double desLng) async {
+    var url = 'google.navigation:q=$desLat,$desLng';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -135,6 +148,8 @@ class _AgentListPageState extends State<AgentListPage> implements AgentListViewC
   @override
   void onGetCurrentUserLocationComplete(double latitude, double longitude) {
    _presenter.fetchAgentsNearby(latitude, longitude, 100);
+   _latitude = latitude;
+   _longitude = longitude;
   }
 
   @override

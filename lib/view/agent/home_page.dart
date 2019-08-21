@@ -3,9 +3,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/presenter/agent/home_presenter.dart';
-import 'package:tugas_akhir/view/agent/add_agent_page.dart';
 import 'package:tugas_akhir/view/agent/transaction_list_page.dart';
 import 'package:tugas_akhir/view/login_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
@@ -103,6 +103,16 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
             ButtonBar(
               children: <Widget>[
                 FlatButton(
+                  child: Text("Navigasi"),
+                  textColor: Colors.blueAccent,
+                  onPressed: () {
+                    _openMapNavigation(
+                      pickup.geoPoint.latitude, 
+                      pickup.geoPoint.longitude
+                    );
+                  },
+                ),
+                FlatButton(
                   child: Text("Status"),
                   textColor: Colors.blueAccent,
                   onPressed: () {
@@ -114,19 +124,28 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
                   textColor: Colors.blueAccent,
                   onPressed: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TransactionListPage(pickupId: pickup.id,)
-                        )
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TransactionListPage(pickupId: pickup.id,)
+                      )
                     );
                   },
-                )
+                ),
               ],
             )
           ],
         ),
       ),
     );
+  }
+
+  void _openMapNavigation(double desLat, double desLng) async {
+    var url = 'google.navigation:q=$desLat,$desLng';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   _showStatusDialog(String pickupId) {
