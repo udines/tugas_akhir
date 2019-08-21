@@ -23,14 +23,12 @@ class MapPresenter {
   }
 
   void fetchAgentsNearby(double latitude, double longitude, double radius) async {
-    List<Agent> list = [];
-    _agentRepo.fetchAgentsNearby(latitude, longitude, radius)
-      .then((documents) => {
-        documents.forEach((DocumentSnapshot snapshot) => {
-          list.add(Agent.fromSnapshot(snapshot))
-        }),
-        _view.onLoadAgentComplete(list)
-      });
+    try {
+      final agents = await _agentRepo.fetchAgentsNearby(latitude, longitude, radius);
+      _view.onLoadAgentComplete(agents);
+    } catch(e) {
+      print(e.toString());
+    }
   }
 
   void fetchAgents() {

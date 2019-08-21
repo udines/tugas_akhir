@@ -16,28 +16,43 @@ class ProdAgentRepository implements AgentRepository {
   }
 
   @override
-  Future<List<DocumentSnapshot>> fetchAgentsNearby(double latitude, double longitude, double rad) {
+  Future<List<Agent>> fetchAgentsNearby(double latitude, double longitude, double rad) async {
     Geoflutterfire geo = Geoflutterfire();
     GeoFirePoint center = geo.point(latitude: latitude, longitude: longitude);
 
     double radius = rad;
-    String field = 'geoPoint';
+    String field = 'position';
 
-    return geo.collection(collectionRef: _agentCollection)
+    final documents = await geo.collection(collectionRef: _agentCollection)
     .within(center: center, radius: radius, field: field).first;
+    return Agent.listFromSnapshots(documents);
   }
 
   @override
   Future<void> postAgent(Agent agent) async {
-    return await _agentCollection.document(agent.id).setData(agent.toSnapshot());
+    Geoflutterfire geo = Geoflutterfire();
+    GeoFirePoint position = geo.point(
+      latitude: agent.geoPoint.latitude,
+      longitude: agent.geoPoint.longitude
+    );
+    _agentCollection.document(agent.id).setData(agent.toSnapshot())
+      .then((onValue) {
+        _agentCollection.document(agent.id).updateData({'position': position.data});
+      });
   }
 
   @override
   Future<void> postAgents(List<Agent> agents) async {
     final batch = db.batch();
+    Geoflutterfire geo = Geoflutterfire();
     for (var agent in agents) {
+      var position = geo.point(
+        latitude: agent.geoPoint.latitude,
+        longitude: agent.geoPoint.longitude
+      );
       var dataRef = _agentCollection.document(agent.id);
       batch.setData(dataRef, agent.toSnapshot());
+      batch.updateData(dataRef, {'position': position.data});
     }
     return await batch.commit();
   }

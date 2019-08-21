@@ -20,9 +20,8 @@ class MockAgentRepository implements AgentRepository {
   }
 
   @override
-  Future<List<DocumentSnapshot>> fetchAgentsNearby(double latitude, double longitude, double radius) {
-    Future<List<DocumentSnapshot>> stream;
-    return stream;
+  Future<List<Agent>> fetchAgentsNearby(double latitude, double longitude, double radius) {
+    return Future.value(agents);
   }
 
   @override

@@ -134,7 +134,7 @@ class _AgentListPageState extends State<AgentListPage> implements AgentListViewC
 
   @override
   void onGetCurrentUserLocationComplete(double latitude, double longitude) {
-   _presenter.fetchAgents();
+   _presenter.fetchAgentsNearby(latitude, longitude, 100);
   }
 
   @override

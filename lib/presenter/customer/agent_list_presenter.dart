@@ -23,8 +23,13 @@ class AgentListPresenter {
     _locationRepo = Injector().locationRepository;
   }
 
-  Future<List<DocumentSnapshot>> fetchAgentsNearby(double latitude, double longitude, double radius) {
-    return _repository.fetchAgentsNearby(latitude, longitude, radius);
+  void fetchAgentsNearby(double latitude, double longitude, double radius) async {
+    try {
+      final agents = await _repository.fetchAgentsNearby(latitude, longitude, radius);
+      _view.onLoadAgentComplete(agents);
+    } catch(e) {
+      _view.onLoadAgentError();
+    }
   }
 
   void fetchAgents() {

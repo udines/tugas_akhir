@@ -81,7 +81,7 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
               ),
               TextField(
                 decoration: InputDecoration(
-                  hintText: 'Nama barang (opsional)'
+                  hintText: 'Nama barang'
                 ),
                 textCapitalization: TextCapitalization.words,
                 controller: inputName,
@@ -97,7 +97,7 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
               SizedBox(height: 8,),
               TextField(
                 decoration: InputDecoration(
-                  hintText: 'Berat barang',
+                  hintText: 'Berat barang (kg)',
                 ),
                 keyboardType: TextInputType.number,
                 controller: inputWeight,

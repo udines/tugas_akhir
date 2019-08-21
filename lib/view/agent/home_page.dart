@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/presenter/agent/home_presenter.dart';
+import 'package:tugas_akhir/view/agent/add_agent_page.dart';
 import 'package:tugas_akhir/view/agent/transaction_list_page.dart';
 import 'package:tugas_akhir/view/login_page.dart';
 
@@ -43,6 +44,15 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
           ),
         ],
       ),
+      /*floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.push(
+            context, 
+            MaterialPageRoute(builder: (context) => AddAgentPage())
+          );
+        },
+      ),*/
       body: Container(
         child: _isLoading ?
         new Center(
