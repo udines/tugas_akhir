@@ -34,11 +34,28 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      child: _isLoading ?
-      new Center(
-        child: new CircularProgressIndicator(),
-      ) : _mapContainer()
+    return Stack(
+      alignment: Alignment.topCenter,
+      children: <Widget>[
+        Container(
+          child: _isLoading ?
+          new Center(
+            child: new CircularProgressIndicator(),
+          ) : _mapContainer()
+        ),
+        Padding(
+          padding: EdgeInsets.all(16),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: Text('Pilih agen', style: TextStyle(color: Colors.white),),
+            )
+          )
+        )
+      ],
     );
   }
 
