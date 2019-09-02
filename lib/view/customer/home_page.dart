@@ -70,10 +70,10 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
       _currentIndex = index;
       switch(index) {
         case 0:
-          _appBarTitle = "Peta Agen Pos";
+          _appBarTitle = "Peta Agen Terdekat";
           break;
         case 1:
-          _appBarTitle = "Katalog Agen Pos";
+          _appBarTitle = "Katalog Agen Terdekat";
           break;
         case 3:
           _appBarTitle = "Daftar Transaksi";
