@@ -15,17 +15,30 @@ class InputItemPresenter {
     _locationRepo = Injector().locationRepository;
   }
 
+  testConstructor(InputItemViewContract view, LocationRepository locRepo) {
+    _view = view;
+    _locationRepo = locRepo;
+  }
+
   String createTransactionId() {
     return fs.Firestore.instance.collection('transactions').document().documentID;
   }
 
-  void getSenderAddress() {
-    _locationRepo.getCurrentAddress()
-      .then((address) => _view.onGetSenderAddressSuccess(address));
+  getSenderAddress() async {
+    try {
+      final address = await _locationRepo.getCurrentAddress();
+      _view.onGetSenderAddressSuccess(address);
+    } catch(e) {
+
+    }
   }
 
-  void getSenderProvince() {
-    _locationRepo.getProvince()
-      .then((province) => _view.onGetSenderProvinceSuccess(province));
+  getSenderProvince() async {
+    try {
+      final province = await _locationRepo.getProvince();
+      _view.onGetSenderProvinceSuccess(province);
+    } catch(e) {
+
+    }
   }
 }
