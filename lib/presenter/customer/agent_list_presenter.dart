@@ -23,7 +23,16 @@ class AgentListPresenter {
     _locationRepo = Injector().locationRepository;
   }
 
-  void fetchAgentsNearby(double latitude, double longitude, double radius) async {
+  testConstructor(AgentListViewContract view, AgentRepository agentRepo, LocationRepository locRepo) {
+    _view = view;
+    _repository = agentRepo;
+    _locationRepo = locRepo;
+  }
+
+  AgentListViewContract getView() => _view;
+  AgentRepository getRepo() => _repository;
+
+  fetchAgentsNearby(double latitude, double longitude, double radius) async {
     try {
       final agents = await _repository.fetchAgentsNearby(latitude, longitude, radius);
       _view.onLoadAgentComplete(agents);
