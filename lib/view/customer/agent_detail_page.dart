@@ -7,6 +7,7 @@ import 'package:tugas_akhir/data/agent/agent_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/view/customer/input_pickup_page.dart';
 import 'package:tugas_akhir/presenter/customer/agent_detail_presenter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AgentDetailPage extends StatefulWidget {
   final Agent agent;
@@ -118,18 +119,26 @@ class _AgentDetailPageState extends State<AgentDetailPage> implements AgentDetai
 
               Padding(padding: EdgeInsets.only(top: 16),),
               //no telepon dan button telepon & chat
-              Text("Nomor telepon", style: TextStyle(fontSize: 12, color: Colors.grey[500])),
-              Text(widget.agent.phone, style: TextStyle(fontSize: 16, color: Colors.black)),
-              ButtonTheme.bar(
-                child: Row(
-                  children: <Widget>[
-                    RaisedButton(
-                      onPressed: () {},
-                      textColor: Colors.white,
-                      child: Text("Telepon"),
-                    ),
-                  ],
-                ),
+              Row(
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("Nomor telepon", style: TextStyle(fontSize: 12, color: Colors.grey[500])),
+                      Text(widget.agent.phone, style: TextStyle(fontSize: 16, color: Colors.black)),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  FlatButton.icon(
+                    onPressed: () {
+                      _makePhoneCall(widget.agent.phone);
+                    },
+                    icon: Icon(Icons.phone),
+                    label: Text("Telepon"),
+                  ),
+                ],
               ),
 
               Padding(padding: EdgeInsets.only(top: 16),),
@@ -153,6 +162,15 @@ class _AgentDetailPageState extends State<AgentDetailPage> implements AgentDetai
         ),
       ),
     );
+  }
+
+  void _makePhoneCall(String phone) async {
+    var url = "tel:" + phone;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   void _goToOrderInputPage(Agent agent) {

@@ -51,7 +51,7 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
   @override
   Widget build(BuildContext context) {
     _progressDialog = ProgressDialog(context, ProgressDialogType.Normal);
-    _progressDialog.setMessage('Melakukan transaksi...');
+    _progressDialog.setMessage('Harap tunggu...');
     return Scaffold(
       appBar: AppBar(
         title: Text("Pesan Penjemputan"),
@@ -76,7 +76,12 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
                   ),
                   SizedBox(height: 8,),
                   Text("Alamat penjemputan"),
-                  TextFormField(controller: addressController,),
+                  TextFormField(
+                    controller: addressController, 
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 3,
+                    minLines: 1,
+                  ),
                   SizedBox(height: 16,),
                   Text(widget.agent.name, 
                     style: TextStyle(

@@ -122,6 +122,9 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
                 decoration: InputDecoration(
                   hintText: 'Alamat pengirim',
                 ),
+                keyboardType: TextInputType.multiline,
+                maxLines: 3,
+                minLines: 1,
                 textCapitalization: TextCapitalization.sentences,
                 controller: inputSenderAddress,
               ),
@@ -161,6 +164,9 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
                 decoration: InputDecoration(
                   hintText: 'Alamat penerima',
                 ),
+                keyboardType: TextInputType.multiline,
+                maxLines: 3,
+                minLines: 1,
                 textCapitalization: TextCapitalization.sentences,
                 controller: inputReceiverAddress,
               ),
