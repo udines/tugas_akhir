@@ -2,16 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart' as fs;
 import 'package:tugas_akhir/data/location/location_data.dart';
 import 'package:tugas_akhir/dependency_injection.dart';
 
-abstract class AddItemViewContract {
+abstract class InputItemViewContract {
   void onGetSenderAddressSuccess(String address);
   void onGetSenderProvinceSuccess(String province);
 }
 
-class AddItemPresenter {
-  AddItemViewContract _view;
+class InputItemPresenter {
+  InputItemViewContract _view;
   LocationRepository _locationRepo;
 
-  AddItemPresenter(this._view) {
+  InputItemPresenter(this._view) {
     _locationRepo = Injector().locationRepository;
   }
 

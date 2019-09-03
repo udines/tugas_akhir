@@ -4,20 +4,20 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tugas_akhir/data/agent/agent_data.dart';
 import 'package:tugas_akhir/data/transaction/transaction_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
-import 'package:tugas_akhir/presenter/customer/add_item_presenter.dart';
+import 'package:tugas_akhir/presenter/customer/input_item_presenter.dart';
 
-class AddItemPage extends StatefulWidget {
+class InputItemPage extends StatefulWidget {
 
   final Agent agent;
   final User user;
 
-  AddItemPage({Key key, this.agent, this.user}) : super(key: key);
+  InputItemPage({Key key, this.agent, this.user}) : super(key: key);
 
   @override
-  _AddItemState createState() => _AddItemState();
+  _InputItemState createState() => _InputItemState();
 }
 
-class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
+class _InputItemState extends State<InputItemPage> implements InputItemViewContract {
 
   final inputName = TextEditingController();
   final inputType = TextEditingController();
@@ -30,11 +30,11 @@ class _AddItemState extends State<AddItemPage> implements AddItemViewContract {
   final inputReceiverAddress = TextEditingController();
   final inputReceiverProvince = TextEditingController();
   final inputReceiverPhone = TextEditingController();
-  AddItemPresenter _presenter;
+  InputItemPresenter _presenter;
   bool _validate = false;
 
-  _AddItemState() {
-    _presenter = AddItemPresenter(this);
+  _InputItemState() {
+    _presenter = InputItemPresenter(this);
     _presenter.getSenderAddress();
     _presenter.getSenderProvince();
   }

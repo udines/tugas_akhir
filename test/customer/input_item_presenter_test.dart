@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:tugas_akhir/presenter/customer/add_item_presenter.dart';
+import 'package:tugas_akhir/presenter/customer/input_item_presenter.dart';
 
 class AddItemMock extends Mock {
-  static AddItemViewContract view;
-  AddItemPresenter presenter = AddItemPresenter(view);
+  static InputItemViewContract view;
+  InputItemPresenter presenter = InputItemPresenter(view);
 }
 
 main() {
