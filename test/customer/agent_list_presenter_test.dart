@@ -27,6 +27,7 @@ main() {
     mockedResponse.add(Agent());
     when(agentRepo.fetchAgentsNearby(1.0, 1.0, 1.0)).thenAnswer((_) async => Future.value(mockedResponse));
     await presenter.fetchAgentsNearby(1.0, 1.0, 1.0);
+    expect(await agentRepo.fetchAgentsNearby(any, any, any), isInstanceOf<List<Agent>>());
     verify(agentRepo.fetchAgentsNearby(1.0, 1.0, 1.0)).called(1);
     verify(view.onLoadAgentComplete(mockedResponse)).called(1);
     verifyNever(view.onLoadAgentError());
@@ -47,6 +48,7 @@ main() {
     when(locRepo.getCurrentLocation()).thenAnswer((_) async => Future.value(location));
 
     await presenter.getUserCurrentLocation();
+    expect(await locRepo.getCurrentLocation(), isInstanceOf<LatLng>());
     verify(locRepo.getCurrentLocation());
     verify(view.onGetCurrentUserLocationComplete(location.latitude, location.longitude));
 
@@ -70,6 +72,7 @@ main() {
     
     when(locRepo.getLocationPermission()).thenAnswer((_) => Future.value(statusGranted));
     await presenter.checkLocationPermission();
+    expect(await locRepo.getLocationPermission(), isInstanceOf<GeolocationStatus>());
     verify(locRepo.getLocationPermission());
     verify(view.onLocationPermissionGranted());
     verifyNever(view.onLocationPermissionDenied());
@@ -78,6 +81,7 @@ main() {
     clearInteractions(view);
     when(locRepo.getLocationPermission()).thenAnswer((_) => Future.value(statusDenied));
     await presenter.checkLocationPermission();
+    expect(await locRepo.getLocationPermission(), isInstanceOf<GeolocationStatus>());
     verify(locRepo.getLocationPermission());
     verify(view.onLocationPermissionDenied());
     verifyNever(view.onLocationPermissionGranted());
@@ -86,6 +90,7 @@ main() {
     clearInteractions(view);
     when(locRepo.getLocationPermission()).thenAnswer((_) => Future.value(statusRestricted));
     await presenter.checkLocationPermission();
+    expect(await locRepo.getLocationPermission(), isInstanceOf<GeolocationStatus>());
     verify(locRepo.getLocationPermission());
     verify(view.onLocationPermissionDenied());
     verifyNever(view.onLocationPermissionGranted());
@@ -94,6 +99,7 @@ main() {
     clearInteractions(view);
     when(locRepo.getLocationPermission()).thenAnswer((_) => Future.value(statusUnknown));
     await presenter.checkLocationPermission();
+    expect(await locRepo.getLocationPermission(), isInstanceOf<GeolocationStatus>());
     verify(locRepo.getLocationPermission());
     verify(view.onLocationPermissionDenied());
     verifyNever(view.onLocationPermissionGranted());
@@ -112,6 +118,7 @@ main() {
     final error = Exception();
     when(locRepo.requestLocationPermission()).thenAnswer((_) => Future.value(response));
     await presenter.requestLocationPermission();
+    expect(await locRepo.requestLocationPermission(), isInstanceOf<Map<PermissionGroup, PermissionStatus>>());
     verify(locRepo.requestLocationPermission());
     verify(view.onLocationPermissionGranted());
     verifyNever(view.onLocationPermissionDenied());
