@@ -22,17 +22,26 @@ class HomePresenter {
     _userRepo = Injector().userRepository;
   }
 
-  void logoutUser() {
-    _userRepo.logoutUser().then((onValue) {
-      _view.onLogoutSuccess();
-    });
+  testConstructor(HomeViewContract view, PickupRepository pickupRepo, UserRepository userRepo) {
+    _view = view;
+    _repository = pickupRepo;
+    _userRepo = userRepo;
   }
 
-  void clearPreferences() {
+  logoutUser() async {
+    try {
+      await _userRepo.logoutUser();
+      _view.onLogoutSuccess();
+    } catch(e) {
+
+    }
+  }
+
+  clearPreferences() {
     SharedPref().clearData();
   }
 
-  void loadPickupTransactions(String agentId) async {
+  loadPickupTransactions(String agentId) async {
     try {
       final pickups = await _repository.fetchPickupsByAgent(agentId);
       _view.onLoadPickupTransactionComplete(pickups);
@@ -41,7 +50,7 @@ class HomePresenter {
     }
   }
 
-  void getCurrentUser() async {
+  getCurrentUser() async {
     try {
       final user = await _userRepo.fetchCurrentUser();
       _view.onGetCurrentUserComplete(user);
@@ -50,8 +59,12 @@ class HomePresenter {
     }
   }
 
-  void updateStatus(String status, String pickupId) {
-    _repository.updateStatus(status, pickupId)
-      .then((status) => _view.onUpdateStatusSuccess());
+  updateStatus(String status, String pickupId) async {
+    try {
+      await _repository.updateStatus(status, pickupId);
+      _view.onUpdateStatusSuccess();
+    } catch(e) {
+
+    }
   }
 }
