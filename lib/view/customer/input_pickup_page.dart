@@ -10,7 +10,7 @@ import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 import 'package:tugas_akhir/data/transaction/transaction_data.dart';
 import 'package:tugas_akhir/data/user/user_data.dart';
 import 'package:tugas_akhir/presenter/customer/input_pickup_presenter.dart';
-import 'package:tugas_akhir/view/customer/add_item_page.dart';
+import 'package:tugas_akhir/view/customer/input_item_page.dart';
 import 'package:tugas_akhir/view/customer/home_page.dart';
 
 class InputPickupPage extends StatefulWidget {
@@ -175,7 +175,7 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
     final result = await Navigator.push(
       context, 
       MaterialPageRoute(
-        builder: (context) => AddItemPage(
+        builder: (context) => InputItemPage(
           agent: widget.agent,
           user: widget.user,
         )

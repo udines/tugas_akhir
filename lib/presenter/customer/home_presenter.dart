@@ -4,6 +4,7 @@ import 'package:tugas_akhir/utils/shared_preferences.dart';
 
 abstract class HomeViewContract {
   void onLogoutSuccess();
+  void onLogoutFail();
 }
 
 class HomePresenter {
@@ -14,10 +15,18 @@ class HomePresenter {
     _userRepository = Injector().userRepository;
   }
 
-  void logoutUser() {
-    _userRepository.logoutUser().then((onValue) {
+  testConstructor(HomeViewContract view, UserRepository repo) {
+    _view = view;
+    _userRepository = repo;
+  }
+
+  logoutUser() async {
+    try {
+      await _userRepository.logoutUser();
       _view.onLogoutSuccess();
-    });
+    } catch(e) {
+      _view.onLogoutFail();
+    }
   }
 
   void clearPreferences() {

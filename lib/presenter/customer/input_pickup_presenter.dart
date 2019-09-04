@@ -25,40 +25,57 @@ class InputPickupPresenter {
     _transactionRepo = Injector().transactionRepository;
   }
 
-  void getUserCurrentLocation() {
-    _locationRepo.getCurrentLocation()
-        .then((location) => _view.onGetCurrentUserLocationComplete(
-          location.latitude, 
-          location.longitude)
-        );
+  testConstructor(
+    InputPickupViewContract view,
+    LocationRepository locRepo,
+    PickupRepository pickupRepo,
+    TransactionRepository transRepo
+  ) {
+    _view = view;
+    _locationRepo = locRepo;
+    _pickupRepo = pickupRepo;
+    _transactionRepo = transRepo;
   }
 
-  void getAddress(double latitude, double longitude) {
-    _locationRepo.getAddress(latitude, longitude)
-        .then((address) => _view.onGetAddressComplete(address));
+  getUserCurrentLocation() async {
+    try {
+      final location = await _locationRepo.getCurrentLocation();
+      _view.onGetCurrentUserLocationComplete(location.latitude, location.longitude);
+    } catch(e) {
+
+    }
   }
 
-  void postPickup(Pickup pickup) {
+  getAddress(double latitude, double longitude) async {
+    try {
+      final address = await _locationRepo.getAddress(latitude, longitude);
+      _view.onGetAddressComplete(address);
+    } catch(e) {
+
+    }
+  }
+
+  postPickup(Pickup pickup) async {
     _view.showLoading(true);
     var pickupId = fs.Firestore.instance.collection('pickups').document().documentID;
     pickup.id = pickupId;
-    _pickupRepo.postPickup(pickup)
-      .then((onComplete) => _view.onPostPickupSuccess(pickupId))
-      .catchError((onError) {
-        _view.onTransactionFailed();
-        _view.showLoading(false);
-      });
+    try {
+      await _pickupRepo.postPickup(pickup);
+      _view.onPostPickupSuccess(pickupId);
+    } catch(e) {
+      _view.onTransactionFailed();
+      _view.showLoading(false);
+    }
   }
 
-  void postTransactions(List<Transaction> transactions) {
-    _transactionRepo.postTransactions(transactions)
-      .then((onComplete) {
-        _view.onPostTransactionsSuccess();
-        _view.showLoading(false);
-      })
-      .catchError((onError) {
-        _view.onTransactionFailed();
-        _view.showLoading(false);
-      });
+  postTransactions(List<Transaction> transactions) async {
+    try {
+      await _transactionRepo.postTransactions(transactions);
+      _view.onPostTransactionsSuccess();
+      _view.showLoading(false);
+    } catch(e) {
+      _view.onTransactionFailed();
+      _view.showLoading(false);
+    }
   }
 }

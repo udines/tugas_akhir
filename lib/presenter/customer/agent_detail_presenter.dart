@@ -15,10 +15,18 @@ class AgentDetailPresenter {
     _userRepo = Injector().userRepository;
   }
 
-  void getCurrentUser() {
-    _userRepo.fetchCurrentUser()
-        .then((user) => _view.onGetCurrentUserComplete(user))
-        .catchError((onError) => _view.onGetCurrentUserError());
+  testConstructor(AgentDetailViewContract view, UserRepository userRepo) {
+    _view = view;
+    _userRepo = userRepo;
+  }
+
+  getCurrentUser() async {
+    try {
+      final user = await _userRepo.fetchCurrentUser();
+      _view.onGetCurrentUserComplete(user);
+    } catch(e) {
+      _view.onGetCurrentUserError();
+    }
   }
 
   bool isAgentOpen(Agent agent, DateTime now) {
