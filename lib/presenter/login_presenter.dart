@@ -17,7 +17,12 @@ class LoginPresenter {
     _userRepo = Injector().userRepository;
   }
 
-  void loginUser(String email, String password) async {
+  testConstructor(LoginViewContract view, UserRepository repo) {
+    _view = view;
+    _userRepo = repo;
+  }
+
+  loginUser(String email, String password) async {
     if (checkCredentials(email, password)) {
       try {
         final user = await _userRepo.loginUser(email, password);
@@ -45,7 +50,7 @@ class LoginPresenter {
     return password.length >= 6;
   }
 
-  void checkUserLoggedIn() async {
+  checkUserLoggedIn() async {
     try {
       final user = await _userRepo.fetchCurrentUser();
       _view.onUserCheckSuccess(user);
@@ -54,7 +59,7 @@ class LoginPresenter {
     }
   }
 
-  void saveUserInformation(User user) {
+  saveUserInformation(User user) {
     _userRepo.saveUserInfo(user);
   }
 }
