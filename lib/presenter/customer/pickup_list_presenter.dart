@@ -17,7 +17,13 @@ class PickupPresenter {
     _userRepo = Injector().userRepository;
   }
 
-  void loadPickupsByUser() async {
+  testConstructor(PickupViewContract view, PickupRepository pickRepo, UserRepository userRepo) {
+    _view = view;
+    _repository = pickRepo;
+    _userRepo = userRepo;
+  }
+
+  loadPickupsByUser() async {
     try {
       final userId = await _userRepo.getUserId();
       final pickups = await _repository.fetchPickupsByUser(userId);
