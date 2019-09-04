@@ -22,7 +22,13 @@ class MapPresenter {
     _locationRepo = Injector().locationRepository;
   }
 
-  void fetchAgentsNearby(double latitude, double longitude, double radius) async {
+  testConstructor(MapViewContract view, AgentRepository agentRepo, LocationRepository locRepo) {
+    _view = view;
+    _agentRepo = agentRepo;
+    _locationRepo = locRepo;
+  }
+
+  fetchAgentsNearby(double latitude, double longitude, double radius) async {
     try {
       final agents = await _agentRepo.fetchAgentsNearby(latitude, longitude, radius);
       _view.onLoadAgentComplete(agents);
@@ -31,51 +37,41 @@ class MapPresenter {
     }
   }
 
-  void fetchAgents() {
-    List<Agent> list = [];
-    _agentRepo.fetchAgents()
-      .then((documents) => {
-        documents.forEach((DocumentSnapshot snapshot) => {
-          list.add(Agent.fromSnapshot(snapshot))
-        }),
-        _view.onLoadAgentComplete(list)
-      });
+  getUserCurrentLocation() async {
+    try {
+      final location = await _locationRepo.getCurrentLocation();
+      _view.onGetCurrentUserLocationComplete(location.latitude, location.longitude);
+    } catch(e) {
+
+    }
   }
 
-  void getUserCurrentLocation() {
-    _locationRepo.getCurrentLocation()
-        .then((location) => _view.onGetCurrentUserLocationComplete(
-          location.latitude, 
-          location.longitude)
-        );
-  }
-
-  void checkLocationPermission() {
-    _locationRepo.getLocationPermission()
-        .then((status) => _processPermission(status));
-  }
-
-  void requestLocationPermission() {
-    _locationRepo.requestLocationPermission()
-      .then((response) => _processRequest(response));
-  }
-
-  void _processPermission(GeolocationStatus status) {
-    if (status == GeolocationStatus.granted) {
-      _view.onLocationPermissionGranted();
-    } else {
+  checkLocationPermission() async {
+    try {
+      final status = await _locationRepo.getLocationPermission();
+      if (status == GeolocationStatus.granted) {
+        _view.onLocationPermissionGranted();
+      } else {
+        _view.onLocationPermissionDenied();
+      }
+    } catch(e) {
       _view.onLocationPermissionDenied();
     }
   }
 
-  void _processRequest(Map<PermissionGroup, PermissionStatus> response) {
-    switch (response[PermissionGroup.location]) {
-      case PermissionStatus.granted:
-        _view.onLocationPermissionGranted();
-        break;
-      default:
-        _view.onLocationPermissionDenied();
-        break;
+  requestLocationPermission() async {
+    try {
+      final response = await _locationRepo.requestLocationPermission();
+      switch (response[PermissionGroup.location]) {
+        case PermissionStatus.granted:
+          _view.onLocationPermissionGranted();
+          break;
+        default:
+          _view.onLocationPermissionDenied();
+          break;
+      }
+    } catch(e) {
+      _view.onLocationPermissionDenied();
     }
   }
 }
