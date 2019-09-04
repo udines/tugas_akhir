@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tugas_akhir/presenter/customer/home_presenter.dart';
 import 'package:tugas_akhir/view/customer/agent_list_page.dart';
 import 'package:tugas_akhir/view/customer/map_page.dart';
@@ -90,6 +91,17 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
     _presenter.clearPreferences();
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (BuildContext context) => LoginPage())
+    );
+  }
+
+  @override
+  void onLogoutFail() {
+    Fluttertoast.showToast(
+        msg: 'Gagal logout',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 1,
+        fontSize: 16.0
     );
   }
 }
