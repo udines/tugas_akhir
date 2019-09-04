@@ -11,6 +11,8 @@ abstract class RegisterViewContract {
   void onGetAddressSuccess(String address);
   void onGetCitySuccess(String city);
   void onGetPostalCodeSuccess(String postalCode);
+  void onPermissionDenied();
+  void onCredentialsInvalid();
 }
 
 class RegisterPresenter {
@@ -23,78 +25,108 @@ class RegisterPresenter {
     _locationRepo = Injector().locationRepository;
   }
 
-  void registerUser(String email, String password, User user) {
-    _view.showLoading(true);
-    _repo.registerUser(email, password, user)
-      .then((onValue) {
+  testConstructor(RegisterViewContract view, UserRepository userRepo, LocationRepository locationRepo) {
+    _view = view;
+    _repo = userRepo;
+    _locationRepo = locationRepo;
+  }
+
+  registerUser(String email, String password, User user) async {
+    if (checkCredentials(email, password)) {
+      _view.showLoading(true);
+      try {
+        await _repo.registerUser(email, password, user);
         _view.showLoading(false);
         _view.onRegisterSuccess(user);
-      })
-      .catchError((onError) {
+      } catch(e) {
         _view.showLoading(false);
         _view.onRegisterFailed();
-      });
-  }
-
-  void saveUserInformation(User user) {
-    _repo.saveUserInfo(user);
-  }
-
-  void _getUserCurrentLocation() {
-    _locationRepo.getCurrentLocation()
-      .then((location) {
-        _getUserAddress(location.latitude, location.longitude);
-        _getCity(location.latitude, location.longitude);
-        _getPostalCode(location.latitude, location.longitude);
-      });
-  }
-
-  void _getPostalCode(double lat, double long) {
-    _locationRepo.getPostalCode(lat, long)
-      .then((postalCode) {
-        _view.onGetPostalCodeSuccess(postalCode);
-    });
-  }
-
-  void _getUserAddress(double lat, double long) {
-    _locationRepo.getAddress(lat, long)
-      .then((address) {
-        _view.onGetAddressSuccess(address);
-      });
-  }
-
-  void _getCity(double lat, double long) {
-    _locationRepo.getCityByCoordinate(lat, long)
-      .then((city) {
-        _view.onGetCitySuccess(city);
-      });
-  }
-
-  void getInitialLocationInfo() {
-    _locationRepo.getLocationPermission()
-      .then((status) => _processPermission(status));
-  }
-
-  void _requestLocationPermission() {
-    _locationRepo.requestLocationPermission()
-      .then((response) => _processRequest(response));
-  }
-
-  void _processPermission(GeolocationStatus status) {
-    if (status == GeolocationStatus.granted) {
-      _getUserCurrentLocation();
+      }
     } else {
-      _requestLocationPermission();
+      _view.onCredentialsInvalid();
     }
   }
 
-  void _processRequest(Map<PermissionGroup, PermissionStatus> response) {
-    switch (response[PermissionGroup.location]) {
-      case PermissionStatus.granted:
-        _getUserCurrentLocation();
-        break;
-      default:
-        break;
+  bool checkCredentials(String email, String password) {
+    return (validateEmail(email) && validatePassword(password));
+  }
+
+  bool validateEmail(String email) {
+    return RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
+  }
+
+  bool validatePassword(String password) {
+    return password.length >= 6;
+  }
+
+  saveUserInformation(User user) {
+    _repo.saveUserInfo(user);
+  }
+
+  getUserCurrentLocation() async {
+    try {
+      final location = await _locationRepo.getCurrentLocation();
+      getUserAddress(location.latitude, location.longitude);
+      getCity(location.latitude, location.longitude);
+      getPostalCode(location.latitude, location.longitude);
+    } catch(e) {
+
+    }
+  }
+
+  getPostalCode(double lat, double long) async {
+    try {
+      final postalCode = await _locationRepo.getPostalCode(lat, long);
+      _view.onGetPostalCodeSuccess(postalCode);
+    } catch(e) {
+
+    }
+  }
+
+  getUserAddress(double lat, double long) async {
+    try {
+      final address = await _locationRepo.getAddress(lat, long);
+      _view.onGetAddressSuccess(address);
+    } catch(e) {
+
+    }
+  }
+
+  getCity(double lat, double long) async {
+    try {
+      final city = await _locationRepo.getCityByCoordinate(lat, long);
+      _view.onGetCitySuccess(city);
+    } catch(e) {
+      _view.onGetCitySuccess('');
+    }
+  }
+
+  getInitialLocationInfo() async {
+    try {
+      final status = await _locationRepo.getLocationPermission();
+      if (status == GeolocationStatus.granted) {
+        getUserCurrentLocation();
+      } else {
+        requestLocationPermission();
+      }
+    } catch(e) {
+
+    }
+  }
+
+  requestLocationPermission() async {
+    try {
+      final response = await _locationRepo.requestLocationPermission();
+      switch (response[PermissionGroup.location]) {
+        case PermissionStatus.granted:
+          getUserCurrentLocation();
+          break;
+        default:
+          _view.onPermissionDenied();
+          break;
+      }
+    } catch(e) {
+      _view.onPermissionDenied();
     }
   }
 }

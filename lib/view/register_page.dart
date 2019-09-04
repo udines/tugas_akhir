@@ -206,4 +206,14 @@ class _RegisterState extends State<RegisterPage> implements RegisterViewContract
       postalCodeController.text = postalCode;
     });
   }
+
+  @override
+  void onPermissionDenied() {
+    
+  }
+
+  @override
+  void onCredentialsInvalid() {
+    // TODO: implement onCredentialsInvalid
+  }
 }
