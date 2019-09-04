@@ -79,7 +79,7 @@ class RegisterPresenter {
       final postalCode = await _locationRepo.getPostalCode(lat, long);
       _view.onGetPostalCodeSuccess(postalCode);
     } catch(e) {
-
+      _view.onGetPostalCodeSuccess('');
     }
   }
 
@@ -88,7 +88,7 @@ class RegisterPresenter {
       final address = await _locationRepo.getAddress(lat, long);
       _view.onGetAddressSuccess(address);
     } catch(e) {
-
+      _view.onGetAddressSuccess('');
     }
   }
 
@@ -110,7 +110,7 @@ class RegisterPresenter {
         requestLocationPermission();
       }
     } catch(e) {
-
+      _view.onPermissionDenied();
     }
   }
 
