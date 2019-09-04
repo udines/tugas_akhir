@@ -11,10 +11,15 @@ class TransactionListPresenter {
   TransactionRepository _repository;
 
   TransactionListPresenter(this._view) {
-    _repository = new Injector().transactionRepository;
+    _repository = Injector().transactionRepository;
   }
 
-  void loadTransactions(String pickupId) async {
+  testConstructor(TransactionListViewContract view, TransactionRepository repo) {
+    _view = view;
+    _repository = repo;
+  }
+
+  loadTransactions(String pickupId) async {
     try {
       final transactions = await _repository.fetchTransactions(pickupId);
       _view.onLoadTransactionComplete(transactions);
