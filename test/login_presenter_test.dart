@@ -24,8 +24,10 @@ main() {
     final throwable = Exception();
     when(repo.loginUser(email, password)).thenAnswer((_) async => Future.value(user));
     await presenter.loginUser(email, password);
+    verify(view.showLoading(true, 'Login'));
     verify(repo.loginUser(email, password));
     verify(view.onLoginSuccess(user));
+    verify(view.showLoading(false, 'Login')).called(1);
     verifyNever(view.onLoginError());
 
     clearInteractions(repo);
@@ -33,9 +35,11 @@ main() {
 
     when(repo.loginUser(email, password)).thenThrow(throwable);
     await presenter.loginUser(email, password);
+    verify(view.showLoading(true, 'Login'));
     verify(repo.loginUser(email, password));
     verifyNever(view.onLoginSuccess(user));
     verify(view.onLoginError());
+    verify(view.showLoading(false, 'Login')).called(1);
   });
 
   test('check credential is valid', () {
