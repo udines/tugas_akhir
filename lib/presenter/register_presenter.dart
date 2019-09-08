@@ -35,15 +35,26 @@ class RegisterPresenter {
     if (checkCredentials(email, password)) {
       _view.showLoading(true);
       try {
-        await _repo.registerUser(email, password, user);
-        _view.showLoading(false);
-        _view.onRegisterSuccess(user);
+        final newUser = await _repo.registerUser(email, password, user);
+        saveNewUserData(newUser);
       } catch(e) {
         _view.showLoading(false);
         _view.onRegisterFailed();
       }
     } else {
       _view.onCredentialsInvalid();
+    }
+  }
+
+  saveNewUserData(User newUser) async {
+    try {
+      final success = await _repo.saveNewUserData(newUser);
+      if (success) {
+        _view.showLoading(false);
+        _view.onRegisterSuccess(newUser);
+      }
+    } catch(e) {
+      _view.onRegisterSuccess(newUser);
     }
   }
 
@@ -57,10 +68,6 @@ class RegisterPresenter {
 
   bool validatePassword(String password) {
     return password.length >= 6;
-  }
-
-  saveUserInformation(User user) {
-    _repo.saveUserInfo(user);
   }
 
   getUserCurrentLocation() async {
