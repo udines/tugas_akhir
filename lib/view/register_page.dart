@@ -19,7 +19,6 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterState extends State<RegisterPage> implements RegisterViewContract {
-  TextStyle style = TextStyle(/*fontFamily: 'Montserrat', */fontSize: 14.0);
   RegisterPresenter _presenter;
   ProgressDialog _progressDialog;
   TextEditingController nameController = TextEditingController();
@@ -36,62 +35,64 @@ class _RegisterState extends State<RegisterPage> implements RegisterViewContract
   @override
   Widget build(BuildContext context) {
     _progressDialog = ProgressDialog(context, ProgressDialogType.Normal);
-    _progressDialog.setMessage('Registrasi...');
+    _progressDialog.setMessage('Registrasi');
 
     TextField nameField = TextField(
       obscureText: false,
-      style: style,
       controller: nameController,
+      textCapitalization: TextCapitalization.words,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        hintText: "Nama",
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+        hintText: 'Masukkan nama',
+        labelText: 'Nama'
+      ),
     );
 
     TextField addressField = TextField(
       obscureText: false,
-      style: style,
       controller: addressController,
+      textCapitalization: TextCapitalization.words,
+      maxLines: 3,
+      minLines: 1,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        hintText: "Alamat",
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+        hintText: 'Masukkan alamat',
+        labelText: 'Alamat'
+      )
     );
 
     TextField cityField = TextField(
       obscureText: false,
-      style: style,
       controller: cityController,
+      textCapitalization: TextCapitalization.words,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        hintText: "Kota",
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+        labelText: 'Kota',
+        hintText: 'Masukkan kota',
+      ),
     );
 
     TextField postalCodeField = TextField(
       obscureText: false,
-      style: style,
+      keyboardType: TextInputType.number,
       controller: postalCodeController,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        hintText: "Kode Pos",
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+        hintText: 'Masukkan kode pos',
+        labelText: 'Kode Pos'
+      )
     );
 
     TextField phoneField = TextField(
       obscureText: false,
-      style: style,
       controller: phoneController,
+      keyboardType: TextInputType.phone,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        hintText: "Telepon",
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+        hintText: 'Masukkan nomor telepon',
+        labelText: 'Telepon',
+      )
     );
 
     final registerButton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color(0xff01A0C7),
+      color: Colors.orange,
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 15.0),
@@ -119,17 +120,17 @@ class _RegisterState extends State<RegisterPage> implements RegisterViewContract
         },
         child: Text("Registrasi",
           textAlign: TextAlign.center,
-          style: style.copyWith(
-            color: Colors.white)),
+          style: TextStyle(color: Colors.white)
+        )
       ),
     );
     
     return Scaffold(
-      body: Center(
+      resizeToAvoidBottomPadding: false ,
+      body: SingleChildScrollView(
         child: Container(
-          color: Colors.white,
           child: Padding(
-            padding: EdgeInsets.all(12),
+            padding: EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -149,7 +150,7 @@ class _RegisterState extends State<RegisterPage> implements RegisterViewContract
             ),
           ),
         ),
-      ),
+      )
     );
   }
 
@@ -170,7 +171,6 @@ class _RegisterState extends State<RegisterPage> implements RegisterViewContract
       context,
       MaterialPageRoute(builder: (context) => HomePage())
     );
-    _presenter.saveUserInformation(user);
   }
 
   @override
@@ -205,5 +205,15 @@ class _RegisterState extends State<RegisterPage> implements RegisterViewContract
     setState(() {
       postalCodeController.text = postalCode;
     });
+  }
+
+  @override
+  void onPermissionDenied() {
+    
+  }
+
+  @override
+  void onCredentialsInvalid() {
+    // TODO: implement onCredentialsInvalid
   }
 }

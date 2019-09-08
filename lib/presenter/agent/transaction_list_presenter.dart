@@ -11,12 +11,20 @@ class TransactionListPresenter {
   TransactionRepository _repository;
 
   TransactionListPresenter(this._view) {
-    _repository = new Injector().transactionRepository;
+    _repository = Injector().transactionRepository;
   }
 
-  void loadTransactions(String pickupId) {
-    _repository.fetchTransactions(pickupId)
-        .then((transactions) => _view.onLoadTransactionComplete(transactions))
-        .catchError((onError) => _view.onLoadTransactionError());
+  testConstructor(TransactionListViewContract view, TransactionRepository repo) {
+    _view = view;
+    _repository = repo;
+  }
+
+  loadTransactions(String pickupId) async {
+    try {
+      final transactions = await _repository.fetchTransactions(pickupId);
+      _view.onLoadTransactionComplete(transactions);
+    } catch(e) {
+      _view.onLoadTransactionError();
+    }
   }
 }

@@ -19,4 +19,8 @@ class AddAgentPresenter {
       .then((onValue) => _view.onAddAgentSuccess())
       .catchError((onError) => _view.onAddAgentFail());
   }
+
+  addAgents(List<Agent> agents) {
+    _agentRepo.postAgents(agents);
+  }
 }

@@ -6,7 +6,7 @@ abstract class LoginViewContract {
   void onLoginError();
   void onCredentialInvalid(bool isEmailValid, bool isPasswordValid);
   void onUserCheckSuccess(User user);
-  void showLoading(bool isShowing);
+  void showLoading(bool isShowing, String message);
 }
 
 class LoginPresenter {
@@ -24,10 +24,13 @@ class LoginPresenter {
 
   loginUser(String email, String password) async {
     if (checkCredentials(email, password)) {
+      _view.showLoading(true, 'Login');
       try {
         final user = await _userRepo.loginUser(email, password);
         _view.onLoginSuccess(user);
+        _view.showLoading(false, 'Login');
       } catch(e) {
+        _view.showLoading(false, 'Login');
         _view.onLoginError();
       }
     }

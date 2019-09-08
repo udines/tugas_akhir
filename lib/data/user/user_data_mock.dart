@@ -43,6 +43,12 @@ class MockUserRepository implements UserRepository{
     // TODO: implement getUserId
     return null;
   }
+
+  @override
+  Future<bool> saveNewUserData(User user) {
+    // TODO: implement saveNewUserData
+    return null;
+  }
 }
 
 var users = <User>[

@@ -95,8 +95,8 @@ class _AgentListPageState extends State<AgentListPage> implements AgentListViewC
                       onPressed: () {
                         _onItemTapped(agent);
                       },
-                      label: Text("Pilih"),
-                      icon: Icon(Icons.arrow_right),
+                      label: Text("PILIH", style: TextStyle(color: Colors.white),),
+                      icon: Icon(Icons.arrow_right, color: Colors.white,),
                     )
                   ],
                 ),

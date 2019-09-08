@@ -81,7 +81,7 @@ class _InputItemState extends State<InputItemPage> implements InputItemViewContr
               ),
               TextField(
                 decoration: InputDecoration(
-                  hintText: 'Nama barang'
+                  labelText: 'Nama barang'
                 ),
                 textCapitalization: TextCapitalization.words,
                 controller: inputName,
@@ -89,7 +89,7 @@ class _InputItemState extends State<InputItemPage> implements InputItemViewContr
               SizedBox(height: 8,),
               TextField(
                 decoration: InputDecoration(
-                  hintText: 'Jenis barang'
+                  labelText: 'Jenis barang'
                 ),
                 textCapitalization: TextCapitalization.sentences,
                 controller: inputType,
@@ -97,7 +97,7 @@ class _InputItemState extends State<InputItemPage> implements InputItemViewContr
               SizedBox(height: 8,),
               TextField(
                 decoration: InputDecoration(
-                  hintText: 'Berat barang (kg)',
+                  labelText: 'Berat barang (kg)',
                 ),
                 keyboardType: TextInputType.number,
                 controller: inputWeight,
@@ -112,7 +112,7 @@ class _InputItemState extends State<InputItemPage> implements InputItemViewContr
               SizedBox(height: 8,),
               TextField(
                 decoration: InputDecoration(
-                  hintText: 'Nama pengirim',
+                  labelText: 'Nama pengirim',
                 ),
                 textCapitalization: TextCapitalization.words,
                 controller: inputSenderName,
@@ -120,7 +120,7 @@ class _InputItemState extends State<InputItemPage> implements InputItemViewContr
               SizedBox(height: 8,),
               TextField(
                 decoration: InputDecoration(
-                  hintText: 'Alamat pengirim',
+                  labelText: 'Alamat pengirim',
                 ),
                 keyboardType: TextInputType.multiline,
                 maxLines: 3,
@@ -130,7 +130,7 @@ class _InputItemState extends State<InputItemPage> implements InputItemViewContr
               ),
               TextField(
                 decoration: InputDecoration(
-                  hintText: 'Provinsi pengirim',
+                  labelText: 'Provinsi pengirim',
                 ),
                 textCapitalization: TextCapitalization.sentences,
                 controller: inputSenderProvince,
@@ -138,7 +138,7 @@ class _InputItemState extends State<InputItemPage> implements InputItemViewContr
               SizedBox(height: 8,),
               TextField(
                 decoration: InputDecoration(
-                  hintText: 'No telepon pengirim',
+                  labelText: 'No telepon pengirim',
                 ),
                 keyboardType: TextInputType.number,
                 controller: inputSenderPhone,
@@ -154,7 +154,7 @@ class _InputItemState extends State<InputItemPage> implements InputItemViewContr
               SizedBox(height: 8,),
               TextField(
                 decoration: InputDecoration(
-                  hintText: 'Nama penerima',
+                  labelText: 'Nama penerima',
                 ),
                 textCapitalization: TextCapitalization.words,
                 controller: inputReceiverName,
@@ -162,7 +162,7 @@ class _InputItemState extends State<InputItemPage> implements InputItemViewContr
               SizedBox(height: 8,),
               TextField(
                 decoration: InputDecoration(
-                  hintText: 'Alamat penerima',
+                  labelText: 'Alamat penerima',
                 ),
                 keyboardType: TextInputType.multiline,
                 maxLines: 3,
@@ -172,7 +172,7 @@ class _InputItemState extends State<InputItemPage> implements InputItemViewContr
               ),
               TextField(
                 decoration: InputDecoration(
-                  hintText: 'Provinsi penerima',
+                  labelText: 'Provinsi penerima',
                 ),
                 textCapitalization: TextCapitalization.sentences,
                 controller: inputReceiverProvince,
@@ -180,7 +180,7 @@ class _InputItemState extends State<InputItemPage> implements InputItemViewContr
               SizedBox(height: 8,),
               TextField(
                 decoration: InputDecoration(
-                  hintText: 'No telepon penerima',
+                  labelText: 'No telepon penerima',
                 ),
                 keyboardType: TextInputType.number,
                 controller: inputReceiverPhone,

@@ -29,12 +29,12 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
   @override
   Widget build(BuildContext context) {
     _progressDialog = ProgressDialog(context, ProgressDialogType.Normal);
-    _progressDialog.setMessage('Login...');
 
     final emailField = TextField(
       obscureText: false,
       style: style,
       controller: emailController,
+      keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         hintText: "Email",
@@ -52,16 +52,24 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
     final loginButtonAgent = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color(0xff01A0C7),
+      color: Colors.orange,
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 15.0),
         onPressed: () {
           _email = emailController.text;
           _password = passwordController.text;
-          _presenter.loginUser(_email, _password);
+          if (_presenter.checkCredentials(_email, _password)) {
+            Navigator.push(context,
+              MaterialPageRoute(builder: (context) =>
+                RegisterPage(
+                  email: _email,
+                  password: _password,
+                ))
+            );
+          }
         },
-        child: Text("Login Agen",
+        child: Text("Register",
           textAlign: TextAlign.center,
           style: style.copyWith(
             color: Colors.white)),
@@ -70,7 +78,7 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
     final loginButtonCustomer = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color(0xff01A0C7),
+      color: Colors.orange,
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 15.0),
@@ -79,7 +87,7 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
           _password = passwordController.text;
           _presenter.loginUser(_email, _password);
         },
-        child: Text("Login Pelanggan",
+        child: Text("Login",
           textAlign: TextAlign.center,
           style: style.copyWith(
             color: Colors.white)),
@@ -87,19 +95,11 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
     );
 
     final registerButton = InkWell(
-      child: Text('Register pelanggan'),
+      child: Text('Login Agen'),
       onTap: () {
         _email = emailController.text;
         _password = passwordController.text;
-        if (_presenter.checkCredentials(_email, _password)) {
-          Navigator.push(context,
-            MaterialPageRoute(builder: (context) =>
-              RegisterPage(
-                email: _email,
-                password: _password,
-              ))
-          );
-        }
+        _presenter.loginUser(_email, _password);
       },
     );
 
@@ -186,8 +186,9 @@ class _LoginState extends State<LoginPage> implements LoginViewContract {
   }
 
   @override
-  void showLoading(bool isShowing) {
+  void showLoading(bool isShowing, String message) {
     if (isShowing) {
+      _progressDialog.setMessage(message);
       _progressDialog.show();
     } else {
       _progressDialog.hide();

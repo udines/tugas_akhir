@@ -12,6 +12,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Skripsi',
+      theme: ThemeData(
+        primarySwatch: Colors.orange
+      ),
       home: LoginPage(),
     );
   }

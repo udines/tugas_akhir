@@ -3,11 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 abstract class UserRepository {
   Future<User> fetchCurrentUser();
   Future<User> loginUser(String email, String password);
-  Future<void> registerUser(String email, String password, User user);
+  Future<User> registerUser(String email, String password, User user);
   Future<User> getUser(String uid);
   Future<void> logoutUser();
   Future<String> getUserId();
   void saveUserInfo(User user);
+  Future<bool> saveNewUserData(User user);
 }
 
 class User {
