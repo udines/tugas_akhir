@@ -17,7 +17,7 @@ class MockLocationRepository implements LocationRepository {
   @override
   Future<GeolocationStatus> getLocationPermission() {
     return Future.value(
-      GeolocationStatus.denied
+      GeolocationStatus.granted
     );
   }
 
@@ -38,31 +38,29 @@ class MockLocationRepository implements LocationRepository {
 
   @override
   Future<String> getCity() {
-    return Future.value('Yogyakarta');
+    return Future.value('Bandung');
   }
 
   @override
   Future<String> getCityByCoordinate(double latitude, double longitude) {
-    // TODO: implement getCityByCoordinate
-    return null;
+    return Future.value('Bandung');
   }
 
   @override
   Future<String> getPostalCode(double latitude, double longitude) {
-    // TODO: implement getPostalCode
-    return null;
+    return Future.value('52585');
   }
 
   @override
   Future<String> getProvince() {
-    // TODO: implement getProvince
-    return null;
+    return Future.value('Jawa Barat');
   }
 
   @override
   Future<String> getCurrentAddress() {
-    // TODO: implement getCurrentAddress
-    return null;
+    return Future.value(
+        "Mock: Jalan Sukabirus No.418"
+    );
   }
 }
 

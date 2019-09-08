@@ -28,26 +28,22 @@ class MockUserRepository implements UserRepository{
 
   @override
   Future<void> saveUserInfo(User user) {
-    // TODO: implement saveUserInfo
-    return null;
+    return Future.value(true);
   }
 
   @override
   Future<void> logoutUser() {
-    // TODO: implement logoutUser
-    return null;
+    return Future.value(true);
   }
 
   @override
   Future<String> getUserId() {
-    // TODO: implement getUserId
-    return null;
+    return Future.value(users[1].id);
   }
 
   @override
   Future<bool> saveNewUserData(User user) {
-    // TODO: implement saveNewUserData
-    return null;
+    return Future.value(true);
   }
 }
 

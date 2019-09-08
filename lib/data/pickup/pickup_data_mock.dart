@@ -8,35 +8,48 @@ import 'package:tugas_akhir/data/pickup/pickup_data.dart';
 class MockPickupRepository implements PickupRepository {
   @override
   Future<List<Pickup>> fetchPickupsByUser(String userId) {
-    return new Future.value(pickups);
+    List<Pickup> list = [];
+    for (var pickup in pickups) {
+      if (pickup.userId == userId) {
+        list.add(pickup);
+      }
+    }
+    return Future.value(list);
   }
 
   @override
   Future<List<Pickup>> fetchPickupsByAgent(String agentId) {
-    return Future.value(pickups);
+    List<Pickup> list = [];
+    for (var pickup in pickups) {
+      if (pickup.agentId == agentId) {
+        list.add(pickup);
+      }
+    }
+    return Future.value(list);
   }
 
   @override
   Future<Pickup> fetchPickup(String pickupId) {
-    return Future.value(pickups[0]);
+    return Future.value(
+      pickups.firstWhere(
+          (pickup) => pickup.id == pickupId
+      )
+    );
   }
 
   @override
   Future<void> postPickup(Pickup pickup) {
-    // TODO: implement postPickup
-    return null;
+    return Future.value(true);
   }
 
   @override
   Future<void> postPickups(List<Pickup> pickups) {
-    // TODO: implement postPickups
-    return null;
+    return Future.value(true);
   }
 
   @override
   Future<void> updateStatus(String status, String pickupId) {
-    // TODO: implement updateStatus
-    return null;
+    return Future.value(true);
   }
 }
 

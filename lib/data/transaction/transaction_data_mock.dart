@@ -11,7 +11,11 @@ class MockTransactionRepository implements TransactionRepository {
 
   @override
   Future<Transaction> fetchTransaction(String transactionId) {
-    return new Future.value(transactions[0]);
+    return new Future.value(
+      transactions.firstWhere(
+        (transaction) => transaction.id == transactionId
+      )
+    );
   }
 
   @override
