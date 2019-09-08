@@ -6,11 +6,9 @@ import 'package:tugas_akhir/data/location/location_data.dart';
 class MockLocationRepository implements LocationRepository {
   @override
   Future<LatLng> getCurrentLocation() {
-    return new Future.value(
-      new LatLng(
-        latitude: -7.819144,
-        longitude: 110.407533
-      )
+    return Future.value(LatLng(
+      latitude: -7.819144,
+      longitude: 110.407533)
     );
   }
 

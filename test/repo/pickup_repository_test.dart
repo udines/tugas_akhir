@@ -17,9 +17,14 @@ main () {
       var result = await mock.fetchPickupsByAgent("agentId");
       expect(result, isInstanceOf<List<Pickup>>());
     });
+    test('fetch single pickup', () async {
+      var pickupId = 'pickupA';
+      var pickup = await mock.fetchPickup(pickupId);
+      expect(pickup.id, pickupId);
+    });
   });
 
-  group('prod pickup testing', () {
+  /*group('prod pickup testing', () {
     var prod = PickupProd();
     test('prod fetch pickups by user success', () async {
       var result = await prod.fetchPickupsByUser("userId");
@@ -37,5 +42,5 @@ main () {
       var result = await prod.fetchPickupsByAgent("fakeAgentId");
       expect(result, throwsException);
     });
-  });
+  });*/
 }

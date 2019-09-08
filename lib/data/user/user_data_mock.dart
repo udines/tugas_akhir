@@ -18,22 +18,20 @@ class MockUserRepository implements UserRepository{
 
   @override
   Future<User> loginUser(String email, String password) {
-    return Future.value(users[1]);
+    return Future.value(
+      users.firstWhere(
+          (user) => user.email == email
+      )
+    );
   }
 
   @override
   Future<User> registerUser(String email, String password, User user) {
-    return new Future.value(user);
-  }
-
-  @override
-  Future<void> saveUserInfo(User user) {
-    return Future.value(true);
-  }
-
-  @override
-  Future<void> logoutUser() {
-    return Future.value(true);
+    return new Future.value(
+      users.firstWhere(
+          (user) => user.email == email
+      )
+    );
   }
 
   @override
@@ -43,6 +41,16 @@ class MockUserRepository implements UserRepository{
 
   @override
   Future<bool> saveNewUserData(User user) {
+    return Future.value(true);
+  }
+
+  @override
+  Future<void> saveUserInfo(User user) {
+    return Future.value(true);
+  }
+
+  @override
+  Future<void> logoutUser() {
     return Future.value(true);
   }
 }

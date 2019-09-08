@@ -26,11 +26,6 @@ class MockAgentRepository implements AgentRepository {
   Future<void> postAgents(List<Agent> agents) {
     return Future.value(true);
   }
-
-  @override
-  Future<List<DocumentSnapshot>> fetchAgents() {
-    return null;
-  }
 }
 
 var agents = <Agent>[

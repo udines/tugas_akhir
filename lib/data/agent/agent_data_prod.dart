@@ -56,11 +56,4 @@ class ProdAgentRepository implements AgentRepository {
     }
     return await batch.commit();
   }
-
-  @override
-  Future<List<DocumentSnapshot>> fetchAgents() async {
-    final querySnapshot = await _agentCollection.getDocuments();
-    final documents = querySnapshot.documents;
-    return documents;
-  }
 }
