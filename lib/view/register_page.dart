@@ -214,6 +214,6 @@ class _RegisterState extends State<RegisterPage> implements RegisterViewContract
 
   @override
   void onCredentialsInvalid() {
-    // TODO: implement onCredentialsInvalid
+    print('credentials invalid');
   }
 }

@@ -113,11 +113,11 @@ class _AddAgentPageState extends State<AddAgentPage> implements AddAgentViewCont
 
   @override
   void onAddAgentFail() {
-    // TODO: implement onAddAgentFail
+    print('failed to add agent');
   }
 
   @override
   void onAddAgentSuccess() {
-    // TODO: implement onAddAgentSuccess
+    print('add agent succeed');
   }
 }
