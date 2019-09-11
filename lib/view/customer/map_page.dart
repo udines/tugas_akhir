@@ -39,8 +39,8 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
       children: <Widget>[
         Container(
           child: _isLoading ?
-          new Center(
-            child: new CircularProgressIndicator(),
+          Center(
+            child: CircularProgressIndicator(),
           ) : _mapContainer()
         ),
         Padding(
@@ -120,7 +120,7 @@ class _MapPageState extends State<MapPage> implements MapViewContract {
 
     setState(() {
       // _userLocation = new LatLng(latitude, longitude);
-      _cameraPosition = new CameraPosition(
+      _cameraPosition = CameraPosition(
         target: LatLng(latitude, longitude),
         zoom: zoom
       );

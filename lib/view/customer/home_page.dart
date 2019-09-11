@@ -50,15 +50,15 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
-            icon: new Icon(Icons.map),
+            icon: Icon(Icons.map),
             title: Text('Peta')
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.store),
+            icon: Icon(Icons.store),
             title: Text('Agen')
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.swap_horiz),
+            icon: Icon(Icons.swap_horiz),
             title: Text('Transaksi')
           )
         ],

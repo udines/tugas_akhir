@@ -4,7 +4,7 @@ import 'package:tugas_akhir/view/login_page.dart';
 
 void main() async {
   Injector.configure(Flavor.PROD);
-  runApp(new App());
+  runApp(App());
 }
 
 class App extends StatelessWidget {

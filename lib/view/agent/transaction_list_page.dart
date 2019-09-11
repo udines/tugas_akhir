@@ -38,7 +38,7 @@ class _TransactionListState extends State<TransactionListPage>
       body: Container(
           child: _isLoading ?
           Center(
-            child: new CircularProgressIndicator(),
+            child: CircularProgressIndicator(),
           ) : _transactionListContainer()
       ),
     );

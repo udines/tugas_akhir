@@ -27,7 +27,7 @@ class MockUserRepository implements UserRepository{
 
   @override
   Future<User> registerUser(String email, String password, User user) {
-    return new Future.value(
+    return Future.value(
       users.firstWhere(
           (user) => user.email == email
       )

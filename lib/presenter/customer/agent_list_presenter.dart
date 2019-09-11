@@ -45,7 +45,7 @@ class AgentListPresenter {
       final location = await _locationRepo.getCurrentLocation();
       _view.onGetCurrentUserLocationComplete(location.latitude, location.longitude);
     } catch(e) {
-
+      print(e.toString());
     }
   }
 

@@ -77,7 +77,7 @@ class RegisterPresenter {
       getCity(location.latitude, location.longitude);
       getPostalCode(location.latitude, location.longitude);
     } catch(e) {
-
+      print(e.toString());
     }
   }
 

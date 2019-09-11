@@ -97,8 +97,8 @@ class _RegisterState extends State<RegisterPage> implements RegisterViewContract
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 15.0),
         onPressed: () {
-          if (nameController.text.length > 0 && addressController.text.length > 0 &&
-            phoneController.text.length > 0) {
+          if (nameController.text.isNotEmpty && addressController.text.isNotEmpty &&
+            phoneController.text.isNotEmpty) {
             User newUser = User(
               name: nameController.text,
               address: addressController.text,
@@ -214,6 +214,6 @@ class _RegisterState extends State<RegisterPage> implements RegisterViewContract
 
   @override
   void onCredentialsInvalid() {
-    print('credentials invalid');
+    debugPrint('credentials invalid');
   }
 }

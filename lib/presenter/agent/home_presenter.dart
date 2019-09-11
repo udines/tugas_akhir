@@ -33,7 +33,7 @@ class HomePresenter {
       await _userRepo.logoutUser();
       _view.onLogoutSuccess();
     } catch(e) {
-
+      print(e.toString());
     }
   }
 
@@ -64,7 +64,7 @@ class HomePresenter {
       await _repository.updateStatus(status, pickupId);
       _view.onUpdateStatusSuccess();
     } catch(e) {
-
+      print(e.toString());
     }
   }
 }
