@@ -34,36 +34,36 @@ main() {
     expect(result, true);
   });
 
-  test('get sender address', () async {
+  test('get sender address success', () async {
     final address = 'Some address';
-    final error = Exception();
     when(locRepo.getCurrentAddress()).thenAnswer((_) async => Future.value(address));
     await presenter.getSenderAddress();
     expect(await locRepo.getCurrentAddress(), isInstanceOf<String>());
     verify(locRepo.getCurrentAddress());
     verify(view.onGetSenderAddressSuccess(address));
+  });
 
-    clearInteractions(locRepo);
-    clearInteractions(view);
-
+  test('get sender address fail', () async {
+    final address = 'Some address';
+    final error = Exception();
     when(locRepo.getCurrentAddress()).thenThrow(error);
     await presenter.getSenderAddress();
     verify(locRepo.getCurrentAddress());
     verifyNever(view.onGetSenderAddressSuccess(address));
   });
 
-  test('get sender province', () async {
+  test('get sender province success', () async {
     final province = 'Province';
-    final error = Exception();
     when(locRepo.getProvince()).thenAnswer((_) async => Future.value(province));
     await presenter.getSenderProvince();
     expect(await locRepo.getProvince(), isInstanceOf<String>());
     verify(locRepo.getProvince());
     verify(view.onGetSenderProvinceSuccess(province));
+  });
 
-    clearInteractions(locRepo);
-    clearInteractions(view);
-
+  test('get sender province', () async {
+    final province = 'Province';
+    final error = Exception();
     when(locRepo.getProvince()).thenThrow(error);
     await presenter.getSenderProvince();
     verify(locRepo.getProvince());

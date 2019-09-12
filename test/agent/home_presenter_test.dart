@@ -20,22 +20,21 @@ main() {
     presenter.testConstructor(view, pickupRepo, userRepo);
   });
 
-  test('logout user', () async {
+  test('logout user success', () async {
     when(userRepo.logoutUser()).thenAnswer((_) async => Future.value());
     await presenter.logoutUser();
     verify(userRepo.logoutUser());
     verify(view.onLogoutSuccess());
+  });
 
-    clearInteractions(userRepo);
-    clearInteractions(view);
-
+  test('logout user fail', () async {
     when(userRepo.logoutUser()).thenThrow(Exception());
     await presenter.logoutUser();
     verify(userRepo.logoutUser());
     verifyNever(view.onLogoutSuccess());
   });
 
-  test('load pickup data', () async {
+  test('load pickup data success', () async {
     final agentId = 'agentId';
     List<Pickup> pickups = [];
     pickups.add(Pickup());
@@ -44,10 +43,12 @@ main() {
     verify(pickupRepo.fetchPickupsByAgent(agentId));
     verify(view.onLoadPickupTransactionComplete(pickups));
     verifyNever(view.onLoadPickupTransactionError());
+  });
 
-    clearInteractions(userRepo);
-    clearInteractions(view);
-
+  test('load pickup data fail', () async {
+    final agentId = 'agentId';
+    List<Pickup> pickups = [];
+    pickups.add(Pickup());
     when(pickupRepo.fetchPickupsByAgent(agentId)).thenThrow(Exception());
     await presenter.loadPickupTransactions(agentId);
     verify(pickupRepo.fetchPickupsByAgent(agentId));
@@ -55,32 +56,35 @@ main() {
     verify(view.onLoadPickupTransactionError());
   });
 
-  test('get current user', () async {
+  test('get current user success', () async {
     final user = User();
-    final throwable = Exception();
     when(userRepo.fetchCurrentUser()).thenAnswer((_) async => Future.value(user));
     await presenter.getCurrentUser();
     verify(userRepo.fetchCurrentUser());
     verify(view.onGetCurrentUserComplete(user));
+  });
 
-    clearInteractions(userRepo);
-    clearInteractions(view);
+  test('get current user fail', () async {
+    final user = User();
+    final throwable = Exception();
     when(userRepo.fetchCurrentUser()).thenThrow(throwable);
     await presenter.getCurrentUser();
     verify(userRepo.fetchCurrentUser());
     verifyNever(view.onGetCurrentUserComplete(user));
   });
 
-  test('update pickup status', () async {
+  test('update pickup status success', () async {
     final status = 'new status';
     final pickupId = 'pickupId';
     when(pickupRepo.updateStatus(status, pickupId)).thenAnswer((_) async => Future.value());
     await presenter.updateStatus(status, pickupId);
     verify(pickupRepo.updateStatus(status, pickupId));
     verify(view.onUpdateStatusSuccess());
+  });
 
-    clearInteractions(userRepo);
-    clearInteractions(view);
+  test('update pickup status fail', () async {
+    final status = 'new status';
+    final pickupId = 'pickupId';
     when(pickupRepo.updateStatus(status, pickupId)).thenThrow(Exception());
     await presenter.updateStatus(status, pickupId);
     verify(pickupRepo.updateStatus(status, pickupId));

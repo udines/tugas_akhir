@@ -17,8 +17,7 @@ main() {
     presenter.testConstructor(view, repo);
   });
 
-  test('get transaction list', () async {
-    final throwable = Exception();
+  test('get transaction list success', () async {
     final pickupId = 'pickupId';
     List<Transaction> transactions = [];
     transactions.add(Transaction());
@@ -27,9 +26,13 @@ main() {
     verify(repo.fetchTransactions(pickupId));
     verify(view.onLoadTransactionComplete(transactions));
     verifyNever(view.onLoadTransactionError());
+  });
 
-    clearInteractions(repo);
-    clearInteractions(view);
+  test('get transaction list', () async {
+    final throwable = Exception();
+    final pickupId = 'pickupId';
+    List<Transaction> transactions = [];
+    transactions.add(Transaction());
     when(repo.fetchTransactions(pickupId)).thenThrow(throwable);
     await presenter.loadTransactions(pickupId);
     verify(repo.fetchTransactions(pickupId));

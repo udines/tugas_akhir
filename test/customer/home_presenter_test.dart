@@ -17,17 +17,16 @@ main() {
     presenter.testConstructor(view, repo);
   });
   
-  test('test user logout', () async {
-    final error = Exception();
+  test('test user logout success', () async {
     when(repo.logoutUser()).thenAnswer((_) async => Future.value());
     await presenter.logoutUser();
     verify(repo.logoutUser());
     verify(view.onLogoutSuccess());
     verifyNever(view.onLogoutFail());
+  });
 
-    clearInteractions(view);
-    clearInteractions(repo);
-
+  test('test user logout', () async {
+    final error = Exception();
     when(repo.logoutUser()).thenThrow(error);
     await presenter.logoutUser();
     verify(repo.logoutUser());

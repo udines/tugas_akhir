@@ -61,14 +61,16 @@ var users = <User>[
     name: "Farhan",
     address: "Jalan Sukabirus No. 418",
     phone: "08976378464",
-    isAdmin: true
+    isAdmin: true,
+    email: 'user@mail.com'
   ),
   User(
     id: "userB",
     name: "Aisyah",
     address: "Perumahan paradice no. F20",
     phone: "08976378464",
-    isAdmin: false
+    isAdmin: false,
+    email: 'user@email.com'
   ),
   User(
     id: "userC",

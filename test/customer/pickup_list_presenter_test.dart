@@ -20,13 +20,10 @@ main() {
     presenter.testConstructor(view, pickRepo, userRepo);
   });
 
-  test('load pickup by user', () async {
+  test('load pickup by user success', () async {
     final userId = 'userId';
-    final throwable = Exception();
     List<Pickup> pickups = [];
     pickups.add(Pickup());
-    
-    //success
     when(userRepo.getUserId()).thenAnswer((_) async => Future.value(userId));
     when(pickRepo.fetchPickupsByUser(userId)).thenAnswer((_) async => Future.value(pickups));
     await presenter.loadPickupsByUser();
@@ -34,8 +31,13 @@ main() {
     verify(pickRepo.fetchPickupsByUser(userId));
     verify(view.onLoadPickupTransactionComplete(pickups));
     verifyNever(view.onLoadPickupTransactionError());
+  });
 
-    //error get user id
+  test('load pickup by user erro get user id', () async {
+    final userId = 'userId';
+    final throwable = Exception();
+    List<Pickup> pickups = [];
+    pickups.add(Pickup());
     when(userRepo.getUserId()).thenThrow(throwable);
     when(pickRepo.fetchPickupsByUser(userId)).thenAnswer((_) async => Future.value(pickups));
     await presenter.loadPickupsByUser();
@@ -43,8 +45,13 @@ main() {
     verifyNever(pickRepo.fetchPickupsByUser(userId));
     verifyNever(view.onLoadPickupTransactionComplete(pickups));
     verify(view.onLoadPickupTransactionError());
+  });
 
-    //error get pickups data
+  test('load pickup by user error', () async {
+    final userId = 'userId';
+    final throwable = Exception();
+    List<Pickup> pickups = [];
+    pickups.add(Pickup());
     when(userRepo.getUserId()).thenAnswer((_) async => Future.value(userId));
     when(pickRepo.fetchPickupsByUser(userId)).thenThrow(throwable);
     await presenter.loadPickupsByUser();
@@ -52,8 +59,13 @@ main() {
     verify(pickRepo.fetchPickupsByUser(userId));
     verifyNever(view.onLoadPickupTransactionComplete(pickups));
     verify(view.onLoadPickupTransactionError());
+  });
 
-    //error all
+  test('load pickup by user error all', () async {
+    final userId = 'userId';
+    final throwable = Exception();
+    List<Pickup> pickups = [];
+    pickups.add(Pickup());
     when(userRepo.getUserId()).thenThrow(throwable);
     when(pickRepo.fetchPickupsByUser(userId)).thenThrow(throwable);
     await presenter.loadPickupsByUser();
