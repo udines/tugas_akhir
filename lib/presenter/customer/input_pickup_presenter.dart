@@ -42,7 +42,7 @@ class InputPickupPresenter {
       final location = await _locationRepo.getCurrentLocation();
       _view.onGetCurrentUserLocationComplete(location.latitude, location.longitude);
     } catch(e) {
-
+      print(e.toString());
     }
   }
 
@@ -51,7 +51,7 @@ class InputPickupPresenter {
       final address = await _locationRepo.getAddress(latitude, longitude);
       _view.onGetAddressComplete(address);
     } catch(e) {
-
+      print(e.toString());
     }
   }
 

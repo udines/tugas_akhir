@@ -55,8 +55,8 @@ class _HomePageState extends State<HomePage> implements HomeViewContract {
       ),*/
       body: Container(
         child: _isLoading ?
-        new Center(
-          child: new CircularProgressIndicator(),
+        Center(
+          child: CircularProgressIndicator(),
         ) : _transactionListContainer(),
       ),
     );

@@ -27,19 +27,18 @@ main() {
     presenter.testConstructor(view, userRepo);
   });
 
-  test('get current user', () async {
+  test('get current user success', () async {
     final user = User();
-    final error = Exception();
     when(userRepo.fetchCurrentUser()).thenAnswer((_) => Future.value(user));
     await presenter.getCurrentUser();
     expect(await userRepo.fetchCurrentUser(), isInstanceOf<User>());
     verify(userRepo.fetchCurrentUser());
     verify(view.onGetCurrentUserComplete(user));
     verifyNever(view.onGetCurrentUserError());
+  });
 
-    clearInteractions(userRepo);
-    clearInteractions(view);
-
+  test('get current user fail', () async {
+    final error = Exception();
     when(userRepo.fetchCurrentUser()).thenThrow(error);
     await presenter.getCurrentUser();
     verify(userRepo.fetchCurrentUser());

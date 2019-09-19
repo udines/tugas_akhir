@@ -6,7 +6,7 @@ import 'package:tugas_akhir/view/customer/transaction_list_page.dart';
 
 class PickupListPage extends StatefulWidget{
   @override
-  _PickupListState createState() => new _PickupListState();
+  _PickupListState createState() => _PickupListState();
 }
 
 class _PickupListState extends State<PickupListPage> implements PickupViewContract {

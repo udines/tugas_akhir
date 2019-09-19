@@ -6,7 +6,7 @@ import 'package:tugas_akhir/view/customer/agent_detail_page.dart';
 
 class AgentListPage extends StatefulWidget {
   @override
-  _AgentListPageState createState() => new _AgentListPageState();
+  _AgentListPageState createState() => _AgentListPageState();
 }
 
 class _AgentListPageState extends State<AgentListPage> implements AgentListViewContract {
@@ -15,7 +15,7 @@ class _AgentListPageState extends State<AgentListPage> implements AgentListViewC
   bool _isLoading;
 
   _AgentListPageState() {
-    _presenter = new AgentListPresenter(this);
+    _presenter = AgentListPresenter(this);
   }
 
   @override
@@ -27,10 +27,10 @@ class _AgentListPageState extends State<AgentListPage> implements AgentListViewC
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return Container(
       child: _isLoading ?
       Center(
-        child: new CircularProgressIndicator(),
+        child: CircularProgressIndicator(),
       ) : _agentListContainer()
     );
   }

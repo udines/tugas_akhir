@@ -58,7 +58,7 @@ class LoginPresenter {
       final user = await _userRepo.fetchCurrentUser();
       _view.onUserCheckSuccess(user);
     } catch(e) {
-
+      print(e.toString());
     }
   }
 

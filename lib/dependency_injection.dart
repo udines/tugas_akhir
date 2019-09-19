@@ -33,45 +33,45 @@ class Injector {
   AgentRepository get agentRepository {
     switch (_flavor) {
       case Flavor.MOCK:
-        return new MockAgentRepository();
+        return MockAgentRepository();
       default:
-        return new ProdAgentRepository();
+        return ProdAgentRepository();
     }
   }
 
   PickupRepository get pickupRepository {
     switch (_flavor) {
       case Flavor.MOCK:
-        return new MockPickupRepository();
+        return MockPickupRepository();
       default:
-        return new ProdPickupRepository();
+        return ProdPickupRepository();
     }
   }
 
   TransactionRepository get transactionRepository {
     switch (_flavor) {
       case Flavor.MOCK:
-        return new MockTransactionRepository();
+        return MockTransactionRepository();
       default:
-        return new ProdTransactionRepository();
+        return ProdTransactionRepository();
     }
   }
 
   UserRepository get userRepository {
     switch (_flavor) {
       case Flavor.MOCK:
-        return new MockUserRepository();
+        return MockUserRepository();
       default:
-        return new ProdUserRepository();
+        return ProdUserRepository();
     }
   }
 
   LocationRepository get locationRepository {
     switch (_flavor) {
       case Flavor.MOCK:
-        return new MockLocationRepository();
+        return MockLocationRepository();
       default:
-        return new ProdLocationRepository();
+        return ProdLocationRepository();
     }
   }
 }

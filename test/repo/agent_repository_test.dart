@@ -20,10 +20,9 @@ main () {
     }
 
     test('mock fetch agent match param id', () async {
-      var agentId = 'agentId';
+      var agentId = 'agentA';
       var agent = await mock.fetchAgent(agentId);
-      var result = agent.id == agentId;
-      expect(result, true);
+      expect(agent.id, agentId);
     });
 
     test('mock fetch nearby agents within radius', () async {
@@ -31,7 +30,6 @@ main () {
       double lat = -7.821251;
       double long = 110.417633;
 
-//      List<Agent> agents = await mock.fetchAgentsNearby(lat, long, radius);
       var result = true;
       for (var agent in agents) {
         if (calculateDistance(lat, long, agent.geoPoint.latitude, agent.geoPoint.longitude) <= radius) {
@@ -47,7 +45,6 @@ main () {
       double lat = -7.821251;
       double long = 110.417633;
 
-//      List<Agent> agents = await mock.fetchAgentsNearby(lat, long, radius);
       var result = true;
       var distance = calculateDistance(lat, long, agents[0].geoPoint.latitude, agents[0].geoPoint.longitude);
       var nextDistance;

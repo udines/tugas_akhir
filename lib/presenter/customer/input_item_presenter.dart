@@ -29,7 +29,7 @@ class InputItemPresenter {
       final address = await _locationRepo.getCurrentAddress();
       _view.onGetSenderAddressSuccess(address);
     } catch(e) {
-
+      print(e.toString());
     }
   }
 
@@ -38,7 +38,7 @@ class InputItemPresenter {
       final province = await _locationRepo.getProvince();
       _view.onGetSenderProvinceSuccess(province);
     } catch(e) {
-
+      print(e.toString());
     }
   }
 }

@@ -6,12 +6,16 @@ import 'package:tugas_akhir/data/agent/agent_data.dart';
 class MockTransactionRepository implements TransactionRepository {
   @override
   Future<List<Transaction>> fetchTransactions(String pickupId) {
-    return new Future.value(transactions);
+    return Future.value(transactions);
   }
 
   @override
   Future<Transaction> fetchTransaction(String transactionId) {
-    return new Future.value(transactions[0]);
+    return Future.value(
+      transactions.firstWhere(
+        (transaction) => transaction.id == transactionId
+      )
+    );
   }
 
   @override
@@ -26,19 +30,19 @@ class MockTransactionRepository implements TransactionRepository {
 }
 
 var users = <User>[
-  new User(
+  User(
     id: "userA",
     name: "Farhan",
     address: "Jalan Sukabirus No. 418",
     phone: "08976378464"
   ),
-  new User(
+  User(
     id: "userB",
     name: "Aisyah",
     address: "Perumahan paradice no. F20",
     phone: "08976378464"
   ),
-  new User(
+  User(
     id: "userC",
     name: "Karisma",
     address: "Pogung dalangan RT 50",
@@ -47,7 +51,7 @@ var users = <User>[
 ];
 
 var agents = <Agent>[
-  new Agent(
+  Agent(
       id: "agentA",
       address: "Baturetno, Banguntapan",
       isReceiveOrder: true,
@@ -57,7 +61,7 @@ var agents = <Agent>[
       timeClose: "19:00",
       geoPoint: fs.GeoPoint(-7.821813, 110.417288),
   ),
-  new Agent(
+  Agent(
       id: "agentB",
       address: "Jl. Sorogenen No. 1",
       isReceiveOrder: false,
@@ -67,7 +71,7 @@ var agents = <Agent>[
       timeClose: "21:00",
       geoPoint: fs.GeoPoint(-7.828114, 110.406007),
   ),
-  new Agent(
+  Agent(
       id: "agentC",
       address: "Jl. Kemasan No. 1",
       isReceiveOrder: true,
@@ -80,7 +84,7 @@ var agents = <Agent>[
 ];
 
 var transactions = <Transaction>[
-  new Transaction(
+  Transaction(
       id: "transactionA",
       senderName: "Paiman",
       senderPhone: "08976384657",
@@ -91,7 +95,7 @@ var transactions = <Transaction>[
       receiverProvince: "Jawa Timur",
       receiverAddress: "Jalan Bali No. 5",
   ),
-  new Transaction(
+  Transaction(
       id: "transactionA",
       senderName: "Paiman",
       senderPhone: "08976384657",
@@ -102,7 +106,7 @@ var transactions = <Transaction>[
       receiverProvince: "Jawa Timur",
       receiverAddress: "Jalan Bali No. 5",
   ),
-  new Transaction(
+  Transaction(
       id: "transactionA",
       senderName: "Paiman",
       senderPhone: "08976384657",

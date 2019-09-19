@@ -35,7 +35,7 @@ class ProdAgentRepository implements AgentRepository {
       latitude: agent.geoPoint.latitude,
       longitude: agent.geoPoint.longitude
     );
-    _agentCollection.document(agent.id).setData(agent.toSnapshot())
+    await _agentCollection.document(agent.id).setData(agent.toSnapshot())
       .then((onValue) {
         _agentCollection.document(agent.id).updateData({'position': position.data});
       });
@@ -55,12 +55,5 @@ class ProdAgentRepository implements AgentRepository {
       batch.updateData(dataRef, {'position': position.data});
     }
     return await batch.commit();
-  }
-
-  @override
-  Future<List<DocumentSnapshot>> fetchAgents() async {
-    final querySnapshot = await _agentCollection.getDocuments();
-    final documents = querySnapshot.documents;
-    return documents;
   }
 }

@@ -18,36 +18,40 @@ class MockUserRepository implements UserRepository{
 
   @override
   Future<User> loginUser(String email, String password) {
-    return Future.value(users[1]);
+    return Future.value(
+      users.firstWhere(
+          (user) => user.email == email
+      )
+    );
   }
 
   @override
   Future<User> registerUser(String email, String password, User user) {
-    return new Future.value(user);
-  }
-
-  @override
-  Future<void> saveUserInfo(User user) {
-    // TODO: implement saveUserInfo
-    return null;
-  }
-
-  @override
-  Future<void> logoutUser() {
-    // TODO: implement logoutUser
-    return null;
+    return Future.value(
+      users.firstWhere(
+          (user) => user.email == email
+      )
+    );
   }
 
   @override
   Future<String> getUserId() {
-    // TODO: implement getUserId
-    return null;
+    return Future.value(users[1].id);
   }
 
   @override
   Future<bool> saveNewUserData(User user) {
-    // TODO: implement saveNewUserData
-    return null;
+    return Future.value(true);
+  }
+
+  @override
+  Future<void> saveUserInfo(User user) {
+    return Future.value(true);
+  }
+
+  @override
+  Future<void> logoutUser() {
+    return Future.value(true);
   }
 }
 
@@ -57,14 +61,16 @@ var users = <User>[
     name: "Farhan",
     address: "Jalan Sukabirus No. 418",
     phone: "08976378464",
-    isAdmin: true
+    isAdmin: true,
+    email: 'user@mail.com'
   ),
   User(
     id: "userB",
     name: "Aisyah",
     address: "Perumahan paradice no. F20",
     phone: "08976378464",
-    isAdmin: false
+    isAdmin: false,
+    email: 'user@email.com'
   ),
   User(
     id: "userC",

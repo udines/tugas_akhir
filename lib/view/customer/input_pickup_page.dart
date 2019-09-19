@@ -70,8 +70,8 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
                     width: double.infinity,
                     height: 200,
                     child: _isLoading ?
-                    new Center(
-                      child: new CircularProgressIndicator(),
+                    Center(
+                      child: CircularProgressIndicator(),
                     ) : _mapContainer(),
                   ),
                   SizedBox(height: 8,),
@@ -103,7 +103,7 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
-                  if (_transactions.length > 0) {
+                  if (_transactions.isNotEmpty) {
                     return _itemCard(_transactions[index], index);
                   } else {
                     return SizedBox();
@@ -151,7 +151,7 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
   }
 
   _sendData() {
-    if (_transactions.length > 0) {
+    if (_transactions.isNotEmpty) {
       Pickup pickup = Pickup(
         timestamp: fs.Timestamp.now(),
         geoPoint: fs.GeoPoint(_location.latitude, _location.longitude),
@@ -254,7 +254,7 @@ class _InputPickupPageState extends State<InputPickupPage> implements InputPicku
     );
 
     setState(() {
-      _cameraPosition = new CameraPosition(
+      _cameraPosition = CameraPosition(
         target: LatLng(latitude, longitude),
         zoom: zoom
       );

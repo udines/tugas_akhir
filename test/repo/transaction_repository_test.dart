@@ -14,12 +14,13 @@ main () {
       expect(result, isInstanceOf<List<Transaction>>());
     });
     test('mock fetch single transaction', () async {
-      var result = await mock.fetchTransaction('transactionId');
-      expect(result, isInstanceOf<Transaction>());
+      var transactionId = 'transactionA';
+      var result = await mock.fetchTransaction(transactionId);
+      expect(result.id, transactionId);
     });
   });
 
-  group('production transaction testing', () {
+  /*group('production transaction testing', () {
     var prod = TransactionProd();
     test('prod fetch list of transaction', () async {
       var result = await prod.fetchTransactions("pickupId");
@@ -37,5 +38,5 @@ main () {
       var result = await prod.fetchTransaction('transactionUnavailableId');
       expect(result, throwsException);
     });
-  });
+  });*/
 }

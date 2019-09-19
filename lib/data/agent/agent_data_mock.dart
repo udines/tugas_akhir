@@ -6,15 +6,8 @@ class MockAgentRepository implements AgentRepository {
   @override
   Future<Agent> fetchAgent(String agentId) {
     return Future.value(
-      Agent(
-        id: "agentC",
-        address: "Jl. Kemasan No. 1",
-        isReceiveOrder: true,
-        name: "Kantorpos Yogyakarta Kotagede",
-        phone: "02743994632",
-        timeOpen: "09:00",
-        timeClose: "15:00",
-        geoPoint: GeoPoint(-7.827481, 110.400527),
+      agents.firstWhere(
+          (agent) => agent.id == agentId
       )
     );
   }
@@ -26,18 +19,12 @@ class MockAgentRepository implements AgentRepository {
 
   @override
   Future<void> postAgent(Agent agent) {
-    return null;
+    return Future.value(true);
   }
 
   @override
   Future<void> postAgents(List<Agent> agents) {
-    return null;
-  }
-
-  @override
-  Future<List<DocumentSnapshot>> fetchAgents() {
-    // TODO: implement fetchAgents
-    return null;
+    return Future.value(true);
   }
 }
 
@@ -54,25 +41,25 @@ var agents = <Agent>[
     adminId: 'userA'
   ),
   Agent(
-      id: "agentB",
-      address: "Jl. Sorogenen No. 1",
-      isReceiveOrder: false,
-      name: "Post Office Sorogenen",
-      phone: "02749171179",
-      timeOpen: "07:00",
-      timeClose: "21:00",
-      geoPoint: GeoPoint(-7.828114, 110.406007),
-      adminId: 'userB'
+    id: "agentB",
+    address: "Jl. Sorogenen No. 1",
+    isReceiveOrder: false,
+    name: "Post Office Sorogenen",
+    phone: "02749171179",
+    timeOpen: "07:00",
+    timeClose: "21:00",
+    geoPoint: GeoPoint(-7.828114, 110.406007),
+    adminId: 'userB'
   ),
   Agent(
-      id: "agentC",
-      address: "Jl. Kemasan No. 1",
-      isReceiveOrder: true,
-      name: "Kantorpos Yogyakarta Kotagede",
-      phone: "02743994632",
-      timeOpen: "09:00",
-      timeClose: "15:00",
-      geoPoint: GeoPoint(-7.827481, 110.400527),
-      adminId: 'userC'
+    id: "agentC",
+    address: "Jl. Kemasan No. 1",
+    isReceiveOrder: true,
+    name: "Kantorpos Yogyakarta Kotagede",
+    phone: "02743994632",
+    timeOpen: "09:00",
+    timeClose: "15:00",
+    geoPoint: GeoPoint(-7.827481, 110.400527),
+    adminId: 'userC'
   )
 ];

@@ -41,7 +41,7 @@ class ProdUserRepository implements UserRepository {
 
   @override
   Future<bool> saveNewUserData(User user) async {
-    _userCollection.document(user.id).setData(user.toSnapshot())
+    await _userCollection.document(user.id).setData(user.toSnapshot())
       .catchError((e) => print(e));
     return true;
   }

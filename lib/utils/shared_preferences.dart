@@ -50,6 +50,6 @@ class SharedPref {
 
   void clearData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.clear();
+    await prefs.clear();
   }
 }
