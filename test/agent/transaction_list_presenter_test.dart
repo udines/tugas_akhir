@@ -28,7 +28,7 @@ main() {
     verifyNever(view.onLoadTransactionError());
   });
 
-  test('get transaction list', () async {
+  test('get transaction list fail', () async {
     final throwable = Exception();
     final pickupId = 'pickupId';
     List<Transaction> transactions = [];

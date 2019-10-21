@@ -23,24 +23,4 @@ main () {
       expect(pickup.id, pickupId);
     });
   });
-
-  /*group('prod pickup testing', () {
-    var prod = PickupProd();
-    test('prod fetch pickups by user success', () async {
-      var result = await prod.fetchPickupsByUser("userId");
-      expect(result, isInstanceOf<List<Pickup>>());
-    });
-    test('prod fetch pickups by agent success', () async {
-      var result = await prod.fetchPickupsByAgent("agentId");
-      expect(result, isInstanceOf<List<Pickup>>());
-    });
-    test('prod fetch pickups by user failed', () async {
-      var result = await prod.fetchPickupsByUser("fakeUserId");
-      expect(result, throwsException);
-    });
-    test('prod fetch pickups by agent success', () async {
-      var result = await prod.fetchPickupsByAgent("fakeAgentId");
-      expect(result, throwsException);
-    });
-  });*/
 }

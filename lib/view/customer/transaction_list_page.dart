@@ -34,7 +34,7 @@ class _TransactionListState extends State<TransactionListPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Daftar transaksi'),
+        title: Text('Daftar Barang'),
       ),
       body: Container(
         child: _isLoading ?

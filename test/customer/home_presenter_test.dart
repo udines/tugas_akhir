@@ -25,7 +25,7 @@ main() {
     verifyNever(view.onLogoutFail());
   });
 
-  test('test user logout', () async {
+  test('test user logout fail', () async {
     final error = Exception();
     when(repo.logoutUser()).thenThrow(error);
     await presenter.logoutUser();
